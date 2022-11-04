@@ -25,6 +25,9 @@
     <Filter Include="헤더 파일\Example\Ex_TriangleColor">
       <UniqueIdentifier>{bde0d243-37b7-45a8-ba7a-320c30479abb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Example\Ex_Light">
+      <UniqueIdentifier>{7b0548d7-4571-4574-85bd-eb7e08e5d1e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\framework.h">
@@ -58,7 +61,7 @@
       <Filter>헤더 파일\Example\Ex_TriangleColor</Filter>
     </ClInclude>
     <ClInclude Include="src\Example\03_Ex_Light\Ex_Light.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Example\Ex_Light</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

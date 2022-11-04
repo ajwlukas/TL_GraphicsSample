@@ -21,9 +21,9 @@ void Ex_TriangleColor::Init()
         0,2,1
     };
 
-    mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, 3, L"TriangleColorVS.hlsl");
+    currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, 3, L"TriangleColorVS.hlsl");
 
-    material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"TriangleColorPS.hlsl");
+    currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"TriangleColorPS.hlsl");
 
     struct Color
     {
@@ -42,9 +42,9 @@ void Ex_TriangleColor::Update()
 {
     TL_Graphics::RenderSystem::Get()->Clear();
 
-    material->Set();
+    currentMaterial->Set();
 
-    mesh->Set();
+    currentMesh->Set();
 
     constantBuffer->Set();
 

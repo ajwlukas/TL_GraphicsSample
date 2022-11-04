@@ -15,11 +15,11 @@ namespace TL_Graphics
 		UINT
 	};
 
-	class AJW_GRAPHICS_DLLEXPORT VertexSet//저절로 만드는 버텍스 만드는 테스트 구조
+	class AJW_GRAPHICS_DLLEXPORT VertexAttribute//저절로 만드는 버텍스 만드는 테스트 구조
 	{
 	public:
-		VertexSet();
-		~VertexSet();
+		VertexAttribute();
+		~VertexAttribute();
 
 		void AddElementToDesc(UINT dataSize, TL_Graphics::DataType type,
 			LPCSTR  SemanticName, int SemanticIndex = 0,

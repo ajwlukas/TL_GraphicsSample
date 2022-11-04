@@ -20,9 +20,9 @@ void Ex_Triangle::Init()
         0,2,1
     };
 
-    mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, 3, L"TriangleVS.hlsl");
+    currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, 3, L"TriangleVS.hlsl");
 
-    material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"TrianglePS.hlsl");
+    currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"TrianglePS.hlsl");
 }
 
 void Ex_Triangle::UnInit()
@@ -34,9 +34,9 @@ void Ex_Triangle::Update()
 {
     TL_Graphics::RenderSystem::Get()->Clear();
 
-    material->Set();
+    currentMaterial->Set();
 
-    mesh->Set();
+    currentMesh->Set();
 
     TL_Graphics::RenderSystem::Get()->Draw();
 

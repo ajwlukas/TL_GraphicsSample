@@ -18,7 +18,7 @@ public:
 	virtual void Update() override;
 
 
-	TL_Graphics::IMesh* mesh;
-	TL_Graphics::IMaterial* material;
-	TL_Graphics::VertexSet vertexAttribute;
+	TL_Graphics::IMesh* currentMesh;
+	TL_Graphics::IMaterial* currentMaterial;
+	TL_Graphics::VertexAttribute vertexAttribute;
 };

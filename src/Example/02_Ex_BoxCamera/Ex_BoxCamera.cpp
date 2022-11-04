@@ -52,9 +52,9 @@ void Ex_BoxCamera::Init()
 		5,7,3
 	};
 
-	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"BoxCameraVS.hlsl");
+	currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"BoxCameraVS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"BoxCameraPS.hlsl");
+	currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"BoxCameraPS.hlsl");
 
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(1, TL_Graphics::E_SHADER_TYPE::VS, &(boxT.GetWorldMatrix()), sizeof(boxT.GetWorldMatrix()));
 
@@ -85,9 +85,9 @@ void Ex_BoxCamera::Update()
 		camera->Set();
 
 		{//파이프라인을 채운다
-			material->Set();
+			currentMaterial->Set();
 
-			mesh->Set();
+			currentMesh->Set();
 
 			TransformMove();
 
