@@ -65,6 +65,7 @@ void Ex_Light::Init()
 
 
 	directionalLightBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(1, TL_Graphics::E_SHADER_TYPE::PS, &directionalLight, sizeof(directionalLight));
+
 }
 
 void Ex_Light::UnInit()
