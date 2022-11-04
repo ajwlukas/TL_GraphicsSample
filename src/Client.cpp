@@ -152,7 +152,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
     case WM_SIZE:
     {
-
         UINT width = LOWORD(lParam);
         UINT height = HIWORD(lParam);
         if(TL_Graphics::RenderSystem::Get())
