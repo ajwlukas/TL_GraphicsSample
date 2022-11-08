@@ -97,18 +97,23 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>inc/;src/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>./lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ajwInput_$(Platform)$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <PreLinkEvent>
+      <Command>xcopy /E /S /Y /R "$(OutputPath)..\TL_Graphics\*.dll" "$(OutputPath)*"
+xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*.dll" "$(OutputPath)*"</Command>
+    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -118,20 +123,25 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>inc/;src/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>./lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ajwInput_$(Platform)$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <PreLinkEvent>
+      <Command>xcopy /E /S /Y /R "$(OutputPath)..\TL_Graphics\*.dll" "$(OutputPath)*"
+xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*.dll" "$(OutputPath)*"</Command>
+    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -139,18 +149,23 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>inc/;src/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>./lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ajwInput_$(Platform)$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <PreLinkEvent>
+      <Command>xcopy /E /S /Y /R "$(OutputPath)..\TL_Graphics\*.dll" "$(OutputPath)*"
+xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*.dll" "$(OutputPath)*"</Command>
+    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -160,20 +175,25 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>inc/;src/;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>./lib;</AdditionalLibraryDirectories>
-      <AdditionalDependencies>ajwInput_$(Platform)$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
+    <PreLinkEvent>
+      <Command>xcopy /E /S /Y /R "$(OutputPath)..\TL_Graphics\*.dll" "$(OutputPath)*"
+xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*.dll" "$(OutputPath)*"</Command>
+    </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
@@ -205,6 +225,9 @@
     <Image Include="src\small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\jw_Input\ajwKeyBoard.vcxproj">
+      <Project>{6b57b248-7d34-4506-aa64-2997079e14a7}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\TL_Graphics\TL_Graphics.vcxproj">
       <Project>{045f76b3-d186-4e4a-acee-5cbdb4617de3}</Project>
     </ProjectReference>

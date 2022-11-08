@@ -9,7 +9,7 @@
 #include "Graphics\ICamera.h"
 #include "Graphics\ILight.h"
 
-#include "AjwCommon\Input.h"
+#include "Input\Input.h"
 
 #include "Helper\Transform.h"
 

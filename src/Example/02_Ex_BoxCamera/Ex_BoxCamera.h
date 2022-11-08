@@ -8,7 +8,7 @@
 #include "Graphics/IVertex.h"
 #include "Graphics\ICamera.h"
 
-#include "AjwCommon\Input.h"
+#include "Input\Input.h"
 
 #include "Helper\Transform.h"
 
