@@ -40,9 +40,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MyRegisterClass(hInstance);
 
 
-
-
-
     // 애플리케이션 초기화를 수행합니다:
     if (!InitInstance (hInstance, nCmdShow))
     {
@@ -55,7 +52,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     memset(&msg, 0, sizeof(msg));
 
 
-    TL_Graphics::RenderSystem::Create();
     TL_Graphics::RenderSystem::Get()->Init();
 
     App* app = new App();
@@ -150,13 +146,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
+    case WM_CREATE:
+    {
+        TL_Graphics::RenderSystem::Create();
+    }
+        break;
+
     case WM_SIZE:
     {
         UINT width = LOWORD(lParam);
         UINT height = HIWORD(lParam);
-        if(TL_Graphics::RenderSystem::Get())
          TL_Graphics::RenderSystem::Get()->UpdateWindowSize(width, height);
-
     }
         break;
 
