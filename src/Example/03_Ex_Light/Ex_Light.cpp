@@ -52,16 +52,16 @@ void Ex_Light::Init()
 		5,7,3
 	};
 
-	currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/LightVS.hlsl");
+	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/LightVS.hlsl");
 
-	currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/LightPS.hlsl");
+	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/LightPS.hlsl");
 
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(1, TL_Graphics::E_SHADER_TYPE::VS, &(boxT.GetWorldMatrix()), sizeof(boxT.GetWorldMatrix()));
 
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
 
-	directionalLight = { { 1,2,3 } };
+	directionalLight.direction = { 1,0,0 };
 
 
 	directionalLightBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(1, TL_Graphics::E_SHADER_TYPE::PS, &directionalLight, sizeof(directionalLight));
@@ -70,6 +70,12 @@ void Ex_Light::Init()
 
 void Ex_Light::UnInit()
 {
+	TL_Graphics::RenderSystem::Get()->Return(mesh);
+	TL_Graphics::RenderSystem::Get()->Return(material);
+	TL_Graphics::RenderSystem::Get()->Return(camera);
+	TL_Graphics::RenderSystem::Get()->Return(worldBuffer);
+	TL_Graphics::RenderSystem::Get()->Return(directionalLightBuffer);
+
 	TL_Graphics::RenderSystem::Delete();
 
 	delete input;
@@ -93,9 +99,9 @@ void Ex_Light::Update()
 		directionalLightBuffer->Set();
 
 		{//파이프라인을 채운다
-			currentMaterial->Set();
+			material->Set();
 
-			currentMesh->Set();
+			mesh->Set();
 
 			TransformMove();
 

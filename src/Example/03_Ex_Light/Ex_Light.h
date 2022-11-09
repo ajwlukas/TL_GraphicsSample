@@ -25,8 +25,8 @@ public:
 
 	ajwCommon::Input* input;
 
-	TL_Graphics::IMesh* currentMesh;
-	TL_Graphics::IMaterial* currentMaterial;
+	TL_Graphics::IMesh* mesh;
+	TL_Graphics::IMaterial* material;
 	TL_Graphics::VertexAttribute vertexAttribute;
 
 
