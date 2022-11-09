@@ -1,8 +1,8 @@
 #include "Transform.h"
 
-const DirectX::SimpleMath::Vector3 Transform::WorldUp = { 0,1,0 };
-const DirectX::SimpleMath::Vector3 Transform::WorldRight = { 1,0,0 };
-const DirectX::SimpleMath::Vector3 Transform::WorldForward = { 0,0,1 };
+const TL_Math::Vector3 Transform::WorldUp = { 0,1,0 };
+const TL_Math::Vector3 Transform::WorldRight = { 1,0,0 };
+const TL_Math::Vector3 Transform::WorldForward = { 0,0,1 };
 
 Transform::Transform()
 	:pos(0, 0, 0), rot(0, 0, 0), scale(1, 1, 1), S(DirectX::XMMatrixIdentity()), R(DirectX::XMMatrixIdentity()), T(DirectX::XMMatrixIdentity()),
