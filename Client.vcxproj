@@ -201,7 +201,8 @@ xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*" "$(OutputPath)*"</Command>
     <ClInclude Include="src\Example\02_Ex_BoxCamera\Ex_BoxCamera.h" />
     <ClInclude Include="src\Example\00_Ex_Triagle\Ex_Triangle.h" />
     <ClInclude Include="src\Example\01_Ex_TriangleColor\Ex_TriangleColor.h" />
-    <ClInclude Include="src\Example\03_Ex_Light\Ex_Light.h" />
+    <ClInclude Include="src\Example\03_Ex_Texture\Ex_Texture.h" />
+    <ClInclude Include="src\Example\04_Ex_Light\Ex_Light.h" />
     <ClInclude Include="src\Example\IExample.h" />
     <ClInclude Include="src\framework.h" />
     <ClInclude Include="src\Helper\Transform.h" />
@@ -214,7 +215,8 @@ xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*" "$(OutputPath)*"</Command>
     <ClCompile Include="src\Example\02_Ex_BoxCamera\Ex_BoxCamera.cpp" />
     <ClCompile Include="src\Example\00_Ex_Triagle\Ex_Triangle.cpp" />
     <ClCompile Include="src\Example\01_Ex_TriangleColor\Ex_TriangleColor.cpp" />
-    <ClCompile Include="src\Example\03_Ex_Light\Ex_Light.cpp" />
+    <ClCompile Include="src\Example\03_Ex_Texture\Ex_Texture.cpp" />
+    <ClCompile Include="src\Example\04_Ex_Light\Ex_Light.cpp" />
     <ClCompile Include="src\Helper\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
