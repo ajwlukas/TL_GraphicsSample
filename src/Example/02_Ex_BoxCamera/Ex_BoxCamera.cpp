@@ -52,9 +52,13 @@ void Ex_BoxCamera::Init()
 		5,7,3
 	};
 
-	currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"BoxCameraVS.hlsl");
+	currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/BoxCameraVS.hlsl");
 
-	currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"BoxCameraPS.hlsl");
+	currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/BoxCameraPS.hlsl");
+
+	boxT.Pos().z = 10.0f;
+
+	boxT.UpdateWorld();
 
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(1, TL_Graphics::E_SHADER_TYPE::VS, &(boxT.GetWorldMatrix()), sizeof(boxT.GetWorldMatrix()));
 
@@ -80,7 +84,9 @@ void Ex_BoxCamera::Update()
 
 		camT.UpdateWorld();
 
-		camera->Update(camT.GetWorldMatrix());
+		//camera->Update(camT.GetWorldMatrix());
+
+		camera->Update({ 0,0,0 }, { 0,0,0 });
 
 		camera->Set();
 
