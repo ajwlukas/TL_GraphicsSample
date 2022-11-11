@@ -20,7 +20,8 @@ void Transform::UpdateWorld()
 	S = DirectX::XMMatrixScalingFromVector(XMLoadFloat3(&scale));
 	R = DirectX::XMMatrixRotationRollPitchYawFromVector(XMLoadFloat3(&rot));
 	T = DirectX::XMMatrixTranslationFromVector(XMLoadFloat3(&pos));
-	quatW = XMQuaternionRotationRollPitchYawFromVector(rot);
+
+	quat = XMQuaternionRotationRollPitchYawFromVector(rot);
 
 	local = S * R * T;
 

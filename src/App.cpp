@@ -12,8 +12,8 @@ App::App()
 	//example = new Ex_Triangle();
 	//example = new Ex_TriangleColor();
 	//example = new Ex_BoxCamera();
-	example = new Ex_Texture();
-	//example = new Ex_TextureBuffer();
+	//example = new Ex_Texture();
+	example = new Ex_TextureBuffer();
 	//example = new Ex_Light();
 
 

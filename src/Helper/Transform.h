@@ -14,6 +14,7 @@ public:
 
 	TL_Math::Vector3& Pos();
 	TL_Math::Vector3& Rot();
+	TL_Math::Quaternion& Quat();
 	TL_Math::Vector3& Scale();
 
 	const TL_Math::Vector3& PosW();
@@ -25,6 +26,7 @@ public:
 	const TL_Math::Vector3& Forward();
 private:
 	TL_Math::Vector3 pos, rot, scale;
+	TL_Math::Quaternion quat;
 
 	TL_Math::Vector3 posW, rotW, scaleW;
 	TL_Math::Quaternion quatW;
@@ -55,6 +57,11 @@ inline TL_Math::Vector3& Transform::Rot()
 inline TL_Math::Vector3& Transform::Scale()
 {
 	return scale;
+}
+
+inline TL_Math::Quaternion& Transform::Quat()
+{
+	return quat;
 }
 
 inline const TL_Math::Vector3& Transform::PosW()

@@ -31,9 +31,9 @@ void Ex_TextureBuffer::Init()
 		1,3,2
 	};
 
-	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/TextureVS.hlsl");
+	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/TextureBufferVS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/TexturePS.hlsl");
+	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/TextureBufferPS.hlsl");
 
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
@@ -44,10 +44,10 @@ void Ex_TextureBuffer::Init()
 	for (int i = 0; i < 4; i++)
 		transforms[i] = new Transform();
 
-	transforms[0]->Pos() = { -10,10,0 };
-	transforms[1]->Pos() = { 10,10,0 };
-	transforms[2]->Pos() = { -10,-10,0 };
-	transforms[3]->Pos() = { 10,10,0 };
+	transforms[0]->Pos() = { -2,2,0 };
+	transforms[1]->Pos() = { 2,2,0 };
+	transforms[2]->Pos() = { -2,-2,0 };
+	transforms[3]->Pos() = { 2,-2,0 };
 
 	for (int i = 0; i < 4; i++)
 		transforms[i]->UpdateWorld();
@@ -88,18 +88,16 @@ void Ex_TextureBuffer::Update()
 
 		camera->Set();
 
-
 		{//파이프라인을 채운다
 			material->Set();
 
 			mesh->Set();
 
-
 			texture->Set();
 
 			textureBuffer->Set();
 
-			TL_Graphics::RenderSystem::Get()->Draw();//파이프 라인의 내용을 이행(렌더타겟에 Draw)
+			TL_Graphics::RenderSystem::Get()->DrawInstanced(4);//파이프 라인의 내용을 이행(렌더타겟에 Draw)
 		}
 	}
 

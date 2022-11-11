@@ -67,7 +67,9 @@ void Ex_Texture::Update()
 
 		camT.UpdateWorld();
 
-		camera->Update(camT.GetWorldMatrix());
+		//camera->Update(camT.GetWorldMatrix());
+
+		camera->Update(camT.Pos(), camT.Quat());
 
 		camera->Set();
 
