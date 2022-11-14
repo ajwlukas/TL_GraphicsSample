@@ -60,13 +60,19 @@
     <ClInclude Include="src\Example\01_Ex_TriangleColor\Ex_TriangleColor.h">
       <Filter>헤더 파일\Example\Ex_TriangleColor</Filter>
     </ClInclude>
-    <ClInclude Include="src\Example\05_Ex_Light\Ex_Light.h">
+    <ClInclude Include="src\Example\99_Ex_Light\Ex_Light.h">
       <Filter>헤더 파일\Example\Ex_Light</Filter>
     </ClInclude>
     <ClInclude Include="src\Example\03_Ex_Texture\Ex_Texture.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Example\05_Ex_StateChange\Ex_StateChange.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Box.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -89,13 +95,19 @@
     <ClCompile Include="src\Helper\Transform.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="src\Example\05_Ex_Light\Ex_Light.cpp">
+    <ClCompile Include="src\Example\99_Ex_Light\Ex_Light.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="src\Example\03_Ex_Texture\Ex_Texture.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Example\05_Ex_StateChange\Ex_StateChange.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameObject\Box.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
