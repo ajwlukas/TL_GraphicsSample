@@ -56,7 +56,7 @@ void Ex_Light::Init()
 
 	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/LightPS.hlsl");
 
-	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(1, TL_Graphics::E_SHADER_TYPE::VS, &(boxT.GetWorldMatrix()), sizeof(boxT.GetWorldMatrix()));
+	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(boxT.GetWorldMatrix()), sizeof(boxT.GetWorldMatrix()));
 
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
@@ -64,7 +64,7 @@ void Ex_Light::Init()
 	directionalLight.direction = { 1,0,0 };
 
 
-	directionalLightBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(1, TL_Graphics::E_SHADER_TYPE::PS, &directionalLight, sizeof(directionalLight));
+	directionalLightBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&directionalLight, sizeof(directionalLight));
 
 }
 
@@ -94,9 +94,10 @@ void Ex_Light::Update()
 
 		camera->Update(camT.GetWorldMatrix());
 
-		camera->Set();
+		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 
-		directionalLightBuffer->Set();
+
+			directionalLightBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
 
 		{//파이프라인을 채운다
 			material->Set();
@@ -109,9 +110,7 @@ void Ex_Light::Update()
 
 			worldBuffer->Update(&(boxT.GetWorldMatrix()), sizeof(boxT.GetWorldMatrix()));
 
-			worldBuffer->Set();
-
-			directionalLightBuffer->Set();
+			worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
 
 			TL_Graphics::RenderSystem::Get()->Draw();//파이프 라인의 내용을 이행(렌더타겟에 Draw)
 		}

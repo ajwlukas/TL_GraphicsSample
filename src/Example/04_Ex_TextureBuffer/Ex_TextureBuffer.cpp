@@ -37,7 +37,7 @@ void Ex_TextureBuffer::Init()
 
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
-	texture = TL_Graphics::RenderSystem::Get()->CreateTexture(0, TL_Graphics	   ::E_SHADER_TYPE::PS, L"Texture/CJY.jpg");
+	texture = TL_Graphics::RenderSystem::Get()->CreateTexture( L"Texture/CJY.jpg");
 
 
 	transforms.resize(4);
@@ -56,7 +56,7 @@ void Ex_TextureBuffer::Init()
 	for (int i = 0; i < 4; i++)
 		matrixes[i] = transforms[i]->GetWorldMatrix();
 
-	textureBuffer = TL_Graphics::RenderSystem::Get()->CreateTextureBuffer(0, TL_Graphics	   ::E_SHADER_TYPE::VS, matrixes.data(), matrixes.size() * sizeof(TL_Math::Matrix) );
+	textureBuffer = TL_Graphics::RenderSystem::Get()->CreateTextureBuffer(matrixes.data(), matrixes.size() * sizeof(TL_Math::Matrix) );
 }
 
 void Ex_TextureBuffer::UnInit()
@@ -86,16 +86,16 @@ void Ex_TextureBuffer::Update()
 
 		camera->Update(camT.GetWorldMatrix());
 
-		camera->Set();
+		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 
 		{//파이프라인을 채운다
 			material->Set();
 
 			mesh->Set();
 
-			texture->Set();
+			texture->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
 
-			textureBuffer->Set();
+			textureBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 
 			TL_Graphics::RenderSystem::Get()->DrawInstanced(4);//파이프 라인의 내용을 이행(렌더타겟에 Draw)
 		}

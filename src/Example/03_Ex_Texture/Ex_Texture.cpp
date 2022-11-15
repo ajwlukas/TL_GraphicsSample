@@ -35,11 +35,11 @@ void Ex_Texture::Init()
 
 	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/TexturePS.hlsl");
 
-	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(1, TL_Graphics::E_SHADER_TYPE::VS, &(squareT.GetWorldMatrix()), sizeof(squareT.GetWorldMatrix()));
+	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer( &(squareT.GetWorldMatrix()), sizeof(squareT.GetWorldMatrix()));
 
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
-	texture = TL_Graphics::RenderSystem::Get()->CreateTexture(0, TL_Graphics	   ::E_SHADER_TYPE::PS, L"Texture/CJY.jpg");
+	texture = TL_Graphics::RenderSystem::Get()->CreateTexture(L"Texture/CJY.jpg");
 }
 
 void Ex_Texture::UnInit()
@@ -71,7 +71,7 @@ void Ex_Texture::Update()
 
 		camera->Update(camT.Pos(), camT.Quat());
 
-		camera->Set();
+		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 
 
 		{//파이프라인을 채운다
@@ -85,9 +85,9 @@ void Ex_Texture::Update()
 
 			worldBuffer->Update(&(squareT.GetWorldMatrix()), sizeof(squareT.GetWorldMatrix()));
 
-			worldBuffer->Set();
+			worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
 
-			texture->Set();
+			texture->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
 
 			TL_Graphics::RenderSystem::Get()->Draw();//파이프 라인의 내용을 이행(렌더타겟에 Draw)
 		}

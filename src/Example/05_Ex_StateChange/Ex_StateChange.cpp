@@ -40,7 +40,7 @@ void Ex_StateChange::Update()
 
 		camera->Update(camT.GetWorldMatrix());
 
-		camera->Set();
+		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 	}
 
 	if (input->Down(VK_F1))
@@ -50,7 +50,7 @@ void Ex_StateChange::Update()
 
 	TL_Graphics::RenderSystem::Get()->DrawWireOnce();
 		a.Render();
-	TL_Graphics::RenderSystem::Get()->DrawSolidOnce();
+	//TL_Graphics::RenderSystem::Get()->DrawSolidOnce();
 
 		b.Render();
 		c.Render();

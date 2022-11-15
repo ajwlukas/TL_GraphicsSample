@@ -6,6 +6,14 @@
 
 #include "Helper\Transform.h"
 
+/// <summary>
+/// 간단한 클래스
+/// 
+/// 사용 예제 파일, StateChange.cpp
+/// 
+/// 사용 쉐이더, BoxVS, BoxPS
+/// </summary>
+
 class Box
 {
 public:

@@ -60,7 +60,7 @@ void Ex_BoxCamera::Init()
 
 	boxT.UpdateWorld();
 
-	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(1, TL_Graphics::E_SHADER_TYPE::VS, &(boxT.GetWorldMatrix()), sizeof(boxT.GetWorldMatrix()));
+	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(boxT.GetWorldMatrix()), sizeof(boxT.GetWorldMatrix()));
 
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
@@ -88,7 +88,7 @@ void Ex_BoxCamera::Update()
 
 		camera->Update({ 0,0,0 }, { 0,0,0 });
 
-		camera->Set();
+		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 
 		{//파이프라인을 채운다
 			currentMaterial->Set();
@@ -101,7 +101,7 @@ void Ex_BoxCamera::Update()
 
 			worldBuffer->Update(&(boxT.GetWorldMatrix()), sizeof(boxT.GetWorldMatrix()));
 
-			worldBuffer->Set();
+			worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
 
 			TL_Graphics::RenderSystem::Get()->Draw();//파이프 라인의 내용을 이행(렌더타겟에 Draw)
 		}

@@ -57,9 +57,9 @@ Box::Box()
 
 	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/BoxPS.hlsl");
 
-	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(1, TL_Graphics::E_SHADER_TYPE::VS, &(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
+	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
 
-	colorBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(0, TL_Graphics::E_SHADER_TYPE::PS, &color, sizeof(TL_Math::Vector4));
+	colorBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&color, sizeof(TL_Math::Vector4));
 }
 
 Box::~Box()
@@ -74,8 +74,8 @@ void Box::Render()
 {
 	mesh->Set();
 	material->Set();
-	worldBuffer->Set();
-	colorBuffer->Set();
+	worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
+	colorBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
 
 	TL_Graphics::RenderSystem::Get()->Draw();
 }
