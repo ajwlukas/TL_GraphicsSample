@@ -75,6 +75,9 @@
     <ClInclude Include="src\GameObject\Box.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="src\Example\06_EX_RTT\EX_RTT.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Client.cpp">
@@ -108,6 +111,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObject\Box.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Example\06_EX_RTT\EX_RTT.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

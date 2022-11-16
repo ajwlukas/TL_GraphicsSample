@@ -111,8 +111,8 @@
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PreLinkEvent>
-      <Command>xcopy /E /S /Y /R "$(OutputPath)..\TL_Graphics\*" "$(OutputPath)*"
-xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*" "$(OutputPath)*"</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -139,8 +139,8 @@ xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*" "$(OutputPath)*"</Command>
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PreLinkEvent>
-      <Command>xcopy /E /S /Y /R "$(OutputPath)..\TL_Graphics\*" "$(OutputPath)*"
-xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*" "$(OutputPath)*"</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -163,8 +163,8 @@ xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*" "$(OutputPath)*"</Command>
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PreLinkEvent>
-      <Command>xcopy /E /S /Y /R "$(OutputPath)..\TL_Graphics\*" "$(OutputPath)*"
-xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*" "$(OutputPath)*"</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -191,8 +191,8 @@ xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*" "$(OutputPath)*"</Command>
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PreLinkEvent>
-      <Command>xcopy /E /S /Y /R "$(OutputPath)..\TL_Graphics\*" "$(OutputPath)*"
-xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*" "$(OutputPath)*"</Command>
+      <Command>
+      </Command>
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -203,6 +203,7 @@ xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*" "$(OutputPath)*"</Command>
     <ClInclude Include="src\Example\01_Ex_TriangleColor\Ex_TriangleColor.h" />
     <ClInclude Include="src\Example\03_Ex_Texture\Ex_Texture.h" />
     <ClInclude Include="src\Example\05_Ex_StateChange\Ex_StateChange.h" />
+    <ClInclude Include="src\Example\06_EX_RTT\EX_RTT.h" />
     <ClInclude Include="src\Example\99_Ex_Light\Ex_Light.h" />
     <ClInclude Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.h" />
     <ClInclude Include="src\Example\IExample.h" />
@@ -220,6 +221,7 @@ xcopy /E /S /Y /R "$(OutputPath)..\jw_Input\*" "$(OutputPath)*"</Command>
     <ClCompile Include="src\Example\01_Ex_TriangleColor\Ex_TriangleColor.cpp" />
     <ClCompile Include="src\Example\03_Ex_Texture\Ex_Texture.cpp" />
     <ClCompile Include="src\Example\05_Ex_StateChange\Ex_StateChange.cpp" />
+    <ClCompile Include="src\Example\06_EX_RTT\EX_RTT.cpp" />
     <ClCompile Include="src\Example\99_Ex_Light\Ex_Light.cpp" />
     <ClCompile Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.cpp" />
     <ClCompile Include="src\GameObject\Box.cpp" />
