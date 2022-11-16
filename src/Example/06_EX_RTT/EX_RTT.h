@@ -29,6 +29,7 @@ public:
 	void CameraMove();
 
 	TL_Graphics::IRenderTargetTexture* rtt;
+	TL_Graphics::IRenderTargetTexture* rtt0;
 
 	Box a, b, c;
 

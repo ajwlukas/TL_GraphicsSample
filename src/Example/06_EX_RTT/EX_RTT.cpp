@@ -8,6 +8,7 @@ void EX_RTT::Init()
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
 	rtt = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
+	rtt0 = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
 
 	a.UpdateColor({ 1,0,0,1 });
 	b.UpdateColor({ 0,1,0,1 });
@@ -61,6 +62,7 @@ void EX_RTT::UnInit()
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 
 	TL_Graphics::RenderSystem::Get()->Return(rtt);
+	TL_Graphics::RenderSystem::Get()->Return(rtt0);
 
 	TL_Graphics::RenderSystem::Get()->Return(camera);
 
@@ -73,6 +75,7 @@ void EX_RTT::Update()
 {
 	TL_Graphics::RenderSystem::Get()->Clear();//화면을 지우고
 	rtt->Clear();
+	rtt0->Clear();
 
 	{
 		input->Update();//키보드 마우스 업데이트
@@ -89,12 +92,14 @@ void EX_RTT::Update()
 	}
 
 	rtt->SetRT(1);//1번슬롯에 꽂는다.
+	rtt0->SetRT(2);//1번슬롯에 꽂는다.
 
 	a.Render();
 	b.Render();
 	c.Render();
 
 	TL_Graphics::RenderSystem::Get()->UnSetRenderTarget(1);
+	TL_Graphics::RenderSystem::Get()->UnSetRenderTarget(2);
 
 	{//Canvas
 		mesh->Set();
