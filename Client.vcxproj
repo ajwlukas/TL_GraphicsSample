@@ -204,6 +204,7 @@
     <ClInclude Include="src\Example\03_Ex_Texture\Ex_Texture.h" />
     <ClInclude Include="src\Example\05_Ex_StateChange\Ex_StateChange.h" />
     <ClInclude Include="src\Example\06_EX_RTT\EX_RTT.h" />
+    <ClInclude Include="src\Example\07_PBR\EX_PBR.h" />
     <ClInclude Include="src\Example\99_Ex_Light\Ex_Light.h" />
     <ClInclude Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.h" />
     <ClInclude Include="src\Example\IExample.h" />
@@ -222,6 +223,7 @@
     <ClCompile Include="src\Example\03_Ex_Texture\Ex_Texture.cpp" />
     <ClCompile Include="src\Example\05_Ex_StateChange\Ex_StateChange.cpp" />
     <ClCompile Include="src\Example\06_EX_RTT\EX_RTT.cpp" />
+    <ClCompile Include="src\Example\07_PBR\EX_PBR.cpp" />
     <ClCompile Include="src\Example\99_Ex_Light\Ex_Light.cpp" />
     <ClCompile Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.cpp" />
     <ClCompile Include="src\GameObject\Box.cpp" />

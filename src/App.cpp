@@ -7,6 +7,7 @@
 #include "Example\04_Ex_TextureBuffer\Ex_TextureBuffer.h"
 #include "Example\05_Ex_StateChange\Ex_StateChange.h"
 #include "Example\06_EX_RTT\EX_RTT.h"
+#include "Example\07_PBR\EX_PBR.h"
 #include "Example\99_Ex_Light\Ex_Light.h"
 
 App::App()
@@ -17,7 +18,8 @@ App::App()
 	//example = new Ex_Texture();
 	//example = new Ex_TextureBuffer();
 	//example = new Ex_StateChange();
-	example = new EX_RTT();
+	//example = new EX_RTT();
+	example = new EX_PBR();
 
 
 
