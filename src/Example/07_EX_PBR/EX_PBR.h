@@ -40,4 +40,12 @@ class EX_PBR : public IExample
 		float metallic[4];//only uses r channel
 	}matData;
 	TL_Graphics::IConstantBuffer* materialData;
+
+
+	//canvas
+	TL_Graphics::IMesh* meshCanvas;
+	TL_Graphics::IMaterial* materialCanvas;
+
+	TL_Graphics::IRenderTargetTexture* pbrRT;
+	TL_Graphics::IRenderTargetTexture* legacyRT;
 };

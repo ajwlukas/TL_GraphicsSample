@@ -4,27 +4,54 @@
 
 Box::Box()
 {
+
 	struct Vertex
 	{
 		float position[3];
+		float normal[3];
 	}
-	vertices[8]
+	vertices[24]
 	{
 		//¾Õ¸é
-		{-0.5f,        +0.5f,      -0.5f},
-		{+0.5f,        +0.5f,      -0.5f},
-		{-0.5f,        -0.5f,      -0.5f},
-		{+0.5f,        -0.5f,      -0.5f},
+		{{-0.5f,        +0.5f,      -0.5f}	,{0,0,-1}},
+		{{+0.5f,        +0.5f,      -0.5f},{0,0,-1}},
+		{{-0.5f,        -0.5f,      -0.5f}	,{0,0,-1}},
+		{{+0.5f,        -0.5f,      -0.5f}	,{0,0,-1}},
 
 		//µÞ¸é
-		{-0.5f,         +0.5f,     +0.5f},
-		{+0.5f,         +0.5f,     +0.5f},
-		{-0.5f,         -0.5f,     +0.5f},
-		{+0.5f,         -0.5f,     +0.5f}
+		{{-0.5f,         +0.5f,     +0.5f},{0,0,1}},
+		{{+0.5f,         +0.5f,     +0.5f},{0,0,1}},
+		{{-0.5f,         -0.5f,     +0.5f},{0,0,1}},
+		{{+0.5f,         -0.5f,     +0.5f},{0,0,1}},
+
+		//¿Þ¸é
+		{{-0.5f,        +0.5f,      +0.5f}	,{-1,0,0}},
+		{{-0.5f,        +0.5f,      -0.5f},{-1,0,0}},
+		{{-0.5f,        -0.5f,      +0.5f}	,{-1,0,0}},
+		{{-0.5f,        -0.5f,      -0.5f}	,{-1,0,0}},
+
+		//¿À¸¥¸é
+		{{+0.5f,         +0.5f,     -0.5f},	{1,0,0}},
+		{{+0.5f,         +0.5f,     +0.5f},	{1,0,0}},
+		{{+0.5f,         -0.5f,     -0.5f},	{1,0,0}},
+		{{+0.5f,         -0.5f,     +0.5f},	{1,0,0}},
+
+		//À­¸é
+		{{-0.5f,        +0.5f,      +0.5f}		,{0,1,0}},
+		{{+0.5f,        +0.5f,      +0.5f}	,{0,1,0}},
+		{{-0.5f,        +0.5f,      -0.5f}		,{0,1,0}},
+		{{+0.5f,        +0.5f,      -0.5f}		,{0,1,0}},
+
+		//¾Æ·§¸é
+		{{-0.5f,         -0.5f,     +0.5f}	,{0,-1,0}},
+		{{+0.5f,         -0.5f,     +0.5f}	,{0,-1,0}},
+		{{-0.5f,         -0.5f,     -0.5f}		,{0,-1,0}},
+		{{+0.5f,         -0.5f,     -0.5f}	,{0,-1,0}}
 	};
 
 	TL_Graphics::VertexAttribute vertexAttribute;
 	vertexAttribute.AddElementToDesc(sizeof(Vertex::position), TL_Graphics::DataType::FLOAT, "POSITION");
+	vertexAttribute.AddElementToDesc(sizeof(Vertex::normal), TL_Graphics::DataType::FLOAT, "NORMAL");
 
 	vertexAttribute.AddData(vertices, sizeof(vertices));
 
@@ -35,22 +62,22 @@ Box::Box()
 		0,1,2,
 		1,3,2,
 		//back
-		5,4,7,
-		4,6,7,
-
-		//up
-		4,5,0,
-		5,1,0,
-		//down
-		2,3,6,
-		3,7,6,
+		5,4,6,
+		5,6,7,
 
 		//left
-		4,0,6,
-		0,2,6,
+		8,9,10,
+		9,11,10,
 		//right
-		1,5,3,
-		5,7,3
+		12,13,14,
+		13,15,14,
+
+		//up
+		16,17,18,
+		17,19,18,
+		//down
+		20,	22,21,
+		21,	22,23
 	};
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/BoxVS.hlsl");

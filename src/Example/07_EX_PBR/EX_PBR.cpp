@@ -114,6 +114,43 @@ void EX_PBR::Init()
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
 
 	texture = TL_Graphics::RenderSystem::Get()->CreateTexture(L"Texture/CJY.jpg");
+
+	///////Canvas
+	struct VertexCanvas
+	{
+		float position[3];
+		float uv[2];
+	}
+	verticesCanvas[4]
+	{
+		//앞면
+		{{-1.0f,        1.0f,      0.0f}, {0.0f, 0.0f}},//LT
+		{{1.0f,        1.0f,      0.0f}, {1.0f, 0.0f}},//RT
+		{{-1.0f,       -1.0f,      0.0f}, {0.0f, 1.0f}},//LB
+		{{1.0f,        -1.0f,      0.0f}, {1.0f, 1.0f}} //RB
+	};
+
+	TL_Graphics::VertexAttribute vertexAttributeCanvas;
+	vertexAttributeCanvas.AddElementToDesc(sizeof(VertexCanvas::position), TL_Graphics::DataType::FLOAT, "POSITION");
+	vertexAttributeCanvas.AddElementToDesc(sizeof(VertexCanvas::uv), TL_Graphics::DataType::FLOAT, "UV");
+
+	vertexAttributeCanvas.AddData(verticesCanvas, sizeof(verticesCanvas));
+
+	UINT indiciesCanvas[]
+		=
+	{
+		//front
+		0,1,2,
+		1,3,2
+	};
+
+	meshCanvas = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttributeCanvas, indiciesCanvas, sizeof(indiciesCanvas) / sizeof(indiciesCanvas[0]), L"Shader/PBRCanvasVS.hlsl");
+
+	materialCanvas = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/PBRCanvasPS.hlsl");
+
+
+	pbrRT = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
+	legacyRT = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
 }
 
 void EX_PBR::UnInit()
@@ -139,6 +176,9 @@ void EX_PBR::Update()
 {
 	TL_Graphics::RenderSystem::Get()->Clear();//화면을 지우고
 
+	pbrRT->Clear({ 0.0f, 0.7f, 1.0f, 1.0f });
+	legacyRT->Clear({ 0.0f, 0.7f, 1.0f, 1.0f });
+
 	{
 		input->Update();//키보드 마우스 업데이트
 	}
@@ -153,6 +193,9 @@ void EX_PBR::Update()
 		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 		camera->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
 	}
+
+	pbrRT->SetRT(0);//0번슬롯에 꽂는다.
+	legacyRT->SetRT(1);//1번슬롯에 꽂는다.
 
 	{//Box
 		BoxMove();
@@ -171,6 +214,23 @@ void EX_PBR::Update()
 
 		TL_Graphics::RenderSystem::Get()->Draw();
 	}
+
+	TL_Graphics::RenderSystem::Get()->UnSetRenderTarget(0);
+	TL_Graphics::RenderSystem::Get()->UnSetRenderTarget(1);
+
+	{
+		TL_Graphics::RenderSystem::Get()->SetSwapChainRenderTargetView();
+
+		pbrRT->SetT(TL_Graphics::E_SHADER_TYPE::PS, 0);
+		legacyRT->SetT(TL_Graphics::E_SHADER_TYPE::PS, 1);
+
+		meshCanvas->Set();
+		materialCanvas->Set();
+
+		TL_Graphics::RenderSystem::Get()->Draw();
+
+	}
+
 
 	TL_Graphics::RenderSystem::Get()->Present();//그려놓은 렌더타겟을 출현 시킴
 }

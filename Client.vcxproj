@@ -109,6 +109,7 @@
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
+      <ShaderType>Vertex</ShaderType>
     </FxCompile>
     <PreLinkEvent>
       <Command>
@@ -137,6 +138,7 @@
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
+      <ShaderType>Vertex</ShaderType>
     </FxCompile>
     <PreLinkEvent>
       <Command>
@@ -161,6 +163,7 @@
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
+      <ShaderType>Vertex</ShaderType>
     </FxCompile>
     <PreLinkEvent>
       <Command>
@@ -189,6 +192,7 @@
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>
       <ObjectFileOutput>$(OutDir)Shader\%(Filename).cso</ObjectFileOutput>
+      <ShaderType>Vertex</ShaderType>
     </FxCompile>
     <PreLinkEvent>
       <Command>
@@ -204,7 +208,7 @@
     <ClInclude Include="src\Example\03_Ex_Texture\Ex_Texture.h" />
     <ClInclude Include="src\Example\05_Ex_StateChange\Ex_StateChange.h" />
     <ClInclude Include="src\Example\06_EX_RTT\EX_RTT.h" />
-    <ClInclude Include="src\Example\07_PBR\EX_PBR.h" />
+    <ClInclude Include="src\Example\07_EX_PBR\EX_PBR.h" />
     <ClInclude Include="src\Example\99_Ex_Light\Ex_Light.h" />
     <ClInclude Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.h" />
     <ClInclude Include="src\Example\IExample.h" />
@@ -223,7 +227,7 @@
     <ClCompile Include="src\Example\03_Ex_Texture\Ex_Texture.cpp" />
     <ClCompile Include="src\Example\05_Ex_StateChange\Ex_StateChange.cpp" />
     <ClCompile Include="src\Example\06_EX_RTT\EX_RTT.cpp" />
-    <ClCompile Include="src\Example\07_PBR\EX_PBR.cpp" />
+    <ClCompile Include="src\Example\07_EX_PBR\EX_PBR.cpp" />
     <ClCompile Include="src\Example\99_Ex_Light\Ex_Light.cpp" />
     <ClCompile Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.cpp" />
     <ClCompile Include="src\GameObject\Box.cpp" />
@@ -243,6 +247,78 @@
     <ProjectReference Include="..\TL_Graphics\TL_Graphics.vcxproj">
       <Project>{045f76b3-d186-4e4a-acee-5cbdb4617de3}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="src\Example\00_Ex_Triagle\TrianglePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="src\Example\00_Ex_Triagle\TriangleVS.hlsl" />
+    <FxCompile Include="src\Example\01_Ex_TriangleColor\TriangleColorPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="src\Example\01_Ex_TriangleColor\TriangleColorVS.hlsl" />
+    <FxCompile Include="src\Example\02_Ex_BoxCamera\BoxCameraPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="src\Example\02_Ex_BoxCamera\BoxCameraVS.hlsl" />
+    <FxCompile Include="src\Example\03_Ex_Texture\TexturePS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="src\Example\03_Ex_Texture\TextureVS.hlsl" />
+    <FxCompile Include="src\Example\04_Ex_TextureBuffer\TextureBufferPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="src\Example\04_Ex_TextureBuffer\TextureBufferVS.hlsl" />
+    <FxCompile Include="src\Example\06_EX_RTT\BoxPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="src\Example\06_EX_RTT\BoxVS.hlsl" />
+    <FxCompile Include="src\Example\06_EX_RTT\CanvasPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="src\Example\06_EX_RTT\CanvasVS.hlsl" />
+    <FxCompile Include="src\Example\07_EX_PBR\PBRCanvasPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="src\Example\07_EX_PBR\PBRCanvasVS.hlsl" />
+    <FxCompile Include="src\Example\07_EX_PBR\PBR_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="src\Example\07_EX_PBR\PBR_VS.hlsl" />
+    <FxCompile Include="src\Example\99_Ex_Light\LightPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="src\Example\99_Ex_Light\LightVS.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

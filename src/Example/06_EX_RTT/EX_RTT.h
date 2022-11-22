@@ -28,8 +28,7 @@ public:
 	Transform camT;
 	void CameraMove();
 
-	TL_Graphics::IRenderTargetTexture* rtt;
-	TL_Graphics::IRenderTargetTexture* rtt0;
+	TL_Graphics::IRenderTargetTexture* rtt[4];
 
 	Box a, b, c;
 

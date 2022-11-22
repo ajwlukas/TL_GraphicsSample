@@ -7,8 +7,8 @@ void EX_RTT::Init()
 
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
-	rtt = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
-	rtt0 = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
+	for (UINT i = 0; i < 4; i++)
+		rtt[i] = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
 
 	a.UpdateColor({ 1,0,0,1 });
 	b.UpdateColor({ 0,1,0,1 });
@@ -26,10 +26,10 @@ void EX_RTT::Init()
 	vertices[4]
 	{
 		//앞면
-		{{0.0f,        1.0f,      0.0f}, {0.0f, 0.0f}},//LT
+		{{-1.0f,        1.0f,      0.0f}, {0.0f, 0.0f}},//LT
 		{{1.0f,        1.0f,      0.0f}, {1.0f, 0.0f}},//RT
-		{{0.0f,       0.0f,      0.0f}, {0.0f, 1.0f}},//LB
-		{{1.0f,        0.0f,      0.0f}, {1.0f, 1.0f}} //RB
+		{{-1.0f,       -1.0f,      0.0f}, {0.0f, 1.0f}},//LB
+		{{1.0f,        -1.0f,      0.0f}, {1.0f, 1.0f}} //RB
 	};
 
 	TL_Graphics::VertexAttribute vertexAttribute;
@@ -61,8 +61,8 @@ void EX_RTT::UnInit()
 
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 
-	TL_Graphics::RenderSystem::Get()->Return(rtt);
-	TL_Graphics::RenderSystem::Get()->Return(rtt0);
+	for (UINT i = 0; i < 4; i++)
+		TL_Graphics::RenderSystem::Get()->Return(rtt[i]);
 
 	TL_Graphics::RenderSystem::Get()->Return(camera);
 
@@ -74,8 +74,8 @@ void EX_RTT::UnInit()
 void EX_RTT::Update()
 {
 	TL_Graphics::RenderSystem::Get()->Clear();//화면을 지우고
-	rtt->Clear();
-	rtt0->Clear();
+	for (UINT i = 0; i < 4; i++)
+		rtt[i]->Clear({ 0.0f, 0.7f, 1.0f, 1.0f });
 
 	{
 		input->Update();//키보드 마우스 업데이트
@@ -91,22 +91,25 @@ void EX_RTT::Update()
 		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 	}
 
-	rtt->SetRT(1);//1번슬롯에 꽂는다.
-	rtt0->SetRT(2);//1번슬롯에 꽂는다.
+	for (UINT i = 0; i < 4; i++)
+		rtt[i]->SetRT(i);//1번슬롯에 꽂는다.
 
 	a.Render();
 	b.Render();
 	c.Render();
 
-	TL_Graphics::RenderSystem::Get()->UnSetRenderTarget(1);
-	TL_Graphics::RenderSystem::Get()->UnSetRenderTarget(2);
+	for (UINT i = 0; i < 4; i++)
+		TL_Graphics::RenderSystem::Get()->UnSetRenderTarget(i);
+
+	TL_Graphics::RenderSystem::Get()->SetSwapChainRenderTargetView();
 
 	{//Canvas
 		mesh->Set();
 
-		material->Set();
+		material->Set();	
 
-		rtt->SetT(TL_Graphics::E_SHADER_TYPE::PS, 0);
+		for (UINT i = 0; i < 4; i++)
+		rtt[i]->SetT(TL_Graphics::E_SHADER_TYPE::PS, i);
 
 		//texture->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
 
@@ -126,15 +129,15 @@ void EX_RTT::CameraMove()
 	}
 
 	if (input->Press('W'))
-		camT.Pos() += camT.Forward() * 0.01f;
+		camT.Pos() += camT.Forward() * 0.005f;
 	if (input->Press('S'))
-		camT.Pos() -= camT.Forward() * 0.01f;
+		camT.Pos() -= camT.Forward() * 0.005f;
 	if (input->Press('A'))
-		camT.Pos() -= camT.Right() * 0.01f;
+		camT.Pos() -= camT.Right() * 0.005f;
 	if (input->Press('D'))
-		camT.Pos() += camT.Right() * 0.01f;
+		camT.Pos() += camT.Right() * 0.005f;
 	if (input->Press('Q'))
-		camT.Pos() -= camT.Up() * 0.01f;
+		camT.Pos() -= camT.Up() * 0.005f;
 	if (input->Press('E'))
-		camT.Pos() += camT.Up() * 0.01f;
+		camT.Pos() += camT.Up() * 0.005f;
 }
