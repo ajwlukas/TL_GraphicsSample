@@ -90,7 +90,11 @@ void EX_PBR::Init()
 		21,	22,23
 	};
 
-	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/PBR_VS.hlsl");
+	vs = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::VS, L"Shader/PBR_VS.hlsl");
+	ps = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/PBR_PS.hlsl");
+
+
+	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/PBRCanvasVS.hlsl");
 
 	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/PBR_PS.hlsl");
 
@@ -155,6 +159,10 @@ void EX_PBR::Init()
 
 void EX_PBR::UnInit()
 {
+	TL_Graphics::RenderSystem::Get()->Return(ps);
+
+	TL_Graphics::RenderSystem::Get()->Return(vs);
+
 	TL_Graphics::RenderSystem::Get()->Return(materialData);
 
 	TL_Graphics::RenderSystem::Get()->Return(worldBuffer);
@@ -205,6 +213,10 @@ void EX_PBR::Update()
 		worldBuffer->Update(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
 
 		mesh->Set();
+
+		vs->Set();
+
+		ps->Set();
 
 		material->Set();
 
