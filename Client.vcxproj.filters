@@ -60,9 +60,6 @@
     <ClInclude Include="src\Example\01_Ex_TriangleColor\Ex_TriangleColor.h">
       <Filter>헤더 파일\Example\Ex_TriangleColor</Filter>
     </ClInclude>
-    <ClInclude Include="src\Example\08_Ex_Light\Ex_Light.h">
-      <Filter>헤더 파일\Example\Ex_Light</Filter>
-    </ClInclude>
     <ClInclude Include="src\Example\03_Ex_Texture\Ex_Texture.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -79,6 +76,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="src\Example\07_EX_PBR\EX_PBR.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Example\08_Ex_Light\Ex_Light.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="src\GameObject\TL_Box.h">
@@ -104,9 +104,6 @@
     <ClCompile Include="src\Helper\Transform.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="src\Example\08_Ex_Light\Ex_Light.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="src\Example\03_Ex_Texture\Ex_Texture.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -123,6 +120,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="src\Example\07_EX_PBR\EX_PBR.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Example\08_Ex_Light\Ex_Light.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObject\TL_Box.cpp">
@@ -143,25 +143,15 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="src\Example\06_EX_RTT\CanvasVS.hlsl" />
-    <FxCompile Include="src\Example\06_EX_RTT\CanvasPS.hlsl" />
-    <FxCompile Include="src\Example\06_EX_RTT\BoxVS.hlsl" />
-    <FxCompile Include="src\Example\06_EX_RTT\BoxPS.hlsl" />
-    <FxCompile Include="src\Example\07_EX_PBR\PBR_VS.hlsl" />
     <FxCompile Include="src\Example\07_EX_PBR\PBR_PS.hlsl" />
-    <FxCompile Include="src\Example\07_EX_PBR\PBRCanvasVS.hlsl" />
+    <FxCompile Include="src\Example\07_EX_PBR\PBR_VS.hlsl" />
     <FxCompile Include="src\Example\07_EX_PBR\PBRCanvasPS.hlsl" />
-    <FxCompile Include="src\Example\01_Ex_TriangleColor\TriangleColorVS.hlsl" />
-    <FxCompile Include="src\Example\01_Ex_TriangleColor\TriangleColorPS.hlsl" />
-    <FxCompile Include="src\Example\00_Ex_Triagle\TriangleVS.hlsl" />
-    <FxCompile Include="src\Example\00_Ex_Triagle\TrianglePS.hlsl" />
-    <FxCompile Include="src\Example\02_Ex_BoxCamera\BoxCameraPS.hlsl" />
-    <FxCompile Include="src\Example\02_Ex_BoxCamera\BoxCameraVS.hlsl" />
-    <FxCompile Include="src\Example\03_Ex_Texture\TexturePS.hlsl" />
-    <FxCompile Include="src\Example\03_Ex_Texture\TextureVS.hlsl" />
-    <FxCompile Include="src\Example\04_Ex_TextureBuffer\TextureBufferPS.hlsl" />
-    <FxCompile Include="src\Example\04_Ex_TextureBuffer\TextureBufferVS.hlsl" />
-    <FxCompile Include="src\Example\08_Ex_Light\LightVS.hlsl" />
+    <FxCompile Include="src\Example\07_EX_PBR\PBRCanvasVS.hlsl" />
     <FxCompile Include="src\Example\08_Ex_Light\LightPS.hlsl" />
+    <FxCompile Include="src\Example\08_Ex_Light\LightVS.hlsl" />
+    <FxCompile Include="src\Example\06_EX_RTT\BoxPS.hlsl" />
+    <FxCompile Include="src\Example\06_EX_RTT\BoxVS.hlsl" />
+    <FxCompile Include="src\Example\06_EX_RTT\CanvasPS.hlsl" />
+    <FxCompile Include="src\Example\06_EX_RTT\CanvasVS.hlsl" />
   </ItemGroup>
 </Project>
