@@ -209,11 +209,12 @@
     <ClInclude Include="src\Example\05_Ex_StateChange\Ex_StateChange.h" />
     <ClInclude Include="src\Example\06_EX_RTT\EX_RTT.h" />
     <ClInclude Include="src\Example\07_EX_PBR\EX_PBR.h" />
-    <ClInclude Include="src\Example\99_Ex_Light\Ex_Light.h" />
+    <ClInclude Include="src\Example\08_Ex_Light\Ex_Light.h" />
     <ClInclude Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.h" />
     <ClInclude Include="src\Example\IExample.h" />
     <ClInclude Include="src\framework.h" />
     <ClInclude Include="src\GameObject\Box.h" />
+    <ClInclude Include="src\GameObject\TL_Box.h" />
     <ClInclude Include="src\Helper\Transform.h" />
     <ClInclude Include="src\Resource.h" />
     <ClInclude Include="src\targetver.h" />
@@ -228,9 +229,10 @@
     <ClCompile Include="src\Example\05_Ex_StateChange\Ex_StateChange.cpp" />
     <ClCompile Include="src\Example\06_EX_RTT\EX_RTT.cpp" />
     <ClCompile Include="src\Example\07_EX_PBR\EX_PBR.cpp" />
-    <ClCompile Include="src\Example\99_Ex_Light\Ex_Light.cpp" />
+    <ClCompile Include="src\Example\08_Ex_Light\Ex_Light.cpp" />
     <ClCompile Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.cpp" />
     <ClCompile Include="src\GameObject\Box.cpp" />
+    <ClCompile Include="src\GameObject\TL_Box.cpp" />
     <ClCompile Include="src\Helper\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -312,13 +314,13 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="src\Example\07_EX_PBR\PBR_VS.hlsl" />
-    <FxCompile Include="src\Example\99_Ex_Light\LightPS.hlsl">
+    <FxCompile Include="src\Example\08_Ex_Light\LightPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
-    <FxCompile Include="src\Example\99_Ex_Light\LightVS.hlsl" />
+    <FxCompile Include="src\Example\08_Ex_Light\LightVS.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

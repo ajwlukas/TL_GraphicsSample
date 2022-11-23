@@ -13,6 +13,8 @@
 
 #include "Helper\Transform.h"
 
+#include "GameObject\TL_Box.h"
+
 class ajwCommon::Input;
 class Ex_Light : public IExample
 {
@@ -25,18 +27,12 @@ public:
 
 	ajwCommon::Input* input;
 
-	TL_Graphics::IMesh* mesh;
-	TL_Graphics::IMaterial* material;
-	TL_Graphics::VertexAttribute vertexAttribute;
-
-
 	TL_Graphics::ICamera* camera;
 	Transform camT;
 	void CameraMove();
 
-	Transform boxT;
-	TL_Graphics::IConstantBuffer* worldBuffer;
-	void TransformMove();
+	TL_Box box;
+	void BoxMove();
 
 	TL_Graphics::DirectionalLight directionalLight;
 	TL_Graphics::IConstantBuffer* directionalLightBuffer;

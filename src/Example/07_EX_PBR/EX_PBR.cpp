@@ -94,7 +94,7 @@ void EX_PBR::Init()
 	ps = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/PBR_PS.hlsl");
 
 
-	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/PBRCanvasVS.hlsl");
+	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/PBR_VS.hlsl");
 
 	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/PBR_PS.hlsl");
 
@@ -151,7 +151,6 @@ void EX_PBR::Init()
 	meshCanvas = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttributeCanvas, indiciesCanvas, sizeof(indiciesCanvas) / sizeof(indiciesCanvas[0]), L"Shader/PBRCanvasVS.hlsl");
 
 	materialCanvas = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/PBRCanvasPS.hlsl");
-
 
 	pbrRT = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
 	legacyRT = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
@@ -212,11 +211,11 @@ void EX_PBR::Update()
 
 		worldBuffer->Update(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
 
-		mesh->Set();
+		mesh->Set();//vertex, index
 
-		vs->Set();
+		//vs->Set();//vertex shader
 
-		ps->Set();
+		//ps->Set();
 
 		material->Set();
 

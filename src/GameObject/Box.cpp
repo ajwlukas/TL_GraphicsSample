@@ -4,7 +4,6 @@
 
 Box::Box()
 {
-
 	struct Vertex
 	{
 		float position[3];

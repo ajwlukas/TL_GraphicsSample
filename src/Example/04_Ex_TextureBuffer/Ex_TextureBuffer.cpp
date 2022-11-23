@@ -97,6 +97,7 @@ void Ex_TextureBuffer::Update()
 
 			textureBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 
+
 			TL_Graphics::RenderSystem::Get()->DrawInstanced(4);//파이프 라인의 내용을 이행(렌더타겟에 Draw)
 		}
 	}

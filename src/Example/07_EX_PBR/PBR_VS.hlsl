@@ -11,9 +11,9 @@ cbuffer World : register(b1)
 };
 
 ///버텍스용
-float4 LocalToWorld(float3 localPos)//로컬 포지션을 월드로
+float4 LocalToWorld(float4 localPos)//로컬 포지션을 월드로
 {
-    return mul(world, float4(localPos, 1.0f));
+    return mul(world, localPos);
 }
 
 float4 WorldToNDC(float4 worldPos)
@@ -23,7 +23,7 @@ float4 WorldToNDC(float4 worldPos)
     
     return ret;
 }
-float4 LocalToNDC(float3 localPos)//로컬 포지션을 월드로
+float4 LocalToNDC(float4 localPos)//로컬 포지션을 월드로
 {
     float4 ret = LocalToWorld(localPos);
     ret = WorldToNDC(ret);
@@ -70,7 +70,8 @@ VSout main(VSin input)
 {
     VSout output;
     
-    output.pos = LocalToNDC(input.pos);
+    output.posW = LocalToWorld(float4(input.pos, 1.0f));
+    output.pos = WorldToNDC(float4(output.posW, 1.0f));
     output.normal = LocalToWorldDirOnly(input.normal);
     
     return output;
