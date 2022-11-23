@@ -116,7 +116,7 @@
     </PreLinkEvent>
     <PostBuildEvent>
       <Command>
-      </Command>
+xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -148,7 +148,7 @@
     </PreLinkEvent>
     <PostBuildEvent>
       <Command>
-      </Command>
+xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -176,7 +176,7 @@
     </PreLinkEvent>
     <PostBuildEvent>
       <Command>
-      </Command>
+xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -208,7 +208,7 @@
     </PreLinkEvent>
     <PostBuildEvent>
       <Command>
-      </Command>
+xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -263,6 +263,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="src\Example\02_Ex_BoxCamera\BoxCameraPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="src\Example\02_Ex_BoxCamera\BoxCameraVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="src\Example\06_EX_RTT\BoxPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>

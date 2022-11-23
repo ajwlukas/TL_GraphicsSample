@@ -153,5 +153,7 @@
     <FxCompile Include="src\Example\06_EX_RTT\BoxVS.hlsl" />
     <FxCompile Include="src\Example\06_EX_RTT\CanvasPS.hlsl" />
     <FxCompile Include="src\Example\06_EX_RTT\CanvasVS.hlsl" />
+    <FxCompile Include="src\Example\02_Ex_BoxCamera\BoxCameraPS.hlsl" />
+    <FxCompile Include="src\Example\02_Ex_BoxCamera\BoxCameraVS.hlsl" />
   </ItemGroup>
 </Project>
