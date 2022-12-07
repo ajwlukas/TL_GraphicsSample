@@ -84,6 +84,9 @@
     <ClInclude Include="src\GameObject\TL_Box.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="src\Example\09_Ex_Hyobin\Ex_Hyobin.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Client.cpp">
@@ -126,6 +129,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObject\TL_Box.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Example\09_Ex_Hyobin\Ex_Hyobin.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

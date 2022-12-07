@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,7 +127,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,7 +157,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -187,7 +187,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -223,6 +223,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
     <ClInclude Include="src\Example\07_EX_PBR\EX_PBR.h" />
     <ClInclude Include="src\Example\08_Ex_Light\Ex_Light.h" />
     <ClInclude Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.h" />
+    <ClInclude Include="src\Example\09_Ex_Hyobin\Ex_Hyobin.h" />
     <ClInclude Include="src\Example\IExample.h" />
     <ClInclude Include="src\framework.h" />
     <ClInclude Include="src\GameObject\Box.h" />
@@ -243,6 +244,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
     <ClCompile Include="src\Example\07_EX_PBR\EX_PBR.cpp" />
     <ClCompile Include="src\Example\08_Ex_Light\Ex_Light.cpp" />
     <ClCompile Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.cpp" />
+    <ClCompile Include="src\Example\09_Ex_Hyobin\Ex_Hyobin.cpp" />
     <ClCompile Include="src\GameObject\Box.cpp" />
     <ClCompile Include="src\GameObject\TL_Box.cpp" />
     <ClCompile Include="src\Helper\Transform.cpp" />
@@ -257,6 +259,9 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
   <ItemGroup>
     <ProjectReference Include="..\jw_Input\ajwKeyBoard.vcxproj">
       <Project>{6b57b248-7d34-4506-aa64-2997079e14a7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\TL_FBXLibrary\TL_FBXLibrary.vcxproj">
+      <Project>{491a7049-49e1-4821-8c31-9bf6a863f18e}</Project>
     </ProjectReference>
     <ProjectReference Include="..\TL_Graphics\TL_Graphics.vcxproj">
       <Project>{045f76b3-d186-4e4a-acee-5cbdb4617de3}</Project>
