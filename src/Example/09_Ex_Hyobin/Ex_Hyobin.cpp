@@ -1,5 +1,3 @@
-
-
 #include "Ex_Hyobin.h"
 
 void Ex_Hyobin::Init()

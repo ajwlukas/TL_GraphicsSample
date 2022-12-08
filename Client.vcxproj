@@ -157,7 +157,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -257,6 +257,9 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
     <Image Include="src\small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ImGui\ImGui.vcxproj">
+      <Project>{fd75909f-fcc6-4db5-aeb3-dd4949ed3a04}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\jw_Input\ajwKeyBoard.vcxproj">
       <Project>{6b57b248-7d34-4506-aa64-2997079e14a7}</Project>
     </ProjectReference>

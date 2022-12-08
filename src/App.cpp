@@ -35,6 +35,20 @@ App::~App()
 	example->UnInit();
 }
 
+void App::PreRender()
+{
+}
+
+void App::Render()
+{
+}
+
+void App::PostRender()
+{
+}
+
+#include "imgui.h"
+
 void App::Update()
 {
 	example->Update();
