@@ -32,7 +32,7 @@ void Ex_Hyobin::Init()
 	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::MyVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
 
 	//attirbute Data
-	attribute.AddData(_meshList[0]->m_pMeshInfo->optimizeVertex.data(), _meshList[0]->m_pMeshInfo->optimizeVertex.size() * sizeof(_meshList[0]->m_pMeshInfo->optimizeVertex[0]) );
+	attribute.AddData(_meshList[0]->m_pMeshInfo->optimizeVertex.data(), _meshList[0]->m_pMeshInfo->optimizeVertex.size() * sizeof(_meshList[0]->m_pMeshInfo->optimizeVertex[0]));
 
 	std::vector<UINT> indices(_meshList[0]->m_pMeshInfo->optimizeFace.size() * 3);
 
@@ -44,7 +44,7 @@ void Ex_Hyobin::Init()
 		}
 	}
 
-	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute,indices.data(), indices.size(), TL_Graphics::E_MESH_TYPE::STATIC);
+	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, indices.data(), indices.size(), TL_Graphics::E_MESH_TYPE::STATIC);
 
 
 	TL_Graphics::MaterialDesc matDesc;
@@ -72,38 +72,43 @@ void Ex_Hyobin::UnInit()
 	delete input;
 }
 
+#include "imgui.h"
+
 void Ex_Hyobin::Update()
+{
+	ImGuiIO& io = ImGui::GetIO();
+	if (!io.WantCaptureMouse || !io.WantCaptureKeyboard)
+		input->Update();//키 보드 마우스 업데이트
+
+	CameraMove();//카메라 포지션 무브
+
+	camT.UpdateWorld();
+
+	camera->Update(camT.GetWorldMatrix());
+
+}
+
+void Ex_Hyobin::PreRender()
 {
 	TL_Graphics::RenderSystem::Get()->Clear();//화면을 지우고
 
-	{
-		input->Update();//키보드 마우스 업데이트
-	}
+	camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
+	camera->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
 
-	{
+}
 
-		CameraMove();//카메라 포지션 무브
-
-		camT.UpdateWorld();
-
-		camera->Update(camT.GetWorldMatrix());
-
-		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
-		camera->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
-	}
-
-
-			//directionalLightBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
-
+void Ex_Hyobin::Render()
+{
 	mesh->Set();
 	material->Set();
 
 	worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
 
 	TL_Graphics::RenderSystem::Get()->Draw();
+}
 
-
-	TL_Graphics::RenderSystem::Get()->Present();//그려놓은 렌더타겟을 출현 시킴
+void Ex_Hyobin::PostRender()
+{
 }
 
 void Ex_Hyobin::CameraMove()
@@ -126,6 +131,47 @@ void Ex_Hyobin::CameraMove()
 		camT.Pos() -= camT.Up() * 0.01f;
 	if (input->Press('E'))
 		camT.Pos() += camT.Up() * 0.01f;
+}
+
+void Ex_Hyobin::ImGui()
+{
+	// 1. Show the big demo window (Most of the sample code is in ImGui::ShowDemoWindow()! You can browse its code to learn more about Dear ImGui!).
+	if (show_demo_window)
+		ImGui::ShowDemoWindow(&show_demo_window);
+
+	// 2. Show a simple window that we create ourselves. We use a Begin/End pair to create a named window.
+	{
+		static float f = 0.0f;
+		static int counter = 0;
+
+		ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+
+		ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+		ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+		ImGui::Checkbox("Another Window", &show_another_window);
+
+		ImGui::SliderFloat("float", &f, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+		ImGui::ColorEdit3("clear color", (float*)&clear_color); // Edit 3 floats representing a color
+
+		if (ImGui::Button("Button"))                            // Buttons return true when clicked (most widgets return true when edited/activated)
+			counter++;
+		ImGui::SameLine();
+		ImGui::Text("counter = %d", counter);
+
+		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+		ImGui::End();
+	}
+
+	// 3. Show another simple window.
+	if (show_another_window)
+	{
+		ImGui::Begin("Another Window", &show_another_window);   // Pass a pointer to our bool variable (the window will have a closing button that will clear the bool when clicked)
+		ImGui::Text("Hello from another window!");
+		if (ImGui::Button("Close Me"))
+			show_another_window = false;
+		ImGui::End();
+	}
+
 }
 
 //void Ex_Hyobin::BoxMove()

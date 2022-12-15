@@ -6,13 +6,15 @@ public:
 	App();
 	~App();
 
+	void Update();
+
 	void PreRender();
 
 	void Render();
 
 	void PostRender();
 
-	void Update();
+	void ImGui();
 
 	class IExample* example;
 

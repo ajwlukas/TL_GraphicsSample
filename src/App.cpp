@@ -35,21 +35,27 @@ App::~App()
 	example->UnInit();
 }
 
+void App::Update()
+{
+	example->Update();
+}
+
 void App::PreRender()
 {
+	example->PreRender();
 }
 
 void App::Render()
 {
+	example->Render();
 }
 
 void App::PostRender()
 {
+	example->PostRender();
 }
 
-#include "imgui.h"
-
-void App::Update()
+void App::ImGui()
 {
-	example->Update();
+	example->ImGui();
 }
