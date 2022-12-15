@@ -27,8 +27,6 @@ void Ex_Light::UnInit()
 
 void Ex_Light::Update()
 {
-	TL_Graphics::RenderSystem::Get()->Clear();//화면을 지우고
-
 	{
 		input->Update();//키보드 마우스 업데이트
 	}
@@ -41,40 +39,68 @@ void Ex_Light::Update()
 
 		camera->Update(camT.GetWorldMatrix());
 
-		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
-		camera->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
 	}
 
+	BoxMove();
 
-			directionalLightBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
+}
 
-			BoxMove();
+void Ex_Light::PreRender()
+{
+	TL_Graphics::RenderSystem::Get()->Clear();//화면을 지우고
 
-			box.Render();
+	directionalLightBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
+
+
+	camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
+	camera->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
+
+	TL_Graphics::RenderSystem::Get()->BeginSetLight();
+
+	TL_Graphics::RenderSystem::Get()->SetLight(&directionalLight);
+
+	TL_Graphics::RenderSystem::Get()->SetLight(&directionalLight);
+	
+	TL_Graphics::RenderSystem::Get()->EndSetLight();
+}
+
+void Ex_Light::Render()
+{
+	box.Render();
+}
+
+void Ex_Light::PostRender()
+{
+
 
 	TL_Graphics::RenderSystem::Get()->Present();//그려놓은 렌더타겟을 출현 시킴
 }
+
+void Ex_Light::ImGui()
+{
+}
+
 
 void Ex_Light::CameraMove()
 {
 	if (input->Press(VK_LBUTTON))
 	{
-		camT.Rot().y += input->MouseDiff().x * 0.01f;
-		camT.Rot().x += input->MouseDiff().y * 0.01f;
+		camT.Rot().y += input->MouseDiff().x * 0.001f;
+		camT.Rot().x += input->MouseDiff().y * 0.001f;
 	}
 
 	if (input->Press('W'))
-		camT.Pos() += camT.Forward() * 0.01f;
+		camT.Pos() += camT.Forward() * 0.001f;
 	if (input->Press('S'))
-		camT.Pos() -= camT.Forward() * 0.01f;
+		camT.Pos() -= camT.Forward() * 0.001f;
 	if (input->Press('A'))
-		camT.Pos() -= camT.Right() * 0.01f;
+		camT.Pos() -= camT.Right() * 0.001f;
 	if (input->Press('D'))
-		camT.Pos() += camT.Right() * 0.01f;
+		camT.Pos() += camT.Right() * 0.001f;
 	if (input->Press('Q'))
-		camT.Pos() -= camT.Up() * 0.01f;
+		camT.Pos() -= camT.Up() * 0.001f;
 	if (input->Press('E'))
-		camT.Pos() += camT.Up() * 0.01f;
+		camT.Pos() += camT.Up() * 0.001f;
 }
 
 void Ex_Light::BoxMove()

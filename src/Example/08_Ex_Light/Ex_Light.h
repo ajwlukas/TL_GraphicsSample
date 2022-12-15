@@ -25,6 +25,11 @@ public:
 	virtual void UnInit() override;
 	virtual void Update() override;
 
+	virtual void PreRender() override;
+	virtual void Render() override;
+	virtual void PostRender() override;
+	virtual void ImGui() override;
+
 	ajwCommon::Input* input;
 
 	TL_Graphics::ICamera* camera;
@@ -36,4 +41,6 @@ public:
 
 	TL_Graphics::DirectionalLight directionalLight;
 	TL_Graphics::IConstantBuffer* directionalLightBuffer;
+
+	// IExample을(를) 통해 상속됨
 };

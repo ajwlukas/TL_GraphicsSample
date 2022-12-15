@@ -98,7 +98,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-
             app->Update();
 
             app->PreRender();
@@ -118,7 +117,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             ImGui::Render();
             ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
-            TL_Graphics::RenderSystem::Get()->Present();//그려놓은 렌더타겟을 출현 시킴
         }
     }
 

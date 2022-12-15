@@ -61,6 +61,14 @@ public:
 	TL_Graphics::DirectionalLight directionalLight;
 	TL_Graphics::IConstantBuffer* directionalLightBuffer;
 
+	struct Material
+	{
+		float metallic[4];
+		float roughness[4];
+	}mat;
+
+	TL_Graphics::IConstantBuffer* matInfo;
+
 
 	bool show_demo_window = true;
 	bool show_another_window = false;

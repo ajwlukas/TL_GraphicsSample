@@ -16,6 +16,15 @@ private:
 	TL_Graphics::IMesh* mesh;
 	TL_Graphics::IMaterial* material;
 
+	struct Material
+	{
+		float metallic[4];
+		float roughness[4];
+	}mat;
+
+	TL_Graphics::IConstantBuffer* matInfo;
+
+
 public:
 	Transform transform;
 
