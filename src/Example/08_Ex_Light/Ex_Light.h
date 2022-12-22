@@ -42,5 +42,13 @@ public:
 	TL_Graphics::DirectionalLight directionalLight;
 	TL_Graphics::IConstantBuffer* directionalLightBuffer;
 
+	__declspec(align(16)) struct Rough_Metal
+	{
+		float metallic = 1.0f;
+		float roughness = 1.0f;
+	}mat;
+
+	TL_Graphics::IConstantBuffer* materialBuffer;
+
 	// IExample을(를) 통해 상속됨
 };

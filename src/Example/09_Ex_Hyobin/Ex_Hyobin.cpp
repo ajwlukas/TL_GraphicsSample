@@ -117,7 +117,6 @@ void Ex_Hyobin::Render()
 
 void Ex_Hyobin::PostRender()
 {
-	TL_Graphics::RenderSystem::Get()->Present();//그려놓은 렌더타겟을 출현 시킴
 }
 
 void Ex_Hyobin::CameraMove()

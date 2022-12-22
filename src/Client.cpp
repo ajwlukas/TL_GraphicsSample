@@ -98,6 +98,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
+
+            // Start the Dear ImGui frame
+            ImGui_ImplDX11_NewFrame();
+            ImGui_ImplWin32_NewFrame();
+            ImGui::NewFrame();
+
             app->Update();
 
             app->PreRender();
@@ -106,10 +112,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
             app->PostRender();
 
-            // Start the Dear ImGui frame
-            ImGui_ImplDX11_NewFrame();
-            ImGui_ImplWin32_NewFrame();
-            ImGui::NewFrame();
 
             app->ImGui();
 
@@ -117,6 +119,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             ImGui::Render();
             ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
+
+            TL_Graphics::RenderSystem::Get()->Present();//그려놓은 렌더타겟을 출현 시킴
         }
     }
 

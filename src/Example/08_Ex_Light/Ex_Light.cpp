@@ -1,5 +1,7 @@
 #include "Ex_Light.h"
 
+#include "imgui.h"
+
 void Ex_Light::Init()
 {
 	input = new ajwCommon::Input();
@@ -8,17 +10,20 @@ void Ex_Light::Init()
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
 
-	directionalLight.direction = { 1,0,0 };
+	directionalLight.direction = { 0,0, 1 };
 
 
 	directionalLightBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&directionalLight, sizeof(directionalLight));
+
+	materialBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&mat, sizeof(mat));
 
 }
 
 void Ex_Light::UnInit()
 {
-	TL_Graphics::RenderSystem::Get()->Return(camera);
+	TL_Graphics::RenderSystem::Get()->Return(materialBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(directionalLightBuffer);
+	TL_Graphics::RenderSystem::Get()->Return(camera);
 
 	TL_Graphics::RenderSystem::Delete();
 
@@ -27,9 +32,9 @@ void Ex_Light::UnInit()
 
 void Ex_Light::Update()
 {
-	{
+	ImGuiIO& io = ImGui::GetIO();
+	if (!io.WantCaptureMouse || !io.WantCaptureKeyboard)
 		input->Update();//키보드 마우스 업데이트
-	}
 
 	{
 
@@ -66,6 +71,10 @@ void Ex_Light::PreRender()
 
 void Ex_Light::Render()
 {
+	materialBuffer->Update(&mat, sizeof(mat));
+
+	materialBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
+
 	box.Render();
 }
 
@@ -73,11 +82,16 @@ void Ex_Light::PostRender()
 {
 
 
-	TL_Graphics::RenderSystem::Get()->Present();//그려놓은 렌더타겟을 출현 시킴
 }
 
 void Ex_Light::ImGui()
 {
+	ImGui::Begin("material");                          // Create a window called "Hello, world!" and append into it.
+
+	ImGui::SliderFloat("metallic", &mat.metallic, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+	ImGui::SliderFloat("roughness", &mat.roughness, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+
+	ImGui::End();
 }
 
 
