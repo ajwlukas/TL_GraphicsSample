@@ -92,6 +92,19 @@ void Ex_Light::ImGui()
 	ImGui::SliderFloat("roughness", &mat.roughness, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
 
 	ImGui::End();
+
+
+	ImGui::Begin("light");
+
+	ImGui::SliderFloat("intensity", &directionalLight.intensity, 0, 1.0f);
+
+	ImGui::SliderFloat3("direction", (float*)&directionalLight.direction, 0, 1.0f);
+
+	ImGui::ColorPicker3("color", (float*)&directionalLight.color);            // Edit 1 float using a slider from 0.0f to 1.0f
+
+
+
+	ImGui::End();
 }
 
 
