@@ -12,6 +12,10 @@ void Ex_Light::Init()
 
 	directionalLight.direction = { 0,0, 1 };
 
+	pointLight.intensity = 1.0f;
+	pointLight.attenuation = { 1.0f, 0.007, 0.0002 };
+	pointLight.range = 10.0f;
+
 
 	directionalLightBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&directionalLight, sizeof(directionalLight));
 
@@ -63,8 +67,9 @@ void Ex_Light::PreRender()
 	TL_Graphics::RenderSystem::Get()->BeginSetLight();
 
 	TL_Graphics::RenderSystem::Get()->SetLight(&directionalLight);
+	//TL_Graphics::RenderSystem::Get()->SetLight(&directionalLight);
 
-	TL_Graphics::RenderSystem::Get()->SetLight(&directionalLight);
+	TL_Graphics::RenderSystem::Get()->SetLight(&pointLight);
 	
 	TL_Graphics::RenderSystem::Get()->EndSetLight();
 }
@@ -101,6 +106,15 @@ void Ex_Light::ImGui()
 	ImGui::SliderFloat3("direction", (float*)&directionalLight.direction, 0, 1.0f);
 
 	ImGui::ColorPicker3("color", (float*)&directionalLight.color);            // Edit 1 float using a slider from 0.0f to 1.0f
+
+
+	//pointLight
+	ImGui::SliderFloat("intensityP", &pointLight.intensity, 0, 1.0f);
+
+	ImGui::SliderFloat3("attenuation", (float*)&pointLight.attenuation, 0, 1.0f);
+	ImGui::SliderFloat3("position", (float*)&pointLight.position, -10.0f, 10.0f);
+
+	ImGui::ColorPicker3("colorP", (float*)&pointLight.color);            // Edit 1 float using a slider from 0.0f to 1.0f
 
 
 

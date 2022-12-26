@@ -40,6 +40,9 @@ public:
 	void BoxMove();
 
 	TL_Graphics::DirectionalLight directionalLight;
+
+	TL_Graphics::PointLight pointLight;
+
 	TL_Graphics::IConstantBuffer* directionalLightBuffer;
 
 	__declspec(align(16)) struct Rough_Metal
