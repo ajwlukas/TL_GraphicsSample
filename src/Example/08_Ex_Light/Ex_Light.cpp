@@ -16,6 +16,14 @@ void Ex_Light::Init()
 	pointLight.attenuation = { 1.0f, 0.007, 0.0002 };
 	pointLight.range = 10.0f;
 
+	spotLight.attenuation = { 1.0f, 0.007, 0.0002 };
+	spotLight.color = { 1.0f, 1.0f, 1.0f };
+	spotLight.direction = { 0.0f, 0.0f, 1.0f };
+	spotLight.intensity = 1.0f;
+	spotLight.position = { 0.0f, 0.0f , -10.0f };
+	spotLight.range = 10.0f;
+	spotLight.spot = 8.0f;
+
 
 	directionalLightBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&directionalLight, sizeof(directionalLight));
 
@@ -70,6 +78,7 @@ void Ex_Light::PreRender()
 	//TL_Graphics::RenderSystem::Get()->SetLight(&directionalLight);
 
 	TL_Graphics::RenderSystem::Get()->SetLight(&pointLight);
+	TL_Graphics::RenderSystem::Get()->SetLight(&spotLight);
 	
 	TL_Graphics::RenderSystem::Get()->EndSetLight();
 }
@@ -115,7 +124,29 @@ void Ex_Light::ImGui()
 	ImGui::SliderFloat3("position", (float*)&pointLight.position, -10.0f, 10.0f);
 
 	ImGui::ColorPicker3("colorP", (float*)&pointLight.color);            // Edit 1 float using a slider from 0.0f to 1.0f
+	
 
+	//spotLight
+	ImGui::SliderFloat("intensitySpot", &spotLight.intensity, 0, 1.0f);
+
+	ImGui::SliderFloat3("attenuationSpot", (float*)&spotLight.attenuation, 0, 1.0f);
+	ImGui::SliderFloat3("positionSpot", (float*)&spotLight.position, -10.0f, 10.0f);
+
+	ImGui::ColorPicker3("colorSpot", (float*)&spotLight.color);            // Edit 1 float using a slider from 0.0f to 1.0f
+
+	ImGui::SliderFloat3("directionSpot", (float*)&spotLight.direction, -1.0f, 1.0f);
+
+
+	ImGui::SliderFloat("angleSpot", &spotLight.spot, 0, 20.0f);
+
+
+	/*spotLight.attenuation = { 1.0f, 0.007, 0.0002 };
+	spotLight.color = { 1.0f, 1.0f, 1.0f };
+	spotLight.direction = { 0.0f, 0.0f, 1.0f };
+	spotLight.intensity = 1.0f;
+	spotLight.position = { 0.0f, 0.0f , -10.0f };
+	spotLight.range = 10.0f;
+	spotLight.spot = 8.0f;*/
 
 
 	ImGui::End();

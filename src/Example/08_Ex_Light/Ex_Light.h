@@ -43,6 +43,8 @@ public:
 
 	TL_Graphics::PointLight pointLight;
 
+	TL_Graphics::SpotLight spotLight;
+
 	TL_Graphics::IConstantBuffer* directionalLightBuffer;
 
 	__declspec(align(16)) struct Rough_Metal
