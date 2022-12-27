@@ -25,11 +25,11 @@ void Ex_Hyobin::Init()
 	TL_Graphics::VertexAttribute attribute;
 
 	//attirbute Desc
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::MyVertex::pos), TL_Graphics::DataType::FLOAT, "POSITION");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::MyVertex::uv), TL_Graphics::DataType::FLOAT, "UV");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::MyVertex::normal), TL_Graphics::DataType::FLOAT, "NORMAL");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::MyVertex::tangent), TL_Graphics::DataType::FLOAT, "TANGENT");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::MyVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::pos), TL_Graphics::DataType::FLOAT, "POSITION");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::uv), TL_Graphics::DataType::FLOAT, "UV");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::normal), TL_Graphics::DataType::FLOAT, "NORMAL");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::tangent), TL_Graphics::DataType::FLOAT, "TANGENT");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
 
 	//attirbute Data
 	attribute.AddData(_meshList[0]->m_pMeshInfo->optimizeVertex.data(), _meshList[0]->m_pMeshInfo->optimizeVertex.size() * sizeof(_meshList[0]->m_pMeshInfo->optimizeVertex[0]));

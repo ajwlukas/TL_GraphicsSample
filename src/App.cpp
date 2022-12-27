@@ -10,6 +10,7 @@
 #include "Example\07_EX_PBR\EX_PBR.h"
 #include "Example\08_Ex_Light\Ex_Light.h"
 #include "Example\09_Ex_Hyobin\Ex_Hyobin.h"
+#include "Example\10_Ex_Deferred\Ex_Deferred.h"
 
 App::App()
 {
@@ -21,8 +22,9 @@ App::App()
 	//example = new Ex_StateChange();
 	//example = new EX_RTT();
 	//example = new EX_PBR();
-	example = new Ex_Light();
+	//example = new Ex_Light();
 	//example = new Ex_Hyobin();
+	example = new Ex_Deferred();
 
 	//example = new Ex_Light();
 

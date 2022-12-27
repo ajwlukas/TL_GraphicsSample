@@ -224,6 +224,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
     <ClInclude Include="src\Example\08_Ex_Light\Ex_Light.h" />
     <ClInclude Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.h" />
     <ClInclude Include="src\Example\09_Ex_Hyobin\Ex_Hyobin.h" />
+    <ClInclude Include="src\Example\10_Ex_Deferred\Ex_Deferred.h" />
     <ClInclude Include="src\Example\IExample.h" />
     <ClInclude Include="src\framework.h" />
     <ClInclude Include="src\GameObject\Box.h" />
@@ -245,6 +246,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
     <ClCompile Include="src\Example\08_Ex_Light\Ex_Light.cpp" />
     <ClCompile Include="src\Example\04_Ex_TextureBuffer\Ex_TextureBuffer.cpp" />
     <ClCompile Include="src\Example\09_Ex_Hyobin\Ex_Hyobin.cpp" />
+    <ClCompile Include="src\Example\10_Ex_Deferred\Ex_Deferred.cpp" />
     <ClCompile Include="src\GameObject\Box.cpp" />
     <ClCompile Include="src\GameObject\TL_Box.cpp" />
     <ClCompile Include="src\Helper\Transform.cpp" />
