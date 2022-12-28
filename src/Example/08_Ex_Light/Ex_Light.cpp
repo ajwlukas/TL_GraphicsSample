@@ -10,20 +10,6 @@ void Ex_Light::Init()
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
 
-	directionalLight.direction = { 0,0, 1 };
-
-	pointLight.intensity = 1.0f;
-	pointLight.attenuation = { 1.0f, 0.007, 0.0002 };
-	pointLight.range = 10.0f;
-
-	spotLight.attenuation = { 1.0f, 0.007, 0.0002 };
-	spotLight.color = { 1.0f, 1.0f, 1.0f };
-	spotLight.direction = { 0.0f, 0.0f, 1.0f };
-	spotLight.intensity = 1.0f;
-	spotLight.position = { 0.0f, 0.0f , -10.0f };
-	spotLight.range = 10.0f;
-	spotLight.spot = 8.0f;
-
 
 	directionalLightBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&directionalLight, sizeof(directionalLight));
 
@@ -57,6 +43,9 @@ void Ex_Light::Update()
 		camera->Update(camT.GetWorldMatrix());
 
 	}
+
+
+	//box.transform.Rot().y += 0.0003f;
 
 	BoxMove();
 
@@ -112,7 +101,7 @@ void Ex_Light::ImGui()
 
 	ImGui::SliderFloat("intensity", &directionalLight.intensity, 0, 1.0f);
 
-	ImGui::SliderFloat3("direction", (float*)&directionalLight.direction, 0, 1.0f);
+	ImGui::SliderFloat3("direction", (float*)&directionalLight.direction, -1.0f, 1.0f);
 
 	ImGui::ColorPicker3("color", (float*)&directionalLight.color);            // Edit 1 float using a slider from 0.0f to 1.0f
 
