@@ -109,7 +109,7 @@ TL_Box::~TL_Box()
 void TL_Box::Render()
 {
 	mesh->Set();
-	material->Set();
+	//material->Set();
 	worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
 
 	TL_Graphics::RenderSystem::Get()->Draw();

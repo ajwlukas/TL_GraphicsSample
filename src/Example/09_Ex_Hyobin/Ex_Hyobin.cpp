@@ -20,7 +20,7 @@ void Ex_Hyobin::Init()
 
 	auto _meshList = m_FBXLoader->GetMeshList();
 
-	auto faces = _meshList[0]->m_pMeshInfo->optimizeFace;
+	//auto faces = _meshList[0]->m_pMeshInfo->optimizeFace;
 
 	TL_Graphics::VertexAttribute attribute;
 
@@ -31,20 +31,20 @@ void Ex_Hyobin::Init()
 	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::tangent), TL_Graphics::DataType::FLOAT, "TANGENT");
 	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
 
-	//attirbute Data
-	attribute.AddData(_meshList[0]->m_pMeshInfo->optimizeVertex.data(), _meshList[0]->m_pMeshInfo->optimizeVertex.size() * sizeof(_meshList[0]->m_pMeshInfo->optimizeVertex[0]));
+	////attirbute Data
+	//attribute.AddData(_meshList[0]->m_pMeshInfo->optimizeVertex.data(), _meshList[0]->m_pMeshInfo->optimizeVertex.size() * sizeof(_meshList[0]->m_pMeshInfo->optimizeVertex[0]));
 
-	std::vector<UINT> indices(_meshList[0]->m_pMeshInfo->optimizeFace.size() * 3);
+	//std::vector<UINT> indices(_meshList[0]->m_pMeshInfo->optimizeFace.size() * 3);
 
-	for (int i = 0; i < _meshList[0]->m_pMeshInfo->optimizeFace.size(); i++)
-	{
-		for (int j = 0; j < 3; j++)
-		{
-			indices[j + 3 * i] = _meshList[0]->m_pMeshInfo->optimizeFace[i].index[j];
-		}
-	}
+	//for (int i = 0; i < _meshList[0]->m_pMeshInfo->optimizeFace.size(); i++)
+	//{
+	//	for (int j = 0; j < 3; j++)
+	//	{
+	//		indices[j + 3 * i] = _meshList[0]->m_pMeshInfo->optimizeFace[i].index[j];
+	//	}
+	//}
 
-	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, indices.data(), indices.size(), TL_Graphics::E_MESH_TYPE::STATIC);
+	/*mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, indices.data(), indices.size(), TL_Graphics::E_MESH_TYPE::STATIC);*/
 
 
 	TL_Graphics::MaterialDesc matDesc;

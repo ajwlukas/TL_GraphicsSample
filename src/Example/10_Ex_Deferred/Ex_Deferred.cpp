@@ -42,8 +42,8 @@ void Ex_Deferred::Init()
 	UINT indicies[]
 		=
 	{
-		0,1,2,
-		1,3,2,
+		0,2,1,
+		1,2,3,
 	};
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), TL_Graphics::E_MESH_TYPE::SCREENSPACE);
@@ -99,18 +99,7 @@ void Ex_Deferred::PreRender()
 {
 	TL_Graphics::RenderSystem::Get()->Clear();//화면을 지우고
 
-	albedo		->Clear();
-	normal_world->Clear();
-	pos_world	->Clear();
-	metalness	->Clear();
-	roughness	->Clear();
-
-
-	albedo		 ->SetRT(0);
-	normal_world ->SetRT(1);
-	pos_world	 ->SetRT(2);
-	metalness	 ->SetRT(3);
-	roughness	 ->SetRT(4);
+	TL_Graphics::RenderSystem::Get()->PreRender();
 
 
 	camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
@@ -119,8 +108,6 @@ void Ex_Deferred::PreRender()
 	TL_Graphics::RenderSystem::Get()->BeginSetLight();
 
 	TL_Graphics::RenderSystem::Get()->SetLight(&directionalLight);
-	//TL_Graphics::RenderSystem::Get()->SetLight(&directionalLight);
-
 	TL_Graphics::RenderSystem::Get()->SetLight(&pointLight);
 	TL_Graphics::RenderSystem::Get()->SetLight(&spotLight);
 
@@ -130,31 +117,15 @@ void Ex_Deferred::PreRender()
 void Ex_Deferred::Render()
 {
 	materialBuffer->Update(&mat, sizeof(mat));
-
 	materialBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
-
-	G_BufferShaderPS->Set();
 
 	box.Render();
 }
 
 void Ex_Deferred::PostRender()
 {
-	TL_Graphics::RenderSystem::Get()->UnSetAllRenderTargets();
 
-	TL_Graphics::RenderSystem::Get()->SetSwapChainRenderTargetView(0);
-
-	albedo->SetT(TL_Graphics::E_SHADER_TYPE::PS, 20);
-	normal_world->SetT(TL_Graphics::E_SHADER_TYPE::PS, 21);
-	pos_world->SetT(TL_Graphics::E_SHADER_TYPE::PS, 22);
-	metalness->SetT(TL_Graphics::E_SHADER_TYPE::PS, 23);
-	roughness->SetT(TL_Graphics::E_SHADER_TYPE::PS, 24);
-
-	mesh->Set();
-
-	material->Set();
-
-	TL_Graphics::RenderSystem::Get()->Draw();
+	TL_Graphics::RenderSystem::Get()->PostRender();
 
 }
 
