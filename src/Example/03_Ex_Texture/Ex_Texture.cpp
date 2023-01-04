@@ -33,7 +33,7 @@ void Ex_Texture::Init()
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/TextureVS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/TexturePS.hlsl");
+	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer( &(squareT.GetWorldMatrix()), sizeof(squareT.GetWorldMatrix()));
 

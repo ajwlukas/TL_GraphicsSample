@@ -50,7 +50,7 @@ void Ex_Hyobin::Init()
 	TL_Graphics::MaterialDesc matDesc;
 	matDesc.albedoMapFileName = L"Texture/Wooden Crate_Crate_BaseColor.png";
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/TL_PS.hlsl", matDesc);
+	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(matDesc);
 
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
 

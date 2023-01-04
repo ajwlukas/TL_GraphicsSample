@@ -96,7 +96,7 @@ void EX_PBR::Init()
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/PBR_VS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/PBR_PS.hlsl");
+	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 
 	matData.color[0] = 1;
 	matData.color[1] = 0;
@@ -150,7 +150,7 @@ void EX_PBR::Init()
 
 	meshCanvas = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttributeCanvas, indiciesCanvas, sizeof(indiciesCanvas) / sizeof(indiciesCanvas[0]), L"Shader/PBRCanvasVS.hlsl");
 
-	materialCanvas = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/PBRCanvasPS.hlsl");
+	materialCanvas = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 
 	pbrRT = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
 	legacyRT = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();

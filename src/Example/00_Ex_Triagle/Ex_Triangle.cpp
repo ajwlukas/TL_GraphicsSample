@@ -22,7 +22,7 @@ void Ex_Triangle::Init()
 
     currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, 3, L"TriangleVS.hlsl");
 
-    currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"TrianglePS.hlsl");
+    currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 }
 
 void Ex_Triangle::UnInit()

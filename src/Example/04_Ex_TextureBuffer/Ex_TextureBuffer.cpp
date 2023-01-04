@@ -33,7 +33,7 @@ void Ex_TextureBuffer::Init()
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/TextureBufferVS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/TextureBufferPS.hlsl");
+	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 

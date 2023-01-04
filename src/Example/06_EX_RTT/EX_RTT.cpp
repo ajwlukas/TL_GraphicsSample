@@ -47,7 +47,7 @@ void EX_RTT::Init()
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/CanvasVS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/CanvasPS.hlsl");
+	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 
 	texture = TL_Graphics::RenderSystem::Get()->CreateTexture(L"Texture/CJY.jpg");
 

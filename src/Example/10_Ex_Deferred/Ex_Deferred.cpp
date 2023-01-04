@@ -48,7 +48,7 @@ void Ex_Deferred::Init()
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), TL_Graphics::E_MESH_TYPE::SCREENSPACE);
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/TL_DeferredPS.hlsl");
+	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 
 	G_BufferShaderPS = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/TL_G_Buffers.hlsl");
 }

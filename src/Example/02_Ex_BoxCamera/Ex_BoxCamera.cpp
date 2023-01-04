@@ -54,7 +54,7 @@ void Ex_BoxCamera::Init()
 
 	currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/BoxCameraVS.hlsl");
 
-	currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/BoxCameraPS.hlsl");
+	currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 
 	boxT.Pos().z = 10.0f;
 

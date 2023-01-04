@@ -23,7 +23,7 @@ void Ex_TriangleColor::Init()
 
     currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, 3, L"TriangleColorVS.hlsl");
 
-    currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"TriangleColorPS.hlsl");
+    currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 
     struct Color
     {

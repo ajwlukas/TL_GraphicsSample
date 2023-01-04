@@ -81,7 +81,7 @@ Box::Box()
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/BoxVS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(L"Shader/BoxPS.hlsl");
+	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
 
