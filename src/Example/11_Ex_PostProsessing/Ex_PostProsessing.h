@@ -16,7 +16,7 @@
 #include "GameObject\TL_Box.h"
 
 class ajwCommon::Input;
-class Ex_Deferred : public IExample
+class Ex_PostProsessing : public IExample
 {
 public:
 

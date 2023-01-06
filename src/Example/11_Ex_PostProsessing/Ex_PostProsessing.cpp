@@ -1,8 +1,8 @@
-#include "Ex_Deferred.h"
+#include "Ex_PostProsessing.h"
 
 #include "imgui.h"
 
-void Ex_Deferred::Init()
+void Ex_PostProsessing::Init()
 {
 	input = new ajwCommon::Input();
 
@@ -13,7 +13,7 @@ void Ex_Deferred::Init()
 
 }
 
-void Ex_Deferred::UnInit()
+void Ex_PostProsessing::UnInit()
 {
 	TL_Graphics::RenderSystem::Get()->Return(materialBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(camera);
@@ -23,7 +23,7 @@ void Ex_Deferred::UnInit()
 	delete input;
 }
 
-void Ex_Deferred::Update()
+void Ex_PostProsessing::Update()
 {
 	ImGuiIO& io = ImGui::GetIO();
 	if (!io.WantCaptureMouse || !io.WantCaptureKeyboard)
@@ -43,7 +43,7 @@ void Ex_Deferred::Update()
 
 }
 
-void Ex_Deferred::PreRender()
+void Ex_PostProsessing::PreRender()
 {
 	TL_Graphics::RenderSystem::Get()->Clear();//화면을 지우고
 
@@ -62,7 +62,7 @@ void Ex_Deferred::PreRender()
 	TL_Graphics::RenderSystem::Get()->EndSetLight();
 }
 
-void Ex_Deferred::Render()
+void Ex_PostProsessing::Render()
 {
 	materialBuffer->Update(&mat, sizeof(mat));
 	materialBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
@@ -70,14 +70,14 @@ void Ex_Deferred::Render()
 	box.Render();
 }
 
-void Ex_Deferred::PostRender()
+void Ex_PostProsessing::PostRender()
 {
 
 	TL_Graphics::RenderSystem::Get()->PostRender();
 
 }
 
-void Ex_Deferred::ImGui()
+void Ex_PostProsessing::ImGui()
 {
 	ImGui::Begin("material");                          // Create a window called "Hello, world!" and append into it.
 
@@ -118,12 +118,13 @@ void Ex_Deferred::ImGui()
 
 	ImGui::SliderFloat("angleSpot", &spotLight.spot, 0, 20.0f);
 
+	ImGui::SliderFloat3("CamPos",(float*)&camT.Pos(), -100, 100);
 
 	ImGui::End();
 }
 
 
-void Ex_Deferred::CameraMove()
+void Ex_PostProsessing::CameraMove()
 {
 	if (input->Press(VK_LBUTTON))
 	{
@@ -145,7 +146,7 @@ void Ex_Deferred::CameraMove()
 		camT.Pos() += camT.Up() * 0.001f;
 }
 
-void Ex_Deferred::BoxMove()
+void Ex_PostProsessing::BoxMove()
 {
 
 	if (input->Press(VK_UP))
