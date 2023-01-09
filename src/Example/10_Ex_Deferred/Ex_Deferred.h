@@ -37,6 +37,7 @@ public:
 	void CameraMove();
 
 	TL_Box box;
+	TL_Box box2;
 	void BoxMove();
 
 	//Lights

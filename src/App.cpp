@@ -24,9 +24,9 @@ App::App()
 	//example = new EX_RTT();
 	//example = new EX_PBR();
 	//example = new Ex_Light();
-	//example = new Ex_Hyobin();
+	example = new Ex_Hyobin();
 	//example = new Ex_Deferred();
-	example = new Ex_PostProsessing();
+	//example = new Ex_PostProsessing();
 
 	//example = new Ex_Light();
 

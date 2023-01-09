@@ -24,6 +24,29 @@ void Ex_Hyobin::Init()
 
 	auto* _prefab = _loader.GetPrefab();
 
+	TL_Graphics::VertexAttribute attribute;
+
+	//attirbute Desc
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::pos), TL_Graphics::DataType::FLOAT, "POSITION");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::uv), TL_Graphics::DataType::FLOAT, "UV");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::normal), TL_Graphics::DataType::FLOAT, "NORMAL");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::tangent), TL_Graphics::DataType::FLOAT, "TANGENT");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::index), TL_Graphics::DataType::UINT, "BONE_INDEX");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::weight1), TL_Graphics::DataType::FLOAT, "BONE_WEIGHT");
+
+	attribute.AddData(_prefab->m_MeshList[0]->vertex._skeletal.data(), _prefab->m_MeshList[0]->vertex._skeletal.size() * sizeof(_prefab->m_MeshList[0]->vertex._skeletal[0]));
+
+	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, (UINT*)_prefab->m_MeshList[0]->optimizeFace.data(), _prefab->m_MeshList[0]->optimizeFace.size() * 3, TL_Graphics::E_MESH_TYPE::SKINNING);
+
+	TL_Graphics::MaterialDesc matDesc;
+	matDesc.albedoMapFileName = L"Texture/Wooden Crate_Crate_BaseColor.png";
+
+	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(matDesc);
+
+
+	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
+
 	//tstring b = _prefab->m_MaterialList[0].diffuseFile;
 
 	int a = 10;
@@ -32,6 +55,9 @@ void Ex_Hyobin::Init()
 
 void Ex_Hyobin::UnInit()
 {
+	TL_Graphics::RenderSystem::Get()->Return(mesh);
+	TL_Graphics::RenderSystem::Get()->Return(material);
+
 	TL_Graphics::RenderSystem::Get()->Return(materialBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(camera);
 
@@ -84,7 +110,13 @@ void Ex_Hyobin::Render()
 	materialBuffer->Update(&mat, sizeof(mat));
 	materialBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
 
-	box.Render();
+	mesh->Set();
+	material->Set();
+
+	worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
+
+	TL_Graphics::RenderSystem::Get()->Draw();
+
 }
 
 void Ex_Hyobin::PostRender()
@@ -140,19 +172,19 @@ void Ex_Hyobin::ImGui()
 
 void Ex_Hyobin::BoxMove()
 {
-
-	if (input->Press(VK_UP))
-		box.transform.Rot().x += 0.0003f;
-	if (input->Press(VK_DOWN))
-		box.transform.Rot().x -= 0.0003f;
-	if (input->Press(VK_LEFT))
-		box.transform.Rot().y += 0.0003f;
-	if (input->Press(VK_RIGHT))
-		box.transform.Rot().y -= 0.0003f;
-
-	box.transform.UpdateWorld();
-
-	box.worldBuffer->Update(&(box.transform.GetWorldMatrix()),sizeof(box.transform.GetWorldMatrix()));
+		if (input->Press(VK_UP))
+			transform.Rot().x += 0.0003f;
+		if (input->Press(VK_DOWN))
+			transform.Rot().x -= 0.0003f;
+		if (input->Press(VK_LEFT))
+			transform.Rot().y += 0.0003f;
+		if (input->Press(VK_RIGHT))
+			transform.Rot().y -= 0.0003f;
+	
+		transform.UpdateWorld();
+	
+		worldBuffer->Update(&(transform.GetWorldMatrix()),sizeof(transform.GetWorldMatrix()));
+	
 }
 
 

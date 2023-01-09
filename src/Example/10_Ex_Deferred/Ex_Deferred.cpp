@@ -68,6 +68,7 @@ void Ex_Deferred::Render()
 	materialBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
 
 	box.Render();
+	box2.Render();
 }
 
 void Ex_Deferred::PostRender()

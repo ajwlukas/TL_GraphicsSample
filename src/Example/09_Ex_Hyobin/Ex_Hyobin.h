@@ -47,7 +47,6 @@ public:
 	Transform camT;
 	void CameraMove();
 
-	TL_Box box;
 	void BoxMove();
 
 
