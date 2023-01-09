@@ -70,4 +70,8 @@ public:
 	TL_Graphics::IConstantBuffer* materialBuffer;
 
 
+	void TestSkinning();
+	void TestStatic();
+	void TestTL();
+
 };
