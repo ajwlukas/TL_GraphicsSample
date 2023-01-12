@@ -8,6 +8,7 @@ void Ex_Hyobin::Init()
 
 	materialBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&mat, sizeof(mat));
 
+	control = TL_Graphics::RenderSystem::Get()->GetControlPanel();
 
 	
 
@@ -130,6 +131,20 @@ void Ex_Hyobin::ImGui()
 	ImGui::ColorPicker3("color", (float*)&directionalLight.color);            // Edit 1 float using a slider from 0.0f to 1.0f
 
 
+
+	ImGui::End();
+
+	ImGui::Begin("postProcess");
+
+	if (ImGui::Button("grid", { 100,100 }))
+	{
+		control->doGrid = !control->doGrid;
+	}
+
+	if (ImGui::Button("downSample", { 100,100 }))
+	{
+		control->doDownSample = !control->doDownSample;
+	}
 
 	ImGui::End();
 

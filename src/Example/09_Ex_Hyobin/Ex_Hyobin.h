@@ -69,6 +69,7 @@ public:
 
 	TL_Graphics::IConstantBuffer* materialBuffer;
 
+	TL_Graphics::ControlPanel* control;
 
 	void TestSkinning();
 	void TestStatic();
