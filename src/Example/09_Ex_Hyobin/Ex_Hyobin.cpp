@@ -214,13 +214,13 @@ void Ex_Hyobin::TestStatic()
 	TL_Graphics::VertexAttribute attribute;
 
 	//attirbute Desc
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::pos), TL_Graphics::DataType::FLOAT, "POSITION");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::uv), TL_Graphics::DataType::FLOAT, "UV");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::normal), TL_Graphics::DataType::FLOAT, "NORMAL");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::tangent), TL_Graphics::DataType::FLOAT, "TANGENT");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::pos), TL_Graphics::DataType::FLOAT, "POSITION");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::uv), TL_Graphics::DataType::FLOAT, "UV");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::normal), TL_Graphics::DataType::FLOAT, "NORMAL");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::tangent), TL_Graphics::DataType::FLOAT, "TANGENT");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
 
-	attribute.AddData(_prefab->m_MeshList[0]->vertex._static.data(), _prefab->m_MeshList[0]->vertex._static.size() * sizeof(_prefab->m_MeshList[0]->vertex._static[0]));
+	attribute.AddData(_prefab->m_MeshList[0]->StaticVertex.data(), _prefab->m_MeshList[0]->StaticVertex.size() * sizeof(_prefab->m_MeshList[0]->StaticVertex[0]));
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, (UINT*)_prefab->m_MeshList[0]->optimizeFace.data(), _prefab->m_MeshList[0]->optimizeFace.size() * 3, TL_Graphics::E_MESH_TYPE::STATIC);
 
@@ -252,21 +252,22 @@ void Ex_Hyobin::TestTL()
 	TL_Graphics::VertexAttribute attribute;
 
 	//attirbute Desc
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::pos), TL_Graphics::DataType::FLOAT, "POSITION");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::uv), TL_Graphics::DataType::FLOAT, "UV");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::normal), TL_Graphics::DataType::FLOAT, "NORMAL");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::tangent), TL_Graphics::DataType::FLOAT, "TANGENT");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeletalVertex::pos), TL_Graphics::DataType::FLOAT, "POSITION");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeletalVertex::uv), TL_Graphics::DataType::FLOAT, "UV");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeletalVertex::normal), TL_Graphics::DataType::FLOAT, "NORMAL");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeletalVertex::tangent), TL_Graphics::DataType::FLOAT, "TANGENT");
+	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeletalVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
 
-	attribute.AddData(_prefab->m_MeshList[0]->vertex._static.data(), _prefab->m_MeshList[0]->vertex._static.size() * sizeof(_prefab->m_MeshList[0]->vertex._static[0]));
+	attribute.AddData(_prefab->m_MeshList[0]->StaticVertex.data(), _prefab->m_MeshList[0]->StaticVertex.size() * sizeof(_prefab->m_MeshList[0]->StaticVertex[0]));
 
-	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, (UINT*)_prefab->m_MeshList[0]->optimizeFace.data(), _prefab->m_MeshList[0]->optimizeFace.size() * 3, TL_Graphics::E_MESH_TYPE::STATIC);
+	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, (UINT*)_prefab->m_MeshList[0]->indexBuffer[0].first.data(), _prefab->m_MeshList[0]->indexBuffer[0].first.size() * 3, TL_Graphics::E_MESH_TYPE::STATIC);
 
 	TL_Graphics::MaterialDesc matDesc;
 
 	std::wstring filePath = L"Resource/Rock_1/";
 
 	matDesc.baseColor_opcityFilePath = filePath + _prefab->m_MaterialList[0].diffuseFile;
+	//matDesc.baseColor_opcityFilePath = L"Texture/RGBTable16x1.png";
 	matDesc.roughness_specular_metallic_AOFilePath = filePath + _prefab->m_MaterialList[0].roughnessMapFile;
 	matDesc.normalFilePath = filePath + _prefab->m_MaterialList[0].normalMapFile;
 	matDesc.emissiveFilePath = filePath + _prefab->m_MaterialList[0].emissiveFile;
