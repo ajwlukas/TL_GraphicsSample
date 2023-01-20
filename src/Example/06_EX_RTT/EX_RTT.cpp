@@ -49,7 +49,7 @@ void EX_RTT::Init()
 
 	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 
-	texture = TL_Graphics::RenderSystem::Get()->CreateTexture(L"Texture/CJY.jpg");
+	texture = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CJY.jpg");
 
 }
 

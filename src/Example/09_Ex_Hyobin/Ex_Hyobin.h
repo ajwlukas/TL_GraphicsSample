@@ -75,4 +75,14 @@ public:
 	void TestStatic();
 	void TestTL();
 
+
+	__declspec(align(16)) struct Test
+	{
+		float flt = 1.0f;
+	}test;
+
+	TL_Graphics::IConstantBuffer* testBuffer;
+
+
+
 };

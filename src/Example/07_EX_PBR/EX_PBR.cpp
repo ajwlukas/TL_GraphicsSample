@@ -117,7 +117,7 @@ void EX_PBR::Init()
 
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
 
-	texture = TL_Graphics::RenderSystem::Get()->CreateTexture(L"Texture/CJY.jpg");
+	texture = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CJY.jpg");
 
 	///////Canvas
 	struct VertexCanvas

@@ -37,7 +37,7 @@ void Ex_TextureBuffer::Init()
 
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
-	texture = TL_Graphics::RenderSystem::Get()->CreateTexture( L"Texture/CJY.jpg");
+	texture = TL_Graphics::RenderSystem::Get()->CreateTexture( L"_DevelopmentAssets/Texture/CJY.jpg");
 
 
 	transforms.resize(4);

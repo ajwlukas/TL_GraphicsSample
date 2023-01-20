@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,7 +127,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -187,7 +187,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

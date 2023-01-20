@@ -91,7 +91,7 @@ TL_Box::TL_Box()
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), TL_Graphics::E_MESH_TYPE::STATIC);
 
 	TL_Graphics::MaterialDesc matDesc;
-	matDesc.baseColor_opcityFilePath = L"Texture/CJY.jpg";
+	matDesc.baseColor_opcityFilePath = L"_DevelopmentAssets/Texture/CJY.jpg";
 
 	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(matDesc);
 
