@@ -140,15 +140,17 @@ void Ex_Hyobin::ImGui()
 
 	ImGui::Begin("postProcess");
 
-	if (ImGui::Button("grid", { 100,100 }))
-	{
+	if (ImGui::Button("grid", { 100,30 }))
 		control->doGrid = !control->doGrid;
-	}
 
-	if (ImGui::Button("downSample", { 100,100 }))
-	{
+	if (ImGui::Button("downSample", { 100,30 }))
 		control->doDownSample = !control->doDownSample;
-	}
+
+	if (ImGui::Button("GaussianBlur", { 100,30 }))
+		control->doGaussianBlur = !control->doGaussianBlur;
+
+	if (ImGui::Button("ColorGrading", { 100,30 }))
+		control->doColorGrading = !control->doColorGrading;
 
 	ImGui::End();
 
@@ -253,7 +255,7 @@ void Ex_Hyobin::TestTL()
 	TL_FBXLibrary::FBXModelLoader _loader;
 	_result = _loader.Init();
 
-	_result = _loader.Load(L"_DevelopmentAssets/Model/Rock_1/untitled.fbx");
+	_result = _loader.Load(L"_DevelopmentAssets/Model/Rock_1/Rock_1.fbx");
 	//_result = _loader.Load(L"Resource/TextureTest/Rock_2.fbx");
 	//_result = _loader.Load(L"Resource/Floodlight/TL_Floodlight.fbx");
 	_loader.FBXConvertOptimize();
