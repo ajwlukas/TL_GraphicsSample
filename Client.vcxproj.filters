@@ -93,6 +93,9 @@
     <ClInclude Include="src\Example\11_Ex_PostProsessing\Ex_PostProsessing.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="src\Example\12_Ex_IBL\Ex_IBL.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Client.cpp">
@@ -144,6 +147,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="src\Example\11_Ex_PostProsessing\Ex_PostProsessing.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Example\12_Ex_IBL\Ex_IBL.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -37,6 +37,6 @@ public:
 	TL_Graphics::IMaterial* material;
 
 
-	TL_Graphics::IShaderResource* texture;
+	TL_Graphics::ITexture* texture;
 
 };

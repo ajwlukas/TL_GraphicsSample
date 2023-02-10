@@ -5,8 +5,12 @@ const TL_Math::Vector3 Transform::WorldRight = { 1,0,0 };
 const TL_Math::Vector3 Transform::WorldForward = { 0,0,1 };
 
 Transform::Transform()
-	:pos(0, 0, 0), rot(0, 0, 0), scale(1, 1, 1), S(DirectX::XMMatrixIdentity()), R(DirectX::XMMatrixIdentity()), T(DirectX::XMMatrixIdentity()),
-	parent(nullptr), local(DirectX::XMMatrixIdentity())
+	:pos(0, 0, 0), rot(0, 0, 0), scale(1, 1, 1)
+	, S(DirectX::XMMatrixIdentity())
+	, R(DirectX::XMMatrixIdentity())
+	, T(DirectX::XMMatrixIdentity())
+	, parent(nullptr)
+	, local(DirectX::XMMatrixIdentity())
 {
 
 }

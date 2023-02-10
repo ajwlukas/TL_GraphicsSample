@@ -13,6 +13,8 @@
 #include "Example\10_Ex_Deferred\Ex_Deferred.h"
 #include "Example\11_Ex_PostProsessing\Ex_PostProsessing.h"
 
+#include "Example\12_Ex_IBL\Ex_IBL.h"
+
 App::App()
 {
 	//example = new Ex_Triangle();
@@ -27,6 +29,7 @@ App::App()
 	example = new Ex_Hyobin();
 	//example = new Ex_Deferred();
 	//example = new Ex_PostProsessing();
+	//example = new Ex_IBL();
 
 	//example = new Ex_Light();
 

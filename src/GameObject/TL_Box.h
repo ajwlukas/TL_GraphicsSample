@@ -4,6 +4,8 @@
 
 #include "Helper\Transform.h"
 
+#include "Graphics\IShader.h"
+
 class TL_Box
 {
 public:
@@ -12,18 +14,21 @@ public:
 
 	void Render();
 
+	void ImGui();
+
 private:
 	TL_Graphics::IMesh* mesh;
 	TL_Graphics::IMaterial* material;
 
-	struct Material
+	__declspec(align(16)) struct Material
 	{
-		float metallic[4];
-		float roughness[4];
+		float metallic;
+		float roughness;
 	}mat;
 
 	TL_Graphics::IConstantBuffer* matInfo;
 
+	TL_Graphics::IShader* pixelShader;
 
 public:
 	Transform transform;

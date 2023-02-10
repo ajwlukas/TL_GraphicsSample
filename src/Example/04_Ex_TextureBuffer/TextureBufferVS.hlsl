@@ -78,7 +78,6 @@ float4x4 GetInstanceWorldTransform(uint instanceID)
     return float4x4(r0, r1, r2, r3);
 }
 
-///인스턴싱 테스트
 float4 LocalToWorld(float3 localPos, uint instanceID)//로컬 포지션을 월드로
 {
     return mul(float4(localPos, 1.0f), GetInstanceWorldTransform(instanceID));

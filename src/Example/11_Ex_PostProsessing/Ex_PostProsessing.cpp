@@ -11,6 +11,7 @@ void Ex_PostProsessing::Init()
 	materialBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&mat, sizeof(mat));
 
 
+
 }
 
 void Ex_PostProsessing::UnInit()
@@ -133,17 +134,17 @@ void Ex_PostProsessing::CameraMove()
 	}
 
 	if (input->Press('W'))
-		camT.Pos() += camT.Forward() * 0.001f;
+		camT.Pos() += camT.Forward() * 0.01f;
 	if (input->Press('S'))
-		camT.Pos() -= camT.Forward() * 0.001f;
+		camT.Pos() -= camT.Forward() * 0.01f;
 	if (input->Press('A'))
-		camT.Pos() -= camT.Right() * 0.001f;
+		camT.Pos() -= camT.Right() * 0.01f;
 	if (input->Press('D'))
-		camT.Pos() += camT.Right() * 0.001f;
+		camT.Pos() += camT.Right() * 0.01f;
 	if (input->Press('Q'))
-		camT.Pos() -= camT.Up() * 0.001f;
+		camT.Pos() -= camT.Up() * 0.01f;
 	if (input->Press('E'))
-		camT.Pos() += camT.Up() * 0.001f;
+		camT.Pos() += camT.Up() * 0.01f;
 }
 
 void Ex_PostProsessing::BoxMove()

@@ -12,15 +12,26 @@ void Ex_Hyobin::Init()
 
 	testBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&test, sizeof(test));
 
-	//TestStatic();
 	TestTL();
+	//std::wstring ws = L"Garden";
+	std::wstring ws = L"Valley";
 
-	int a = 10;
+	cubeMap = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CubeMaps/" + ws + L"EnvHDR.dds");
+
+	irradianceMap = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CubeMaps/" + ws + L"DiffuseHDR.dds");
+	prefilteredEnvMap = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CubeMaps/" + ws + L"SpecularHDR.dds");
+	iblBRDF = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/ibl_brdf_lut.png");
+
 
 }
 
 void Ex_Hyobin::UnInit()
 {
+
+	TL_Graphics::RenderSystem::Get()->Return(cubeMap);
+	TL_Graphics::RenderSystem::Get()->Return(irradianceMap);
+	TL_Graphics::RenderSystem::Get()->Return(prefilteredEnvMap);
+
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 	TL_Graphics::RenderSystem::Get()->Return(material);
 
@@ -61,6 +72,9 @@ void Ex_Hyobin::PreRender()
 
 	TL_Graphics::RenderSystem::Get()->PreRender();
 
+	cubeMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 10);
+	irradianceMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 12);
+	prefilteredEnvMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 13);
 
 	camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 	camera->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
@@ -220,7 +234,7 @@ void Ex_Hyobin::TestStatic()
 	_result = _loader.Load(L"_DevelopmentAssets/Model/Wooden_Crate/Wooden_Crate.fbx");
 	//_result = _loader.Load(L"Resource/TextureTest/Rock_2.fbx");
 	//_result = _loader.Load(L"Resource/Floodlight/TL_Floodlight.fbx");
-	_loader.FBXConvertOptimize();
+	_loader.FbxConvertOptimize();
 
 	auto* _prefab = _loader.GetPrefab();
 
@@ -258,7 +272,7 @@ void Ex_Hyobin::TestTL()
 	_result = _loader.Load(L"_DevelopmentAssets/Model/Rock_1/Rock_1.fbx");
 	//_result = _loader.Load(L"Resource/TextureTest/Rock_2.fbx");
 	//_result = _loader.Load(L"Resource/Floodlight/TL_Floodlight.fbx");
-	_loader.FBXConvertOptimize();
+	_loader.FbxConvertOptimize();
 
 	auto* _prefab = _loader.GetPrefab();
 
@@ -273,7 +287,7 @@ void Ex_Hyobin::TestTL()
 
 	attribute.AddData(_prefab->m_MeshList[0].StaticVertex.data(), _prefab->m_MeshList[0].StaticVertex.size() * sizeof(_prefab->m_MeshList[0].StaticVertex[0]));
 
-	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, (UINT*)_prefab->m_MeshList[0].indexBuffer[0].first.data(), _prefab->m_MeshList[0].indexBuffer[0].first.size() * 3, TL_Graphics::E_MESH_TYPE::STATIC);
+	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, (UINT*)_prefab->m_MeshList[0].indexBuffer[0].first.data(), _prefab->m_MeshList[0].indexBuffer[0].first.size() * 3, TL_Graphics::E_MESH_TYPE::STATIC, "Rock");
 
 	TL_Graphics::MaterialDesc matDesc;
 
@@ -282,6 +296,7 @@ void Ex_Hyobin::TestTL()
 	matDesc.baseColor_opcityFilePath = filePath + _prefab->m_MaterialList[0].baseColorFile;
 	//matDesc.baseColor_opcityFilePath = L"Texture/RGBTable16x1.png";
 	matDesc.roughness_specular_metallic_AOFilePath = filePath + _prefab->m_MaterialList[0].roughnessMapFile;
+	/*matDesc.roughness_specular_metallic_AOFilePath = L"_DevelopmentAssets/Model/Machine_01/Tex_Machine_01_Roughness_Metallic_AO.png";*/
 	matDesc.normalFilePath = filePath + _prefab->m_MaterialList[0].normalMapFile;
 	/*matDesc.normalFilePath = filePath +L"Rock_All_Rock_1-6_Normal.jpg";*/
 	matDesc.emissiveFilePath = filePath + _prefab->m_MaterialList[0].emissiveFile;

@@ -34,7 +34,7 @@ class EX_PBR : public IExample
 	void BoxMove();
 	TL_Graphics::IConstantBuffer* worldBuffer;
 
-	TL_Graphics::IShaderResource* texture;
+	TL_Graphics::ITexture* texture;
 
 	struct MaterialData
 	{

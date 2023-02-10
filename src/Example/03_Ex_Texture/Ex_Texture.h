@@ -36,7 +36,7 @@ public:
 	TL_Graphics::IConstantBuffer* worldBuffer;
 	void TransformMove();
 
-	TL_Graphics::IShaderResource* texture;
+	TL_Graphics::ITexture* texture;
 #pragma endregion
 
 

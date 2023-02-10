@@ -35,9 +35,9 @@ public:
 	std::vector<Transform*> transforms;
 	std::vector<TL_Math::Matrix> matrixes;
 
-	TL_Graphics::IShaderResource* texture;
+	TL_Graphics::ITexture* texture;
 
-	TL_Graphics::IShaderResource* textureBuffer;
+	TL_Graphics::ITextureBuffer* textureBuffer;
 #pragma endregion
 
 

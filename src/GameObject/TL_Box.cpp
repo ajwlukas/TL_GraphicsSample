@@ -89,6 +89,7 @@ TL_Box::TL_Box()
 
 	//mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/TL_StaticMeshVS.hlsl");
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), TL_Graphics::E_MESH_TYPE::STATIC);
+	//mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/TL_SkyBoxVS.hlsl");
 
 	TL_Graphics::MaterialDesc matDesc;
 	matDesc.baseColor_opcityFilePath = L"_DevelopmentAssets/Texture/CJY.jpg";
@@ -97,10 +98,16 @@ TL_Box::TL_Box()
 
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
 
+	pixelShader = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/TestObjectGBuffers.hlsl");
+
+	matInfo = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&mat, sizeof(Material));
+
 }
 
 TL_Box::~TL_Box()
 {
+	TL_Graphics::RenderSystem::Get()->Return(matInfo);
+	TL_Graphics::RenderSystem::Get()->Return(pixelShader);
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 	TL_Graphics::RenderSystem::Get()->Return(material);
 	TL_Graphics::RenderSystem::Get()->Return(worldBuffer);
@@ -108,9 +115,25 @@ TL_Box::~TL_Box()
 
 void TL_Box::Render()
 {
+	pixelShader->Set();
 	mesh->Set();
 	material->Set();
+
+	matInfo->Update(&mat, sizeof(Material));
+	matInfo->Set(TL_Graphics::E_SHADER_TYPE::PS, 10);
 	worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
 
 	TL_Graphics::RenderSystem::Get()->Draw();
+}
+
+#include "imgui.h"
+
+void TL_Box::ImGui()
+{
+	ImGui::Begin("material");                          // Create a window called "Hello, world!" and append into it.
+
+	ImGui::SliderFloat("metallic", &mat.metallic, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+	ImGui::SliderFloat("roughness", &mat.roughness, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
+
+	ImGui::End();
 }
