@@ -13,14 +13,16 @@ void Ex_Hyobin::Init()
 	testBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&test, sizeof(test));
 
 	TestTL();
-	//std::wstring ws = L"Garden";
-	std::wstring ws = L"Valley";
+	std::wstring ws = L"Garden";
 
-	cubeMap = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CubeMaps/" + ws + L"EnvHDR.dds");
+	directionalLight.direction = { -1,-1,-1 };
+	//std::wstring ws = L"Valley";
+
+	/*cubeMap = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CubeMaps/" + ws + L"EnvHDR.dds");
 
 	irradianceMap = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CubeMaps/" + ws + L"DiffuseHDR.dds");
 	prefilteredEnvMap = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CubeMaps/" + ws + L"SpecularHDR.dds");
-	iblBRDF = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/ibl_brdf_lut.png");
+	iblBRDF = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/ibl_brdf_lut.png");*/
 
 
 }
@@ -28,9 +30,9 @@ void Ex_Hyobin::Init()
 void Ex_Hyobin::UnInit()
 {
 
-	TL_Graphics::RenderSystem::Get()->Return(cubeMap);
-	TL_Graphics::RenderSystem::Get()->Return(irradianceMap);
-	TL_Graphics::RenderSystem::Get()->Return(prefilteredEnvMap);
+	//TL_Graphics::RenderSystem::Get()->Return(cubeMap);
+	//TL_Graphics::RenderSystem::Get()->Return(irradianceMap);
+	//TL_Graphics::RenderSystem::Get()->Return(prefilteredEnvMap);
 
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 	TL_Graphics::RenderSystem::Get()->Return(material);
@@ -72,9 +74,9 @@ void Ex_Hyobin::PreRender()
 
 	TL_Graphics::RenderSystem::Get()->PreRender();
 
-	cubeMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 10);
-	irradianceMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 12);
-	prefilteredEnvMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 13);
+	//cubeMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 10);
+	//irradianceMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 12);
+	//prefilteredEnvMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 13);
 
 	camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 	camera->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
@@ -117,17 +119,17 @@ void Ex_Hyobin::CameraMove()
 	}
 
 	if (input->Press('W'))
-		camT.Pos() += camT.Forward() * 0.1f;
+		camT.Pos() += camT.Forward() * 1.0f;
 	if (input->Press('S'))
-		camT.Pos() -= camT.Forward() * 0.1f;
+		camT.Pos() -= camT.Forward() * 1.0f;
 	if (input->Press('A'))
-		camT.Pos() -= camT.Right() * 0.1f;
+		camT.Pos() -= camT.Right() * 1.0f;
 	if (input->Press('D'))
-		camT.Pos() += camT.Right() * 0.1f;
+		camT.Pos() += camT.Right() * 1.0f;
 	if (input->Press('Q'))
-		camT.Pos() -= camT.Up() * 0.1f;
+		camT.Pos() -= camT.Up() * 1.0f;
 	if (input->Press('E'))
-		camT.Pos() += camT.Up() * 0.1f;
+		camT.Pos() += camT.Up() * 1.0f;
 }
 
 void Ex_Hyobin::ImGui()

@@ -84,10 +84,10 @@ public:
 	TL_Graphics::IConstantBuffer* testBuffer;
 
 
-	TL_Graphics::ITexture* cubeMap;
-	TL_Graphics::ITexture* irradianceMap;
-	TL_Graphics::ITexture* prefilteredEnvMap;
-	TL_Graphics::ITexture* iblBRDF;
+	//TL_Graphics::ITexture* cubeMap;
+	//TL_Graphics::ITexture* irradianceMap;
+	//TL_Graphics::ITexture* prefilteredEnvMap;
+	//TL_Graphics::ITexture* iblBRDF;
 
 
 };
