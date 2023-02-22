@@ -119,17 +119,17 @@ void Ex_Hyobin::CameraMove()
 	}
 
 	if (input->Press('W'))
-		camT.Pos() += camT.Forward() * 1.0f;
+		camT.Pos() += camT.Forward() * 0.01f;
 	if (input->Press('S'))
-		camT.Pos() -= camT.Forward() * 1.0f;
+		camT.Pos() -= camT.Forward() * 0.01f;
 	if (input->Press('A'))
-		camT.Pos() -= camT.Right() * 1.0f;
+		camT.Pos() -= camT.Right() * 0.01f;
 	if (input->Press('D'))
-		camT.Pos() += camT.Right() * 1.0f;
+		camT.Pos() += camT.Right() * 0.01f;
 	if (input->Press('Q'))
-		camT.Pos() -= camT.Up() * 1.0f;
+		camT.Pos() -= camT.Up() * 0.01f;
 	if (input->Press('E'))
-		camT.Pos() += camT.Up() * 1.0f;
+		camT.Pos() += camT.Up() * 0.01f;
 }
 
 void Ex_Hyobin::ImGui()
@@ -271,7 +271,9 @@ void Ex_Hyobin::TestTL()
 	TL_FBXLibrary::FBXModelLoader _loader;
 	_result = _loader.Init();
 
-	_result = _loader.Load(L"_DevelopmentAssets/Model/Rock_1/Rock_1.fbx");
+	//_result = _loader.Load(L"_DevelopmentAssets/Model/Rock_1/Rock_1.fbx");
+	//_result = _loader.Load(L"_DevelopmentAssets/Model/Chapter2/Password/Password.fbx");
+	_result = _loader.Load(L"_DevelopmentAssets/Model/Chapter2/Lamp/Lamp_L.fbx");
 	//_result = _loader.Load(L"Resource/TextureTest/Rock_2.fbx");
 	//_result = _loader.Load(L"Resource/Floodlight/TL_Floodlight.fbx");
 	_loader.FbxConvertOptimize();
@@ -293,7 +295,8 @@ void Ex_Hyobin::TestTL()
 
 	TL_Graphics::MaterialDesc matDesc;
 
-	std::wstring filePath = L"_DevelopmentAssets/Model/Rock_1/";
+	//std::wstring filePath = L"_DevelopmentAssets/Model/Chapter2/Password/";
+	std::wstring filePath = L"_DevelopmentAssets/Model/Chapter2/Lamp/";
 
 	matDesc.baseColor_opcityFilePath = filePath + _prefab->m_MaterialList[0].baseColorFile;
 	//matDesc.baseColor_opcityFilePath = L"Texture/RGBTable16x1.png";
