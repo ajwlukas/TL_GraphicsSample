@@ -27,13 +27,13 @@ void Ex_Texture::Init()
 		=
 	{
 		//front
-		0,1,2,
-		1,3,2
+		0,2,1,
+		1,2,3
 	};
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/TextureVS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
+	shaderPS = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/TexturePS.hlsl");
 
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer( &(squareT.GetWorldMatrix()), sizeof(squareT.GetWorldMatrix()));
 
@@ -45,7 +45,7 @@ void Ex_Texture::Init()
 void Ex_Texture::UnInit()
 {
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
-	TL_Graphics::RenderSystem::Get()->Return(material);
+	TL_Graphics::RenderSystem::Get()->Return(shaderPS);
 	TL_Graphics::RenderSystem::Get()->Return(camera);
 	TL_Graphics::RenderSystem::Get()->Return(worldBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(texture);
@@ -75,7 +75,7 @@ void Ex_Texture::Update()
 
 
 		{//파이프라인을 채운다
-			material->Set();
+			shaderPS->Set();
 
 			mesh->Set();
 

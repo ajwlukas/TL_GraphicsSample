@@ -69,34 +69,32 @@ void EX_PBR::Init()
 		=
 	{
 		//front
-		0,1,2,
-		1,3,2,
+		0,2,1,
+		1,2,3,
 		//back
-		5,4,6,
-		5,6,7,
+		5,6,4,
+		5,7,6,
 
 		//left
-		8,9,10,
-		9,11,10,
+		8,10,9,
+		9,10,11,
 		//right
-		12,13,14,
-		13,15,14,
+		12,14,13,
+		13,14,15,
 
 		//up
-		16,17,18,
-		17,19,18,
+		16,18,17,
+		17,18,19,
 		//down
-		20,	22,21,
-		21,	22,23
+		20,	21,22,
+		21,	23,22
 	};
 
-	vs = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::VS, L"Shader/PBR_VS.hlsl");
 	ps = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/PBR_PS.hlsl");
 
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/PBR_VS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
 
 	matData.color[0] = 1;
 	matData.color[1] = 0;
@@ -144,13 +142,13 @@ void EX_PBR::Init()
 		=
 	{
 		//front
-		0,1,2,
-		1,3,2
+		0,2,1,
+		1,2,3
 	};
 
 	meshCanvas = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttributeCanvas, indiciesCanvas, sizeof(indiciesCanvas) / sizeof(indiciesCanvas[0]), L"Shader/PBRCanvasVS.hlsl");
 
-	materialCanvas = TL_Graphics::RenderSystem::Get()->CreateMaterial();
+	canvasPS = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/PBRCanvasPS.hlsl");
 
 	pbrRT = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
 	legacyRT = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
@@ -160,7 +158,6 @@ void EX_PBR::UnInit()
 {
 	TL_Graphics::RenderSystem::Get()->Return(ps);
 
-	TL_Graphics::RenderSystem::Get()->Return(vs);
 
 	TL_Graphics::RenderSystem::Get()->Return(materialData);
 
@@ -168,7 +165,7 @@ void EX_PBR::UnInit()
 
 	TL_Graphics::RenderSystem::Get()->Return(texture);
 
-	TL_Graphics::RenderSystem::Get()->Return(material);
+	TL_Graphics::RenderSystem::Get()->Return(canvasPS);
 
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 
@@ -213,11 +210,7 @@ void EX_PBR::Update()
 
 		mesh->Set();//vertex, index
 
-		//vs->Set();//vertex shader
-
-		//ps->Set();
-
-		material->Set();
+		ps->Set();
 
 		worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
 
@@ -235,8 +228,8 @@ void EX_PBR::Update()
 		pbrRT->SetT(TL_Graphics::E_SHADER_TYPE::PS, 0);
 		legacyRT->SetT(TL_Graphics::E_SHADER_TYPE::PS, 1);
 
-		meshCanvas->Set();
-		materialCanvas->Set();
+		meshCanvas->Set(); 
+		canvasPS->Set();
 
 		TL_Graphics::RenderSystem::Get()->Draw();
 

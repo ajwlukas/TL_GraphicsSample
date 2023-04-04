@@ -28,7 +28,7 @@ public:
 
 private:
 	TL_Graphics::IMesh* mesh;
-	TL_Graphics::IMaterial* material;
+	TL_Graphics::IShader* shaderPS;
 
 	Transform transform;
 	TL_Graphics::IConstantBuffer* worldBuffer;

@@ -17,16 +17,19 @@ void Ex_Triangle::Init()
     UINT indicies[]
         =
     {
-        0,2,1
+        0,1,2
     };
 
-    currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, 3, L"TriangleVS.hlsl");
+    currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, 3, L"Shader/TriangleVS.hlsl");
 
-    currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial();
+    shaderPS = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/TrianglePS.hlsl");
 }
 
 void Ex_Triangle::UnInit()
 {
+    TL_Graphics::RenderSystem::Get()->Return(currentMesh);
+    TL_Graphics::RenderSystem::Get()->Return(shaderPS);
+
     TL_Graphics::RenderSystem::Delete();
 }
 
@@ -34,7 +37,7 @@ void Ex_Triangle::Update()
 {
     TL_Graphics::RenderSystem::Get()->Clear();
 
-    currentMaterial->Set();
+    shaderPS->Set();
 
     currentMesh->Set();
 

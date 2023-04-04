@@ -34,7 +34,7 @@ public:
 
 	//canvas
 	TL_Graphics::IMesh* mesh;
-	TL_Graphics::IMaterial* material;
+	TL_Graphics::IShader* shaderPS;
 
 
 	TL_Graphics::ITexture* texture;

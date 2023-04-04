@@ -18,12 +18,12 @@ void Ex_TriangleColor::Init()
     UINT indicies[]
         =
     {
-        0,2,1
+        0,1,2
     };
 
-    currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, 3, L"TriangleColorVS.hlsl");
+    currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, 3, L"Shader/TriangleColorVS.hlsl");
 
-    currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial();
+    shaderPS = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/TriangleColorPS.hlsl");
 
     struct Color
     {
@@ -35,6 +35,11 @@ void Ex_TriangleColor::Init()
 
 void Ex_TriangleColor::UnInit()
 {
+
+    TL_Graphics::RenderSystem::Get()->Return(currentMesh);
+    TL_Graphics::RenderSystem::Get()->Return(shaderPS);
+    TL_Graphics::RenderSystem::Get()->Return(constantBuffer);
+
     TL_Graphics::RenderSystem::Delete();
 }
 
@@ -42,7 +47,7 @@ void Ex_TriangleColor::Update()
 {
     TL_Graphics::RenderSystem::Get()->Clear();
 
-    currentMaterial->Set();
+    shaderPS->Set();
 
     currentMesh->Set();
 

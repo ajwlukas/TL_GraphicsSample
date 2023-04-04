@@ -12,8 +12,6 @@ void Ex_StateChange::Init()
 	b.UpdatePos({ 10,0,0 });
 	c.UpdateColor({ 0,0,1,1 });
 	c.UpdatePos({ -10,0,0 });
-
-
 }
 
 void Ex_StateChange::UnInit()

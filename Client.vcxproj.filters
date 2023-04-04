@@ -179,5 +179,13 @@
     <FxCompile Include="src\Example\06_EX_RTT\CanvasVS.hlsl" />
     <FxCompile Include="src\Example\02_Ex_BoxCamera\BoxCameraPS.hlsl" />
     <FxCompile Include="src\Example\02_Ex_BoxCamera\BoxCameraVS.hlsl" />
+    <FxCompile Include="src\Example\00_Ex_Triagle\TriangleVS.hlsl" />
+    <FxCompile Include="src\Example\00_Ex_Triagle\TrianglePS.hlsl" />
+    <FxCompile Include="src\Example\01_Ex_TriangleColor\TriangleColorVS.hlsl" />
+    <FxCompile Include="src\Example\01_Ex_TriangleColor\TriangleColorPS.hlsl" />
+    <FxCompile Include="src\Example\03_Ex_Texture\TexturePS.hlsl" />
+    <FxCompile Include="src\Example\03_Ex_Texture\TextureVS.hlsl" />
+    <FxCompile Include="src\Example\04_Ex_TextureBuffer\TextureBufferPS.hlsl" />
+    <FxCompile Include="src\Example\04_Ex_TextureBuffer\TextureBufferVS.hlsl" />
   </ItemGroup>
 </Project>

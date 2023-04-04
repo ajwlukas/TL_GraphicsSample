@@ -58,30 +58,30 @@ Box::Box()
 		=
 	{
 		//front
-		0,1,2,
-		1,3,2,
+		0,2,1,
+		1,2,3,
 		//back
-		5,4,6,
-		5,6,7,
+		5,6,4,
+		5,7,6,
 
 		//left
-		8,9,10,
-		9,11,10,
+		8,10,9,
+		9,10,11,
 		//right
-		12,13,14,
-		13,15,14,
+		12,14,13,
+		13,14,15,
 
 		//up
-		16,17,18,
-		17,19,18,
+		16,18,17,
+		17,18,19,
 		//down
-		20,	22,21,
-		21,	22,23
+		20,	21,22,
+		21,	23,22
 	};
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/BoxVS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
+	shaderPS = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/BoxPS.hlsl");
 
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
 
@@ -91,7 +91,7 @@ Box::Box()
 Box::~Box()
 {
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
-	TL_Graphics::RenderSystem::Get()->Return(material);
+	TL_Graphics::RenderSystem::Get()->Return(shaderPS);
 	TL_Graphics::RenderSystem::Get()->Return(worldBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(colorBuffer);
 }
@@ -99,7 +99,7 @@ Box::~Box()
 void Box::Render()
 {
 	mesh->Set();
-	material->Set();
+	shaderPS->Set();
 	worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
 	colorBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
 

@@ -25,9 +25,6 @@ class EX_PBR : public IExample
 
 	//canvas
 	TL_Graphics::IMesh* mesh;
-	TL_Graphics::IMaterial* material;
-
-	TL_Graphics::IShader* vs;
 	TL_Graphics::IShader* ps;
 
 	Transform transform;
@@ -47,8 +44,7 @@ class EX_PBR : public IExample
 
 	//canvas
 	TL_Graphics::IMesh* meshCanvas;
-	TL_Graphics::IMaterial* materialCanvas;
-
+	TL_Graphics::IShader* canvasPS;
 
 	TL_Graphics::IRenderTargetTexture* pbrRT;
 	TL_Graphics::IRenderTargetTexture* legacyRT;

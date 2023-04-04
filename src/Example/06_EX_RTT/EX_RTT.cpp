@@ -41,13 +41,13 @@ void EX_RTT::Init()
 	UINT indicies[]
 		=
 	{
-		0,1,2,
-		1,3,2,
+		0,2,1,
+		1,2,3,
 	};
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/CanvasVS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
+	shaderPS = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/CanvasPS.hlsl");
 
 	texture = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CJY.jpg");
 
@@ -57,7 +57,7 @@ void EX_RTT::UnInit()
 {
 	TL_Graphics::RenderSystem::Get()->Return(texture);
 
-	TL_Graphics::RenderSystem::Get()->Return(material);
+	TL_Graphics::RenderSystem::Get()->Return(shaderPS);
 
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 
@@ -106,7 +106,7 @@ void EX_RTT::Update()
 	{//Canvas
 		mesh->Set();
 
-		material->Set();	
+		shaderPS->Set();
 
 		for (UINT i = 0; i < 4; i++)
 		rtt[i]->SetT(TL_Graphics::E_SHADER_TYPE::PS, i);

@@ -29,7 +29,9 @@ public:
 
 #pragma region square
 	TL_Graphics::IMesh* mesh;
-	TL_Graphics::IMaterial* material;
+
+
+	TL_Graphics::IShader* shaderPS;
 	TL_Graphics::VertexAttribute vertexAttribute;
 
 	Transform squareT;

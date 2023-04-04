@@ -27,13 +27,13 @@ void Ex_TextureBuffer::Init()
 		=
 	{
 		//front
-		0,1,2,
-		1,3,2
+		0,2,1,
+		1,2,3
 	};
 
 	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/TextureBufferVS.hlsl");
 
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial();
+	shaderPS = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/TextureBufferPS.hlsl");
 
 	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
 
@@ -62,7 +62,7 @@ void Ex_TextureBuffer::Init()
 void Ex_TextureBuffer::UnInit()
 {
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
-	TL_Graphics::RenderSystem::Get()->Return(material);
+	TL_Graphics::RenderSystem::Get()->Return(shaderPS);
 	TL_Graphics::RenderSystem::Get()->Return(camera);
 	TL_Graphics::RenderSystem::Get()->Return(texture);
 	TL_Graphics::RenderSystem::Get()->Return(textureBuffer);
@@ -89,7 +89,7 @@ void Ex_TextureBuffer::Update()
 		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 
 		{//파이프라인을 채운다
-			material->Set();
+			shaderPS->Set();
 
 			mesh->Set();
 

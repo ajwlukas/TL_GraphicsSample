@@ -54,7 +54,7 @@ void Ex_BoxCamera::Init()
 
 	currentMesh = TL_Graphics::RenderSystem::Get()->CreateMesh(vertexAttribute, indicies, sizeof(indicies) / sizeof(indicies[0]), L"Shader/BoxCameraVS.hlsl");
 
-	currentMaterial = TL_Graphics::RenderSystem::Get()->CreateMaterial();
+	shaderPS = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/BoxCameraPS.hlsl");
 
 	boxT.Pos().z = 10.0f;
 
@@ -68,6 +68,11 @@ void Ex_BoxCamera::Init()
 
 void Ex_BoxCamera::UnInit()
 {
+	TL_Graphics::RenderSystem::Get()->Return(currentMesh);
+	TL_Graphics::RenderSystem::Get()->Return(shaderPS);
+	TL_Graphics::RenderSystem::Get()->Return(camera);
+	TL_Graphics::RenderSystem::Get()->Return(worldBuffer);
+
 	TL_Graphics::RenderSystem::Delete();
 
 	delete input;
@@ -84,14 +89,12 @@ void Ex_BoxCamera::Update()
 
 		camT.UpdateWorld();
 
-		//camera->Update(camT.GetWorldMatrix());
-
-		camera->Update({ 0,0,0 }, { 0,0,0 });
+		camera->Update(camT.GetWorldMatrix());
 
 		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
 
 		{//파이프라인을 채운다
-			currentMaterial->Set();
+			shaderPS->Set();
 
 			currentMesh->Set();
 
