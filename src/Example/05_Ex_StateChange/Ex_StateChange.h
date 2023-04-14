@@ -12,6 +12,8 @@
 
 #include "GameObject\Box.h"
 
+#include "GameObject\Camera.h"
+
 class ajwCommon::Input;
 class Ex_StateChange : public IExample
 {
@@ -22,11 +24,7 @@ public:
 	virtual void UnInit() override;
 	virtual void Update() override;
 
-	ajwCommon::Input* input;
-
-	TL_Graphics::ICamera* camera;
-	Transform camT;
-	void CameraMove();
+	Camera cam;
 
 	Box a, b, c;
 

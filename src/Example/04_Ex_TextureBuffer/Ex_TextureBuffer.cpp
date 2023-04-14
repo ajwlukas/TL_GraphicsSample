@@ -2,8 +2,6 @@
 
 void Ex_TextureBuffer::Init()
 {
-	input = new ajwCommon::Input();
-
 	struct Vertex
 	{
 		float position[3];
@@ -35,26 +33,22 @@ void Ex_TextureBuffer::Init()
 
 	shaderPS = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/TextureBufferPS.hlsl");
 
-	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
-
 	texture = TL_Graphics::RenderSystem::Get()->CreateTexture( L"_DevelopmentAssets/Texture/CJY.jpg");
 
 
 	transforms.resize(4);
 	for (int i = 0; i < 4; i++)
-		transforms[i] = new Transform();
+		transforms[i] = new Transform(nullptr);
 
-	transforms[0]->Pos() = { -2,2,0 };
-	transforms[1]->Pos() = { 2,2,0 };
-	transforms[2]->Pos() = { -2,-2,0 };
-	transforms[3]->Pos() = { 2,-2,0 };
+	transforms[0]->SetWorldPosition({ -2,2,0 }) ;
+	transforms[1]->SetWorldPosition({ 2,2,0 });
+	transforms[2]->SetWorldPosition({ -2,-2,0 });
+	transforms[3]->SetWorldPosition({ 2,-2,0 });
 
-	for (int i = 0; i < 4; i++)
-		transforms[i]->UpdateWorld();
 
 	matrixes.resize(4);
 	for (int i = 0; i < 4; i++)
-		matrixes[i] = transforms[i]->GetWorldMatrix();
+		matrixes[i] = transforms[i]->GetWorldTM();
 
 	textureBuffer = TL_Graphics::RenderSystem::Get()->CreateTextureBuffer(matrixes.data(), matrixes.size() * sizeof(TL_Math::Matrix) );
 }
@@ -63,14 +57,11 @@ void Ex_TextureBuffer::UnInit()
 {
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 	TL_Graphics::RenderSystem::Get()->Return(shaderPS);
-	TL_Graphics::RenderSystem::Get()->Return(camera);
 	TL_Graphics::RenderSystem::Get()->Return(texture);
 	TL_Graphics::RenderSystem::Get()->Return(textureBuffer);
 
 
 	TL_Graphics::RenderSystem::Delete();
-
-	delete input;
 }
 
 void Ex_TextureBuffer::Update()
@@ -78,15 +69,7 @@ void Ex_TextureBuffer::Update()
 	TL_Graphics::RenderSystem::Get()->Clear();//화면을 지우고
 
 	{
-		input->Update();//키보드 마우스 업데이트
-
-		CameraMove();//카메라 포지션 무브
-
-		camT.UpdateWorld();
-
-		camera->Update(camT.GetWorldMatrix());
-
-		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
+		cam.Update();
 
 		{//파이프라인을 채운다
 			shaderPS->Set();
@@ -103,26 +86,4 @@ void Ex_TextureBuffer::Update()
 	}
 
 	TL_Graphics::RenderSystem::Get()->Present();//그려놓은 렌더타겟을 출현 시킴
-}
-
-void Ex_TextureBuffer::CameraMove()
-{
-	if (input->Press(VK_LBUTTON))
-	{
-		camT.Rot().y += input->MouseDiff().x * 0.01f;
-		camT.Rot().x += input->MouseDiff().y * 0.01f;
-	}
-
-	if (input->Press('W'))
-		camT.Pos() += camT.Forward() * 0.01f;
-	if (input->Press('S'))
-		camT.Pos() -= camT.Forward() * 0.01f;
-	if (input->Press('A'))
-		camT.Pos() -= camT.Right() * 0.01f;
-	if (input->Press('D'))
-		camT.Pos() += camT.Right() * 0.01f;
-	if (input->Press('Q'))
-		camT.Pos() -= camT.Up() * 0.01f;
-	if (input->Press('E'))
-		camT.Pos() += camT.Up() * 0.01f;
 }

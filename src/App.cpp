@@ -30,8 +30,8 @@ App::App()
 	// 
 	//example = new Ex_Hyobin();
 	//example = new Ex_Deferred();
-	example = new Ex_PostProsessing();
-	//example = new Ex_IBL();
+	//example = new Ex_PostProsessing();
+	example = new Ex_IBL();
 
 	//example = new Ex_Light();
 
@@ -46,6 +46,11 @@ App::~App()
 
 void App::Update()
 {
+	ImGuiIO& io = ImGui::GetIO();
+	if (!io.WantCaptureMouse || !io.WantCaptureKeyboard)
+		ajwCommon::Input::Get().Update();//키보드 마우스 업데이트
+
+
 	example->Update();
 }
 

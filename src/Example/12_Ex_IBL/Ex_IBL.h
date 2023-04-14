@@ -15,10 +15,14 @@
 
 #include "GameObject\TL_Box.h"
 
+#include "GameObject\Camera.h"
+
 class ajwCommon::Input;
 class Ex_IBL : public IExample
 {
 public:
+
+	Ex_IBL() : t(nullptr) {}
 
 	// IExample을(를) 통해 상속됨
 	virtual void Init() override;
@@ -30,11 +34,7 @@ public:
 	virtual void PostRender() override;
 	virtual void ImGui() override;
 
-	ajwCommon::Input* input;
-
-	TL_Graphics::ICamera* camera;
-	Transform camT;
-	void CameraMove();
+	Camera cam;
 
 	TL_Box box;
 	void BoxMove();

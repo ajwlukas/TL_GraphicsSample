@@ -3,6 +3,7 @@
 #include "Graphics\IVertex.h"
 
 Box::Box()
+	:transform(nullptr)
 {
 	struct Vertex
 	{
@@ -83,7 +84,9 @@ Box::Box()
 
 	shaderPS = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/BoxPS.hlsl");
 
-	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
+	auto t = transform.GetWorldTM();
+
+	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&t, sizeof(t));
 
 	colorBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&color, sizeof(TL_Math::Vector4));
 }
@@ -114,9 +117,10 @@ void Box::UpdateColor(TL_Math::Vector4 color)
 
 void Box::UpdatePos(TL_Math::Vector3 pos)
 {
-	transform.Pos() = pos;
-	transform.UpdateWorld();
+	transform.SetWorldPosition( pos);
 
-	worldBuffer->Update(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
+	auto t = transform.GetWorldTM();
+
+	worldBuffer->Update(&t, sizeof(t));
 }
 

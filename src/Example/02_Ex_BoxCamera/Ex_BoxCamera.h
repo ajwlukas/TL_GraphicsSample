@@ -12,6 +12,8 @@
 
 #include "Helper\Transform.h"
 
+#include "GameObject\Camera.h"
+
 class ajwCommon::Input;
 class Ex_BoxCamera : public IExample
 {
@@ -22,7 +24,7 @@ public:
 	virtual void UnInit() override;
 	virtual void Update() override;
 
-	ajwCommon::Input* input;
+	Camera cam;
 
 	TL_Graphics::IMesh* currentMesh;
 
@@ -32,7 +34,6 @@ public:
 	
 	TL_Graphics::ICamera* camera;
 	Transform camT;
-	void CameraMove();
 
 	Transform boxT;
 	TL_Graphics::IConstantBuffer* worldBuffer;

@@ -4,10 +4,6 @@
 
 void Ex_IBL::Init()
 {
-	input = new ajwCommon::Input();
-
-	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
-
 	line = TL_Graphics::RenderSystem::Get()->CreateLine({ 0,0,0 }, { 10,20,10 });
 
 	CreateSphere();
@@ -27,27 +23,13 @@ void Ex_IBL::UnInit()
 	TL_Graphics::RenderSystem::Get()->Return(iblBRDF);
 	TL_Graphics::RenderSystem::Get()->Return(cubeMap);
 	TL_Graphics::RenderSystem::Get()->Return(line);
-	TL_Graphics::RenderSystem::Get()->Return(camera);
 	TL_Graphics::RenderSystem::Delete();
 
-	delete input;
 }
 
 void Ex_IBL::Update()
 {
-	ImGuiIO& io = ImGui::GetIO();
-	if (!io.WantCaptureMouse || !io.WantCaptureKeyboard)
-		input->Update();//키보드 마우스 업데이트
-
-	{
-
-		CameraMove();//카메라 포지션 무브
-
-		camT.UpdateWorld();
-
-		camera->Update(camT.GetWorldMatrix());
-
-	}
+	cam.Update();
 
 	BoxMove();
 
@@ -58,9 +40,6 @@ void Ex_IBL::PreRender()
 	TL_Graphics::RenderSystem::Get()->Clear();
 
 	TL_Graphics::RenderSystem::Get()->PreRender();
-
-	camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
-	camera->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
 
 	lodBuffer->Update(&lod.lodLevel, sizeof(Lod));
 	lodBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 12);
@@ -124,9 +103,6 @@ void Ex_IBL::ImGui()
 
 	ImGui::SliderFloat("angleSpot", &spotLight.spot, 0, 20.0f);
 
-	ImGui::SliderFloat3("CamPos", (float*)&camT.Pos(), -100, 100);
-
-
 	ImGui::End();
 	ImGui::Begin("test");
 
@@ -135,43 +111,24 @@ void Ex_IBL::ImGui()
 	ImGui::End();
 }
 
-void Ex_IBL::CameraMove()
-{
-	if (input->Press(VK_LBUTTON))
-	{
-		camT.Rot().y += input->MouseDiff().x * 0.001f;
-		camT.Rot().x += input->MouseDiff().y * 0.001f;
-	}
-
-	if (input->Press('W'))
-		camT.Pos() += camT.Forward() * 0.01f;
-	if (input->Press('S'))
-		camT.Pos() -= camT.Forward() * 0.01f;
-	if (input->Press('A'))
-		camT.Pos() -= camT.Right() * 0.01f;
-	if (input->Press('D'))
-		camT.Pos() += camT.Right() * 0.01f;
-	if (input->Press('Q'))
-		camT.Pos() -= camT.Up() * 0.01f;
-	if (input->Press('E'))
-		camT.Pos() += camT.Up() * 0.01f;
-}
 
 void Ex_IBL::BoxMove()
 {
+	auto& input = ajwCommon::Input::Get();
 
-	if (input->Press(VK_UP))
-		box.transform.Rot().x += 0.0003f;
-	if (input->Press(VK_DOWN))
-		box.transform.Rot().x -= 0.0003f;
-	if (input->Press(VK_LEFT))
-		box.transform.Rot().y += 0.0003f;
-	if (input->Press(VK_RIGHT))
-		box.transform.Rot().y -= 0.0003f;
+	Vector3 rotation{};
 
-	box.transform.UpdateWorld();
 
-	box.worldBuffer->Update(&(box.transform.GetWorldMatrix()), sizeof(box.transform.GetWorldMatrix()));
+	if (input.Press(VK_UP))
+		rotation.x += 0.0003f;
+	if (input.Press(VK_DOWN))
+		rotation.x -= 0.0003f;
+	if (input.Press(VK_LEFT))
+		rotation.y += 0.0003f;
+	if (input.Press(VK_RIGHT))
+		rotation.y -= 0.0003f;
+
+	box.transform.SetWorldRotation(box.transform.GetWorldRotationEuler() + rotation);
 }
 
 void Ex_IBL::SetLights()
@@ -247,10 +204,15 @@ void Ex_IBL::CreateSphere()
 	{
 		for (int i = 0; i < 11; i++)
 		{
-			t.Pos() = { i * 5.0f, j * 5.0f,0.0f };
-			t.UpdateWorld();
+			Vector3 position{};
 
-			transformBuffer->PartialUpdate(sizeof(TL_Math::Matrix) * (i + j * 11), &t.GetWorldMatrix(), sizeof(TL_Math::Matrix));
+			position = { i * 5.0f, j * 5.0f,0.0f };
+
+			t.SetWorldPosition(position);
+
+			auto trans = t.GetWorldTM();
+
+			transformBuffer->PartialUpdate(sizeof(TL_Math::Matrix) * (i + j * 11), &trans, sizeof(trans));
 
 			mat.metallic = j;
 			mat.rougness = i / 10.0f;

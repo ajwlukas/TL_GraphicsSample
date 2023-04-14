@@ -3,6 +3,7 @@
 #include "Graphics\IVertex.h"
 
 TL_Box::TL_Box()
+	:transform(nullptr)
 {
 	struct Vertex
 	{
@@ -96,7 +97,9 @@ TL_Box::TL_Box()
 
 	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(matDesc);
 
-	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
+	auto t = transform.GetWorldTM();
+
+	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&t, sizeof(t));
 
 	pixelShader = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/TestObjectGBuffers.hlsl");
 

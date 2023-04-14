@@ -12,6 +12,8 @@
 
 #include "GameObject\Box.h"
 
+#include "GameObject\Camera.h"
+
 class ajwCommon::Input;
 class EX_RTT : public IExample
 {
@@ -22,11 +24,8 @@ public:
 	virtual void UnInit() override;
 	virtual void Update() override;
 
-	ajwCommon::Input* input;
-
-	TL_Graphics::ICamera* camera;
-	Transform camT;
-	void CameraMove();
+	Camera cam;
+	
 
 	TL_Graphics::IRenderTargetTexture* rtt[4];
 

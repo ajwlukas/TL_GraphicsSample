@@ -14,6 +14,7 @@
 #include "Helper\Transform.h"
 
 #include "GameObject\TL_Box.h"
+#include "GameObject\Camera.h"
 
 class ajwCommon::Input;
 class Ex_PostProsessing : public IExample
@@ -30,11 +31,7 @@ public:
 	virtual void PostRender() override;
 	virtual void ImGui() override;
 
-	ajwCommon::Input* input;
-
-	TL_Graphics::ICamera* camera;
-	Transform camT;
-	void CameraMove();
+	Camera cam;
 
 	TL_Box box;
 	void BoxMove();

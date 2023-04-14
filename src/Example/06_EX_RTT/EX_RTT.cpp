@@ -2,11 +2,6 @@
 
 void EX_RTT::Init()
 {
-	input = new ajwCommon::Input();
-
-
-	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
-
 	for (UINT i = 0; i < 4; i++)
 		rtt[i] = TL_Graphics::RenderSystem::Get()->CreateRenderTargetTexture();
 
@@ -64,11 +59,7 @@ void EX_RTT::UnInit()
 	for (UINT i = 0; i < 4; i++)
 		TL_Graphics::RenderSystem::Get()->Return(rtt[i]);
 
-	TL_Graphics::RenderSystem::Get()->Return(camera);
-
 	TL_Graphics::RenderSystem::Delete();
-
-	delete input;
 }
 
 void EX_RTT::Update()
@@ -77,19 +68,7 @@ void EX_RTT::Update()
 	for (UINT i = 0; i < 4; i++)
 		rtt[i]->Clear({ 0.0f, 0.7f, 1.0f, 1.0f });
 
-	{
-		input->Update();//키보드 마우스 업데이트
-	}
-
-	{
-		CameraMove();//카메라 포지션 무브
-
-		camT.UpdateWorld();
-
-		camera->Update(camT.GetWorldMatrix());
-
-		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
-	}
+	cam.Update();
 
 	for (UINT i = 0; i < 4; i++)
 		rtt[i]->SetRT(i);//1번슬롯에 꽂는다.
@@ -118,26 +97,4 @@ void EX_RTT::Update()
 	}
 
 	TL_Graphics::RenderSystem::Get()->Present();//그려놓은 렌더타겟을 출현 시킴
-}
-
-void EX_RTT::CameraMove()
-{
-	if (input->Press(VK_LBUTTON))
-	{
-		camT.Rot().y += input->MouseDiff().x * 0.01f;
-		camT.Rot().x += input->MouseDiff().y * 0.01f;
-	}
-
-	if (input->Press('W'))
-		camT.Pos() += camT.Forward() * 0.005f;
-	if (input->Press('S'))
-		camT.Pos() -= camT.Forward() * 0.005f;
-	if (input->Press('A'))
-		camT.Pos() -= camT.Right() * 0.005f;
-	if (input->Press('D'))
-		camT.Pos() += camT.Right() * 0.005f;
-	if (input->Press('Q'))
-		camT.Pos() -= camT.Up() * 0.005f;
-	if (input->Press('E'))
-		camT.Pos() += camT.Up() * 0.005f;
 }

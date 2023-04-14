@@ -2,19 +2,6 @@
 
 void EX_PBR::Init()
 {
-	input = new ajwCommon::Input();
-	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
-
-	/// <summary>
-	/// 
-	/// 필요한 것 :
-	/// roughness, metalic data
-	/// normal data
-	/// 
-	/// </summary>
-
-	/////////////////// box
-
 	struct Vertex
 	{
 		float position[3];
@@ -113,7 +100,9 @@ void EX_PBR::Init()
 
 	materialData = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&matData, sizeof(MaterialData));
 
-	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
+	auto t = transform.GetWorldTM();
+
+	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&t, sizeof(t));
 
 	texture = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CJY.jpg");
 
@@ -169,11 +158,9 @@ void EX_PBR::UnInit()
 
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 
-	TL_Graphics::RenderSystem::Get()->Return(camera);
 
 	TL_Graphics::RenderSystem::Delete();
 
-	delete input;
 }
 
 void EX_PBR::Update()
@@ -183,20 +170,7 @@ void EX_PBR::Update()
 	pbrRT->Clear({ 0.0f, 0.7f, 1.0f, 1.0f });
 	legacyRT->Clear({ 0.0f, 0.7f, 1.0f, 1.0f });
 
-	{
-		input->Update();//키보드 마우스 업데이트
-	}
-
-	{
-		CameraMove();//카메라 포지션 무브
-
-		camT.UpdateWorld();
-
-		camera->Update(camT.GetWorldMatrix());
-
-		camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
-		camera->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
-	}
+	cam.Update();
 
 	pbrRT->SetRT(0);//0번슬롯에 꽂는다.
 	legacyRT->SetRT(1);//1번슬롯에 꽂는다.
@@ -204,9 +178,8 @@ void EX_PBR::Update()
 	{//Box
 		BoxMove();
 
-		transform.UpdateWorld();
-
-		worldBuffer->Update(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
+		auto t = transform.GetWorldTM();
+		worldBuffer->Update(&t, sizeof(t));
 
 		mesh->Set();//vertex, index
 
@@ -239,38 +212,20 @@ void EX_PBR::Update()
 	TL_Graphics::RenderSystem::Get()->Present();//그려놓은 렌더타겟을 출현 시킴
 }
 
-void EX_PBR::CameraMove()
-{
-	if (input->Press(VK_LBUTTON))
-	{
-		camT.Rot().y += input->MouseDiff().x * 0.01f;
-		camT.Rot().x += input->MouseDiff().y * 0.01f;
-	}
-
-	if (input->Press('W'))
-		camT.Pos() += camT.Forward() * 0.01f;
-	if (input->Press('S'))
-		camT.Pos() -= camT.Forward() * 0.01f;
-	if (input->Press('A'))
-		camT.Pos() -= camT.Right() * 0.01f;
-	if (input->Press('D'))
-		camT.Pos() += camT.Right() * 0.01f;
-	if (input->Press('Q'))
-		camT.Pos() -= camT.Up() * 0.01f;
-	if (input->Press('E'))
-		camT.Pos() += camT.Up() * 0.01f;
-}
-
 void EX_PBR::BoxMove()
 {
+	auto& input = ajwCommon::Input::Get();
 
-	if (input->Press(VK_UP))
-		transform.Rot().x += 0.0003f;
-	if (input->Press(VK_DOWN))
-		transform.Rot().x -= 0.0003f;
-	if (input->Press(VK_LEFT))
-		transform.Rot().y += 0.0003f;
-	if (input->Press(VK_RIGHT))
-		transform.Rot().y -= 0.0003f;
+	Vector3 rotation{};
 
+	if (input.Press(VK_UP))
+		rotation.x += 0.0003f;
+	if (input.Press(VK_DOWN))
+		rotation.x -= 0.0003f;
+	if (input.Press(VK_LEFT))
+		rotation.y += 0.0003f;
+	if (input.Press(VK_RIGHT))
+		rotation.y -= 0.0003f;
+
+	transform.SetWorldRotation(transform.GetWorldRotationEuler() + rotation);
 }

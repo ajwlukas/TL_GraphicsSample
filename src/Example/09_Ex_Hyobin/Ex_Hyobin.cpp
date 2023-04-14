@@ -2,70 +2,39 @@
 
 void Ex_Hyobin::Init()
 {
-	input = new ajwCommon::Input();
-
-	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
-
 	materialBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&mat, sizeof(mat));
 
 	control = TL_Graphics::RenderSystem::Get()->GetControlPanel();
 
 	testBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&test, sizeof(test));
 
-	TestTL();
+	//TestTL();
+	TestSangYeon();
 	std::wstring ws = L"Garden";
 
 	directionalLight.direction = { -1,-1,-1 };
-	//std::wstring ws = L"Valley";
-
-	/*cubeMap = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CubeMaps/" + ws + L"EnvHDR.dds");
-
-	irradianceMap = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CubeMaps/" + ws + L"DiffuseHDR.dds");
-	prefilteredEnvMap = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/CubeMaps/" + ws + L"SpecularHDR.dds");
-	iblBRDF = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/ibl_brdf_lut.png");*/
-
-
 }
 
 void Ex_Hyobin::UnInit()
 {
-
-	//TL_Graphics::RenderSystem::Get()->Return(cubeMap);
-	//TL_Graphics::RenderSystem::Get()->Return(irradianceMap);
-	//TL_Graphics::RenderSystem::Get()->Return(prefilteredEnvMap);
-
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 	TL_Graphics::RenderSystem::Get()->Return(material);
 
 	TL_Graphics::RenderSystem::Get()->Return(testBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(materialBuffer);
-	TL_Graphics::RenderSystem::Get()->Return(camera);
 
 	TL_Graphics::RenderSystem::Delete();
 
-	delete input;
+	delete gO;
 }
 
 #include "imgui.h"
 
 void Ex_Hyobin::Update()
 {
-	ImGuiIO& io = ImGui::GetIO();
-	if (!io.WantCaptureMouse || !io.WantCaptureKeyboard)
-		input->Update();//키보드 마우스 업데이트
+	cam.Update();
 
-	{
-
-		CameraMove();//카메라 포지션 무브
-
-		camT.UpdateWorld();
-
-		camera->Update(camT.GetWorldMatrix());
-
-	}
-
-
-	BoxMove();
+	//BoxMove();
 }
 
 void Ex_Hyobin::PreRender()
@@ -74,12 +43,6 @@ void Ex_Hyobin::PreRender()
 
 	TL_Graphics::RenderSystem::Get()->PreRender();
 
-	//cubeMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 10);
-	//irradianceMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 12);
-	//prefilteredEnvMap->Set(TL_Graphics::E_SHADER_TYPE::PS, 13);
-
-	camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
-	camera->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
 
 	TL_Graphics::RenderSystem::Get()->BeginSetLight();
 
@@ -90,7 +53,9 @@ void Ex_Hyobin::PreRender()
 
 void Ex_Hyobin::Render()
 {
-	materialBuffer->Update(&mat, sizeof(mat));
+	gO->Render();
+
+	/*materialBuffer->Update(&mat, sizeof(mat));
 	materialBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
 
 	testBuffer->Update(&test, sizeof(test));
@@ -101,35 +66,13 @@ void Ex_Hyobin::Render()
 
 	worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
 
-	TL_Graphics::RenderSystem::Get()->Draw();
+	TL_Graphics::RenderSystem::Get()->Draw();*/
 
 }
 
 void Ex_Hyobin::PostRender()
 {
 	TL_Graphics::RenderSystem::Get()->PostRender();
-}
-
-void Ex_Hyobin::CameraMove()
-{
-	if (input->Press(VK_LBUTTON))
-	{
-		camT.Rot().y += input->MouseDiff().x * 0.01f;
-		camT.Rot().x += input->MouseDiff().y * 0.01f;
-	}
-
-	if (input->Press('W'))
-		camT.Pos() += camT.Forward() * 0.01f;
-	if (input->Press('S'))
-		camT.Pos() -= camT.Forward() * 0.01f;
-	if (input->Press('A'))
-		camT.Pos() -= camT.Right() * 0.01f;
-	if (input->Press('D'))
-		camT.Pos() += camT.Right() * 0.01f;
-	if (input->Press('Q'))
-		camT.Pos() -= camT.Up() * 0.01f;
-	if (input->Press('E'))
-		camT.Pos() += camT.Up() * 0.01f;
 }
 
 void Ex_Hyobin::ImGui()
@@ -159,14 +102,21 @@ void Ex_Hyobin::ImGui()
 	if (ImGui::Button("grid", { 100,30 }))
 		control->doGrid = !control->doGrid;
 
-	if (ImGui::Button("downSample", { 100,30 }))
-		control->doDownSample = !control->doDownSample;
-
-	if (ImGui::Button("GaussianBlur", { 100,30 }))
-		control->doGaussianBlur = !control->doGaussianBlur;
-
 	if (ImGui::Button("ColorGrading", { 100,30 }))
 		control->doColorGrading = !control->doColorGrading;
+
+	if (ImGui::Button("LightAdaption", { 100,30 }))
+		control->doLightAdaption = !control->doLightAdaption;
+
+	ImGui::SliderFloat("MiddleGrey", &control->middleGrey, 0.1f, 2.0f);
+
+	if (ImGui::Button("ToneMapping", { 100,30 }))
+		control->doToneMapping = !control->doToneMapping;
+
+	ImGui::SliderFloat("MaxWhite", &control->maxWhite, 0.1f, 15.0f);
+
+	if (ImGui::Button("Bloom", { 100,30 }))
+		control->doBloom = !control->doBloom;
 
 	ImGui::End();
 
@@ -181,49 +131,26 @@ void Ex_Hyobin::ImGui()
 
 void Ex_Hyobin::BoxMove()
 {
-		if (input->Press(VK_UP))
-			transform.Rot().x += 0.0003f;
-		if (input->Press(VK_DOWN))
-			transform.Rot().x -= 0.0003f;
-		if (input->Press(VK_LEFT))
-			transform.Rot().y += 0.0003f;
-		if (input->Press(VK_RIGHT))
-			transform.Rot().y -= 0.0003f;
-	
-		transform.UpdateWorld();
-	
-		worldBuffer->Update(&(transform.GetWorldMatrix()),sizeof(transform.GetWorldMatrix()));
-	
-}
 
-void Ex_Hyobin::TestSkinning()
-{
-	/*bool _result = false;
+	Vector3 rotation{};
 
-	TL_FBXLibrary::FBXModelLoader _loader;
-	_result = _loader.Init();*/
+	auto& input = ajwCommon::Input::Get();
 
-	////_result = _loader.Load(L"_DevelopmentAssets/Model/Wooden_Crate/Wooden_Crate.fbx");
-	//_result = _loader.Load(L"Resource/TextureTest/Rock_2.fbx");
-	////_result = _loader.Load(L"Resource/Floodlight/TL_Floodlight.fbx");
-	//_loader.FBXConvertOptimize();
+	if (input.Press(VK_UP))
+		rotation.x += 0.0003f;
+	if (input.Press(VK_DOWN))
+		rotation.x -= 0.0003f;
+	if (input.Press(VK_LEFT))
+		rotation.y += 0.0003f;
+	if (input.Press(VK_RIGHT))
+		rotation.y -= 0.0003f;
 
-	//auto* _prefab = _loader.GetPrefab();
+	transform.SetWorldRotation(transform.GetWorldRotationEuler() + rotation);
 
-	//TL_Graphics::VertexAttribute attribute;
+	auto t = transform.GetWorldTM();
 
-	////attirbute Desc
-	//attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::pos), TL_Graphics::DataType::FLOAT, "POSITION");
-	//attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::uv), TL_Graphics::DataType::FLOAT, "UV");
-	//attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::normal), TL_Graphics::DataType::FLOAT, "NORMAL");
-	//attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::tangent), TL_Graphics::DataType::FLOAT, "TANGENT");
-	//attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
-	//attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::index), TL_Graphics::DataType::UINT, "BONE_INDEX");
-	//attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeltalVertex::weight1), TL_Graphics::DataType::FLOAT, "BONE_WEIGHT");
+	worldBuffer->Update(&t, sizeof(t));
 
-	//attribute.AddData(_prefab->m_MeshList[0]->vertex._skeletal.data(), _prefab->m_MeshList[0]->vertex._skeletal.size() * sizeof(_prefab->m_MeshList[0]->vertex._skeletal[0]));
-
-	//mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, (UINT*)_prefab->m_MeshList[0]->optimizeFace.data(), _prefab->m_MeshList[0]->optimizeFace.size() * 3, TL_Graphics::E_MESH_TYPE::SKINNING);
 }
 
 void Ex_Hyobin::TestStatic()
@@ -258,8 +185,9 @@ void Ex_Hyobin::TestStatic()
 
 	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(matDesc);
 
+	auto t = transform.GetWorldTM();
 
-	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
+	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&t, sizeof(t));
 }
 
 #include <string>
@@ -308,8 +236,19 @@ void Ex_Hyobin::TestTL()
 
 	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(matDesc);
 
+	auto t = transform.GetWorldTM();
 
-	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&(transform.GetWorldMatrix()), sizeof(transform.GetWorldMatrix()));
+	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&t, sizeof(t));
+}
+
+
+#include "GameObject\Generator.h"
+
+void Ex_Hyobin::TestSangYeon()
+{
+	gO = Generator::Generate(L"_DevelopmentAssets/Model/3-3/3_3_Emissive.fbx");
+
+
 }
 
 

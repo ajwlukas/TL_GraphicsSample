@@ -1,101 +1,142 @@
 #pragma once
 
-#include "Math\TL_Math.h"
+#include <string>
+#include "Math/TL_Math.h"
 
+using namespace TL_Math;
 class Transform
 {
 public:
-	Transform();
-	~Transform();
+	Transform(class GameObject* _gameObject, const std::wstring& _typeName = L"Transform");
 
-	void UpdateWorld();
-
-	TL_Math::Matrix& GetWorldMatrix();
-
-	TL_Math::Vector3& Pos();
-	TL_Math::Vector3& Rot();
-	TL_Math::Quaternion& Quat();
-	TL_Math::Vector3& Scale();
-
-	const TL_Math::Vector3& PosW();
-	const TL_Math::Vector3& RotW();
-	const TL_Math::Vector3& ScaleW();
-
-	const TL_Math::Vector3& Up();
-	const TL_Math::Vector3& Right();
-	const TL_Math::Vector3& Forward();
 private:
-	TL_Math::Vector3 pos, rot, scale;
-	TL_Math::Quaternion quat;
+	void UpdateWorldMatrix(const Matrix& _parentTM);
 
-	TL_Math::Vector3 posW, rotW, scaleW;
-	TL_Math::Quaternion quatW;
+	/**
+	 * \brief 로컬 변환 행렬입니다.
+	 */
+	Matrix m_LocalTM;
 
-	TL_Math::Vector3 up, right, forward;
+	/**
+	 * \brief 월드 변환 행렬입니다.
+	 */
+	Matrix m_WorldTM;
 
-	TL_Math::Matrix local, S, R, T;
-	TL_Math::Matrix world;
+	/**
+	 * \brief 가장 마지막으로 월드 변환 행렬이 계산된 이후
+	 * 값이 한 번이라도 수정되어서 변경될 필요가 있는지에 대한 판별값입니다.
+	 * 이 변수는 행렬 계산을 최소한으로 줄이기 위해 사용됩니다.
+	 */
+	bool m_bWorldTMShouldUpdate;
 
-	Transform* parent;
+public:
 
-	const static TL_Math::Vector3 WorldUp, WorldRight, WorldForward;
+	/**
+	 * \brief 부모를 변환시 현재 로컬 트랜스폼을 새로 적용된 부모의
+	 * 월드 트랜스폼 기준으로 갱신합니다.
+	 */
+	void ChangeParent(Transform* _parent);
+
+	void SetLocalPosition(const Vector3& _newPosition);
+
+	void SetLocalRotation(const Quaternion& _newRotation);
+
+	void SetLocalRotation(const Vector3& _euler);
+
+	void SetLocalScale(const Vector3& _newScale);
+
+	void SetWorldPosition(const Vector3& _newPosition);
+
+	void SetWorldRotation(const Quaternion& _newRotation);
+
+	void SetWorldRotation(const Vector3& _euler);
+
+	void SetWorldScale(const Vector3& _newScale);
+
+
+
+	/*
+	 * Add for physics update
+	 * Author	: LWT
+	 * Date		: 2022. 10. 31
+	 */
+	void SetLocalPositionAndRotation(const Vector3& _newPosition, const Quaternion& _newRotation);
+	void SetPositionAndRotation(const Vector3& _newPosition, const Quaternion& _newRotation);
+
+	inline Vector3 GetLocalPosition()
+	{
+		Vector3 _scale;
+		Quaternion _rotation;
+		Vector3 _position;
+
+		Matrix _localTM = GetLocalTM();
+		_localTM.Decompose(_scale, _rotation, _position);
+
+		return _position;
+	}
+
+	inline Quaternion GetLocalRotation()
+	{
+		Vector3 _scale;
+		Quaternion _rotation;
+		Vector3 _position;
+
+		Matrix _localTM = GetLocalTM();
+		_localTM.Decompose(_scale, _rotation, _position);
+
+		return _rotation;
+	}
+
+	inline Vector3 GetLocalRotationEuler()
+	{
+		return GetLocalRotation().ToEuler();
+	}
+
+	inline Vector3 GetLocalScale()
+	{
+		Vector3 _scale;
+		Quaternion _rotation;
+		Vector3 _position;
+
+		Matrix _localTM = GetLocalTM();
+		_localTM.Decompose(_scale, _rotation, _position);
+
+		return _scale;
+	}
+
+	Vector3 GetWorldPosition();
+
+	Quaternion GetWorldRotation();
+
+	Vector3 GetWorldRotationEuler();
+
+	Vector3 GetWorldScale();
+
+	void SetLocalTM(const Matrix& _localTM);
+
+	void SetWorldTM(const Matrix& _worldTM);
+
+	Matrix GetLocalTM();
+
+	Matrix GetWorldTM();
+
+	Vector3 GetRightDirection();
+
+	Vector3 GetUpDirection();
+
+	Vector3 GetForwardDirection();
+
+private:
+	void TryUpdateWorldTM();
+
+	void MarkWorldTMDirt();
+
+private:
+	static constexpr float RAD_TO_DEG = 57.295779513f;
+
+	static constexpr float DEG_TO_RAD = 0.01745329252f;
+
+	friend class GameObject;
+
+	class GameObject* m_GameObject;
 };
-
-inline TL_Math::Matrix& Transform::GetWorldMatrix()
-{ 
-	 return world; 
-}
-
-inline TL_Math::Vector3& Transform::Pos()
-{
-	return pos;
-}
-inline TL_Math::Vector3& Transform::Rot()
-{
-	return rot;
-}
-inline TL_Math::Vector3& Transform::Scale()
-{
-	return scale;
-}
-
-inline TL_Math::Quaternion& Transform::Quat()
-{
-	return quat;
-}
-
-inline const TL_Math::Vector3& Transform::PosW()
-{
-	return posW;
-}
-
-inline const TL_Math::Vector3& Transform::RotW()
-{
-	return rotW;
-}
-
-inline const TL_Math::Vector3& Transform::ScaleW()
-{
-	return scaleW;
-}
-
-inline const TL_Math::Vector3& Transform::Up()
-{
-	XMStoreFloat3(&up, XMVector4Transform(WorldUp, world));
-	up.Normalize();
-	return  up;
-}
-
-inline const TL_Math::Vector3& Transform::Right()
-{
-	XMStoreFloat3(&right, XMVector4Transform(WorldRight, world));
-	right.Normalize();
-	return  right;
-}
-
-inline const TL_Math::Vector3& Transform::Forward()
-{
-	XMStoreFloat3(&forward, XMVector4Transform(WorldForward, world));
-	forward.Normalize();
-	return  forward;
-}

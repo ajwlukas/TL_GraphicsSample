@@ -18,6 +18,8 @@
 #include "FBXLibrary\FBXParserData.h"
 #include "FBXLibrary/FBXModelLoader.h"
 
+#include "GameObject\Camera.h"
+
 #include "imgui.h"
 
 /// <summary>
@@ -30,6 +32,7 @@ class ajwCommon::Input;
 class Ex_Hyobin : public IExample
 {
 public:
+	Ex_Hyobin() : transform(nullptr){}
 
 	// IExample을(를) 통해 상속됨
 	virtual void Init() override;
@@ -41,11 +44,6 @@ public:
 	virtual void PostRender() override;
 	virtual void ImGui() override;
 
-	ajwCommon::Input* input;
-
-	TL_Graphics::ICamera* camera;
-	Transform camT;
-	void CameraMove();
 
 	void BoxMove();
 
@@ -71,9 +69,13 @@ public:
 
 	TL_Graphics::ControlPanel* control;
 
-	void TestSkinning();
+	Camera cam;
+
 	void TestStatic();
 	void TestTL();
+
+	GameObject* gO = nullptr;
+	void TestSangYeon();
 
 
 	__declspec(align(16)) struct Test
@@ -82,12 +84,5 @@ public:
 	}test;
 
 	TL_Graphics::IConstantBuffer* testBuffer;
-
-
-	//TL_Graphics::ITexture* cubeMap;
-	//TL_Graphics::ITexture* irradianceMap;
-	//TL_Graphics::ITexture* prefilteredEnvMap;
-	//TL_Graphics::ITexture* iblBRDF;
-
 
 };

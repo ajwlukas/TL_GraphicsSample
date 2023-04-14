@@ -10,6 +10,8 @@
 
 #include "Helper\Transform.h"
 
+#include "GameObject\Camera.h"
+
 class ajwCommon::Input;
 class Ex_TextureBuffer : public IExample
 {
@@ -20,12 +22,7 @@ public:
 	virtual void UnInit() override;
 	virtual void Update() override;
 
-	ajwCommon::Input* input;
-
-	TL_Graphics::ICamera* camera;
-	Transform camT;
-	void CameraMove();
-
+	Camera cam;
 
 #pragma region square
 	TL_Graphics::IMesh* mesh;

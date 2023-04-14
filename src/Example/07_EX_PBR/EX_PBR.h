@@ -10,6 +10,8 @@
 
 #include "GameObject\Box.h"
 
+#include "GameObject\Camera.h"
+
 class EX_PBR : public IExample
 {
 	// IExample을(를) 통해 상속됨
@@ -17,11 +19,7 @@ class EX_PBR : public IExample
 	virtual void UnInit() override;
 	virtual void Update() override;
 
-	ajwCommon::Input* input;
-
-	TL_Graphics::ICamera* camera;
-	Transform camT;
-	void CameraMove();
+	Camera cam;
 
 	//canvas
 	TL_Graphics::IMesh* mesh;

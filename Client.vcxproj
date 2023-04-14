@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,7 +127,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,7 +157,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -187,7 +187,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -230,7 +230,14 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
     <ClInclude Include="src\Example\IExample.h" />
     <ClInclude Include="src\framework.h" />
     <ClInclude Include="src\GameObject\Box.h" />
+    <ClInclude Include="src\GameObject\Camera.h" />
+    <ClInclude Include="src\GameObject\GameObejct.h" />
+    <ClInclude Include="src\GameObject\Generator.h" />
+    <ClInclude Include="src\GameObject\Material.h" />
+    <ClInclude Include="src\GameObject\StaticMesh.h" />
+    <ClInclude Include="src\GameObject\StaticMeshRenderer.h" />
     <ClInclude Include="src\GameObject\TL_Box.h" />
+    <ClInclude Include="src\GameObject\Vertex.h" />
     <ClInclude Include="src\Helper\Transform.h" />
     <ClInclude Include="src\Resource.h" />
     <ClInclude Include="src\targetver.h" />
@@ -252,6 +259,12 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
     <ClCompile Include="src\Example\11_Ex_PostProsessing\Ex_PostProsessing.cpp" />
     <ClCompile Include="src\Example\12_Ex_IBL\Ex_IBL.cpp" />
     <ClCompile Include="src\GameObject\Box.cpp" />
+    <ClCompile Include="src\GameObject\Camera.cpp" />
+    <ClCompile Include="src\GameObject\GameObejct.cpp" />
+    <ClCompile Include="src\GameObject\Generator.cpp" />
+    <ClCompile Include="src\GameObject\Material.cpp" />
+    <ClCompile Include="src\GameObject\StaticMesh.cpp" />
+    <ClCompile Include="src\GameObject\StaticMeshRenderer.cpp" />
     <ClCompile Include="src\GameObject\TL_Box.cpp" />
     <ClCompile Include="src\Helper\Transform.cpp" />
   </ItemGroup>

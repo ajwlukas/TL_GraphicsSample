@@ -4,12 +4,6 @@
 
 void Ex_Light::Init()
 {
-	input = new ajwCommon::Input();
-
-
-	camera = TL_Graphics::RenderSystem::Get()->CreateCamera();
-
-
 
 	directionalLightBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&directionalLight, sizeof(directionalLight));
 
@@ -21,32 +15,14 @@ void Ex_Light::UnInit()
 {
 	TL_Graphics::RenderSystem::Get()->Return(materialBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(directionalLightBuffer);
-	TL_Graphics::RenderSystem::Get()->Return(camera);
 
 	TL_Graphics::RenderSystem::Delete();
 
-	delete input;
 }
 
 void Ex_Light::Update()
 {
-	ImGuiIO& io = ImGui::GetIO();
-	if (!io.WantCaptureMouse || !io.WantCaptureKeyboard)
-		input->Update();//키보드 마우스 업데이트
-
-	{
-
-		CameraMove();//카메라 포지션 무브
-
-		camT.UpdateWorld();
-
-		camera->Update(camT.GetWorldMatrix());
-
-	}
-
-
-	//box.transform.Rot().y += 0.0003f;
-
+	cam.Update();
 	BoxMove();
 
 }
@@ -57,9 +33,6 @@ void Ex_Light::PreRender()
 
 	directionalLightBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
 
-
-	camera->Set(TL_Graphics::E_SHADER_TYPE::VS, 0);
-	camera->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
 
 	TL_Graphics::RenderSystem::Get()->BeginSetLight();
 
@@ -129,56 +102,26 @@ void Ex_Light::ImGui()
 	ImGui::SliderFloat("angleSpot", &spotLight.spot, 0, 20.0f);
 
 
-	/*spotLight.attenuation = { 1.0f, 0.007, 0.0002 };
-	spotLight.color = { 1.0f, 1.0f, 1.0f };
-	spotLight.direction = { 0.0f, 0.0f, 1.0f };
-	spotLight.intensity = 1.0f;
-	spotLight.position = { 0.0f, 0.0f , -10.0f };
-	spotLight.range = 10.0f;
-	spotLight.spot = 8.0f;*/
-
-
 	ImGui::End();
-}
-
-
-void Ex_Light::CameraMove()
-{
-	if (input->Press(VK_LBUTTON))
-	{
-		camT.Rot().y += input->MouseDiff().x * 0.001f;
-		camT.Rot().x += input->MouseDiff().y * 0.001f;
-	}
-
-	if (input->Press('W'))
-		camT.Pos() += camT.Forward() * 0.001f;
-	if (input->Press('S'))
-		camT.Pos() -= camT.Forward() * 0.001f;
-	if (input->Press('A'))
-		camT.Pos() -= camT.Right() * 0.001f;
-	if (input->Press('D'))
-		camT.Pos() += camT.Right() * 0.001f;
-	if (input->Press('Q'))
-		camT.Pos() -= camT.Up() * 0.001f;
-	if (input->Press('E'))
-		camT.Pos() += camT.Up() * 0.001f;
 }
 
 void Ex_Light::BoxMove()
 {
+	auto& input = ajwCommon::Input::Get();
 
-	if (input->Press(VK_UP))
-		box.transform.Rot().x += 0.0003f;
-	if (input->Press(VK_DOWN))
-		box.transform.Rot().x -= 0.0003f;
-	if (input->Press(VK_LEFT))
-		box.transform.Rot().y += 0.0003f;
-	if (input->Press(VK_RIGHT))
-		box.transform.Rot().y -= 0.0003f;
+	Vector3 rotation{};
 
-	box.transform.UpdateWorld();
 
-	box.worldBuffer->Update(&(box.transform.GetWorldMatrix()),sizeof(box.transform.GetWorldMatrix()));
+	if (input.Press(VK_UP))
+		rotation.x += 0.0003f;
+	if (input.Press(VK_DOWN))
+		rotation.x -= 0.0003f;
+	if (input.Press(VK_LEFT))
+		rotation.y += 0.0003f;
+	if (input.Press(VK_RIGHT))
+		rotation.y -= 0.0003f;
+
+	box.transform.SetWorldRotation(box.transform.GetWorldRotationEuler() + rotation);
 }
 
 
