@@ -2,11 +2,8 @@
 
 void Ex_Hyobin::Init()
 {
-	materialBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&mat, sizeof(mat));
-
 	control = TL_Graphics::RenderSystem::Get()->GetControlPanel();
 
-	testBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&test, sizeof(test));
 
 	//TestTL();
 	TestSangYeon();
@@ -19,9 +16,6 @@ void Ex_Hyobin::UnInit()
 {
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 	TL_Graphics::RenderSystem::Get()->Return(material);
-
-	TL_Graphics::RenderSystem::Get()->Return(testBuffer);
-	TL_Graphics::RenderSystem::Get()->Return(materialBuffer);
 
 	TL_Graphics::RenderSystem::Delete();
 
@@ -55,18 +49,6 @@ void Ex_Hyobin::Render()
 {
 	gO->Render();
 
-	/*materialBuffer->Update(&mat, sizeof(mat));
-	materialBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
-
-	testBuffer->Update(&test, sizeof(test));
-	testBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 11);
-
-	mesh->Set();
-	material->Set();
-
-	worldBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 1);
-
-	TL_Graphics::RenderSystem::Get()->Draw();*/
 
 }
 
@@ -77,13 +59,6 @@ void Ex_Hyobin::PostRender()
 
 void Ex_Hyobin::ImGui()
 {
-	ImGui::Begin("material");                          // Create a window called "Hello, world!" and append into it.
-
-	ImGui::SliderFloat("metallic", &mat.metallic, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-	ImGui::SliderFloat("roughness", &mat.roughness, 0.0f, 1.0f);            // Edit 1 float using a slider from 0.0f to 1.0f
-
-	ImGui::End();
-
 
 	ImGui::Begin("light");
 
@@ -123,7 +98,6 @@ void Ex_Hyobin::ImGui()
 
 	ImGui::Begin("Test");
 
-	ImGui::SliderFloat("flt", &test.flt, 0, 10.0f);
 
 	ImGui::End();
 
@@ -247,6 +221,7 @@ void Ex_Hyobin::TestTL()
 void Ex_Hyobin::TestSangYeon()
 {
 	gO = Generator::Generate(L"_DevelopmentAssets/Model/3-3/3_3_Emissive.fbx");
+	//gO = Generator::Generate(L"_DevelopmentAssets/Model/sphere.fbx");
 
 
 }

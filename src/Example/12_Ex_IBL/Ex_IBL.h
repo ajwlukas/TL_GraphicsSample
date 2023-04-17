@@ -45,6 +45,14 @@ public:
 	}lod;
 
 	TL_Graphics::IConstantBuffer* lodBuffer;
+
+
+	__declspec(align(16)) struct Color
+	{
+		Vector3 color;
+	}color;
+	TL_Graphics::IConstantBuffer* colorBuffer;
+
 	
 
 	//Lights
@@ -52,7 +60,6 @@ public:
 	TL_Graphics::PointLight pointLight;
 	TL_Graphics::SpotLight spotLight;
 
-	TL_Graphics::ILine* line;
 
 	TL_Graphics::ITexture* cubeMap;
 	TL_Graphics::ITexture* irradianceMap;

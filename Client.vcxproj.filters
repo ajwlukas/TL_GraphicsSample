@@ -117,6 +117,9 @@
     <ClInclude Include="src\GameObject\Camera.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="src\Example\13_Ex_InstancingLighting\Ex_InstancingLighting.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Client.cpp">
@@ -189,6 +192,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="src\GameObject\StaticMeshRenderer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Example\13_Ex_InstancingLighting\Ex_InstancingLighting.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

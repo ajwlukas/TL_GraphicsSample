@@ -15,6 +15,8 @@
 
 #include "Example\12_Ex_IBL\Ex_IBL.h"
 
+#include "Example\13_Ex_InstancingLighting\Ex_InstancingLighting.h"
+
 App::App()
 {
 	//example = new Ex_Triangle();
@@ -31,10 +33,11 @@ App::App()
 	//example = new Ex_Hyobin();
 	//example = new Ex_Deferred();
 	//example = new Ex_PostProsessing();
-	example = new Ex_IBL();
+	//example = new Ex_IBL();
 
 	//example = new Ex_Light();
 
+	example = new Ex_InstancingLighting();
 
 	example->Init();
 }

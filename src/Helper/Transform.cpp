@@ -346,15 +346,12 @@ Vector3 Transform::GetForwardDirection()
 
 void Transform::TryUpdateWorldTM()
 {
-	if (m_bWorldTMShouldUpdate == true)
-	{
-		if (!m_GameObject) {UpdateWorldMatrix(Matrix::Identity); return; }
-		// 부모의 WorldMatrix를 가져와 새로고칩니다.
-		if (m_GameObject->GetParent() == nullptr)
-			UpdateWorldMatrix(Matrix::Identity);
-		else
-			UpdateWorldMatrix(m_GameObject->GetParent()->m_Transform.GetWorldTM());
-	}
+	if (!m_GameObject) { UpdateWorldMatrix(Matrix::Identity); return; }
+	// 부모의 WorldMatrix를 가져와 새로고칩니다.
+	if (m_GameObject->GetParent() == nullptr)
+		UpdateWorldMatrix(Matrix::Identity);
+	else
+		UpdateWorldMatrix(m_GameObject->GetParent()->m_Transform.GetWorldTM());
 }
 
 void Transform::MarkWorldTMDirt()

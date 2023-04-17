@@ -4,25 +4,25 @@
 
 void Ex_IBL::Init()
 {
-	line = TL_Graphics::RenderSystem::Get()->CreateLine({ 0,0,0 }, { 10,20,10 });
-
 	CreateSphere();
 
 	CreateAndSetEnvs();
 
 
 	lodBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&lod, sizeof(Lod));
+	colorBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&color, sizeof(Color));
 }
 
 void Ex_IBL::UnInit()
 {
 	TL_Graphics::RenderSystem::Get()->Return(transformBuffer);
+	TL_Graphics::RenderSystem::Get()->Return(materialBuffer);
+	TL_Graphics::RenderSystem::Get()->Return(colorBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(lodBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(irradianceMap);
 	TL_Graphics::RenderSystem::Get()->Return(prefilteredEnvMap);
 	TL_Graphics::RenderSystem::Get()->Return(iblBRDF);
 	TL_Graphics::RenderSystem::Get()->Return(cubeMap);
-	TL_Graphics::RenderSystem::Get()->Return(line);
 	TL_Graphics::RenderSystem::Delete();
 
 }
@@ -32,7 +32,6 @@ void Ex_IBL::Update()
 	cam.Update();
 
 	BoxMove();
-
 }
 
 void Ex_IBL::PreRender()
@@ -53,14 +52,14 @@ void Ex_IBL::Render()
 
 	mesh->Set();
 
+	colorBuffer->Update(&color, sizeof(Color));
+	colorBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 10);
+
 	transformBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 10);
 	materialBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 50);
+
+
 	TL_Graphics::RenderSystem::Get()->DrawInstanced(22);
-
-
-
-
-	line->Draw();
 }
 
 void Ex_IBL::PostRender()
@@ -72,38 +71,12 @@ void Ex_IBL::ImGui()
 {
 	box.ImGui();
 
-	ImGui::Begin("light");
+	ImGui::Begin("Sphere");
 
-	ImGui::SliderFloat("intensity", &directionalLight.intensity, 0, 1.0f);
-
-	ImGui::SliderFloat3("direction", (float*)&directionalLight.direction, 0, 1.0f);
-
-	ImGui::ColorPicker3("color", (float*)&directionalLight.color);            // Edit 1 float using a slider from 0.0f to 1.0f
-
-
-	//pointLight
-	ImGui::SliderFloat("intensityP", &pointLight.intensity, 0, 1.0f);
-
-	ImGui::SliderFloat3("attenuation", (float*)&pointLight.attenuation, 0, 1.0f);
-	ImGui::SliderFloat3("position", (float*)&pointLight.position, -10.0f, 10.0f);
-
-	ImGui::ColorPicker3("colorP", (float*)&pointLight.color);            // Edit 1 float using a slider from 0.0f to 1.0f
-
-
-	//spotLight
-	ImGui::SliderFloat("intensitySpot", &spotLight.intensity, 0, 1.0f);
-
-	ImGui::SliderFloat3("attenuationSpot", (float*)&spotLight.attenuation, 0, 1.0f);
-	ImGui::SliderFloat3("positionSpot", (float*)&spotLight.position, -10.0f, 10.0f);
-
-	ImGui::ColorPicker3("colorSpot", (float*)&spotLight.color);            // Edit 1 float using a slider from 0.0f to 1.0f
-
-	ImGui::SliderFloat3("directionSpot", (float*)&spotLight.direction, -1.0f, 1.0f);
-
-
-	ImGui::SliderFloat("angleSpot", &spotLight.spot, 0, 20.0f);
+	ImGui::ColorPicker3("Sphere Color", (float*)&color.color);            // Edit 1 float using a slider from 0.0f to 1.0f
 
 	ImGui::End();
+
 	ImGui::Begin("test");
 
 	ImGui::SliderFloat("LOD", &lod.lodLevel, 0, 11.0f);
@@ -135,9 +108,6 @@ void Ex_IBL::SetLights()
 {
 	TL_Graphics::RenderSystem::Get()->BeginSetLight();
 
-	TL_Graphics::RenderSystem::Get()->SetLight(&directionalLight);
-	TL_Graphics::RenderSystem::Get()->SetLight(&pointLight);
-	TL_Graphics::RenderSystem::Get()->SetLight(&spotLight);
 
 	TL_Graphics::RenderSystem::Get()->EndSetLight();
 }

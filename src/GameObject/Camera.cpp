@@ -45,19 +45,25 @@ void Camera::CameraMove()
 
 	transform.SetWorldRotation(transform.GetWorldRotationEuler() + rotation);
 
+	static float speed = 1.0f;
+
+	if (input.Press(VK_LSHIFT))
+		speed = 0.01f;
+
+
 	Vector3 position{};
 	if (input.Press('W'))
-		position += transform.GetForwardDirection() * 1.1f;
+		position += transform.GetForwardDirection() * speed;
 	if (input.Press('S'))
-		position -= transform.GetForwardDirection() * 1.1f;
+		position -= transform.GetForwardDirection() * speed;
 	if (input.Press('A'))
-		position -= transform.GetRightDirection() * 1.1f;
+		position -= transform.GetRightDirection() * speed;
 	if (input.Press('D'))
-		position += transform.GetRightDirection() * 1.1f;
+		position += transform.GetRightDirection() * speed;
 	if (input.Press('Q'))
-		position -= transform.GetUpDirection() * 1.1f;
+		position -= transform.GetUpDirection() * speed;
 	if (input.Press('E'))
-		position += transform.GetUpDirection() * 1.1f;
+		position += transform.GetUpDirection() * speed;
 
 	transform.SetWorldPosition(transform.GetWorldPosition() + position);
 }

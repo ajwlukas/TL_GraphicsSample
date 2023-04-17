@@ -29,10 +29,10 @@
 /// </summary>
 class ajwCommon::Input;
 
-class Ex_Hyobin : public IExample
+class Ex_InstancingLighting : public IExample
 {
 public:
-	Ex_Hyobin() : transform(nullptr){}
+	Ex_InstancingLighting() : transform(nullptr) {}
 
 	// IExample을(를) 통해 상속됨
 	virtual void Init() override;
@@ -44,10 +44,6 @@ public:
 	virtual void PostRender() override;
 	virtual void ImGui() override;
 
-
-	void BoxMove();
-
-
 	TL_FBXLibrary::FBXModelLoader* m_FBXLoader;
 
 	/// obj
@@ -57,16 +53,24 @@ public:
 	TL_Graphics::IConstantBuffer* worldBuffer;
 
 
-	TL_Graphics::DirectionalLight directionalLight;
-
+	TL_Graphics::ITextureBuffer* transformBuffer;
+	TL_Graphics::ITextureBuffer* materialBuffer;
 
 	TL_Graphics::ControlPanel* control;
 
 	Camera cam;
 
-	void TestStatic();
-	void TestTL();
+	int row = 1, col = 1, level = 1;
 
-	GameObject* gO = nullptr;
-	void TestSangYeon();
+
+	__declspec(align(16)) struct Mat
+	{
+		float metallic = 0.0f;
+		float rougness = 0.0f;
+	}mat;
+
+	void CreateSpheres();
+	void UpdateSpheresInfo();
+
+	void SetLights();
 };
