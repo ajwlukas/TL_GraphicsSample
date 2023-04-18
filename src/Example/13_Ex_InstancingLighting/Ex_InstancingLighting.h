@@ -22,6 +22,8 @@
 
 #include "imgui.h"
 
+
+
 /// <summary>
 /// Hyobin 누나의 FBX Loader Test 해보는 Scene
 /// 
@@ -55,6 +57,7 @@ public:
 
 	TL_Graphics::ITextureBuffer* transformBuffer;
 	TL_Graphics::ITextureBuffer* materialBuffer;
+	TL_Graphics::ITextureBuffer* colorBuffer;
 
 	TL_Graphics::ControlPanel* control;
 
@@ -73,4 +76,20 @@ public:
 	void UpdateSpheresInfo();
 
 	void SetLights();
+
+	struct LightRain
+	{
+		LightRain(Vector3 position, Vector3 color);
+		TL_Graphics::PointLight pointLight;
+		float speed;
+
+	};
+
+	void UpdateLights();
+
+	std::vector<LightRain> lightRains;
+
+	TL_Graphics::DirectionalLight light;
+
+	TL_Graphics::IShader* pixelShader;
 };

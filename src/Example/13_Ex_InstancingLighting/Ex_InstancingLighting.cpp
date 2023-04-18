@@ -11,12 +11,16 @@ void Ex_InstancingLighting::Init()
 
 	
 	CreateSpheres();
+
+	pixelShader = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/TestObjectGBuffers.hlsl");
 }
 
 void Ex_InstancingLighting::UnInit()
 {
+	TL_Graphics::RenderSystem::Get()->Return(pixelShader);
 	TL_Graphics::RenderSystem::Get()->Return(transformBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(materialBuffer);
+	TL_Graphics::RenderSystem::Get()->Return(colorBuffer);
 	TL_Graphics::RenderSystem::Delete();
 }
 
@@ -32,14 +36,18 @@ void Ex_InstancingLighting::PreRender()
 	TL_Graphics::RenderSystem::Get()->PreRender();
 
 	SetLights();
+	UpdateLights();
 }
 
 void Ex_InstancingLighting::Render()
 {
+	pixelShader->Set();
+
 	mesh->Set();
 
 	transformBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 10);
 	materialBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 50);
+	colorBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 51);
 
 
 	//TL_Graphics::RenderSystem::Get()->Draw();
@@ -101,6 +109,7 @@ void Ex_InstancingLighting::CreateSpheres()
 
 	transformBuffer = TL_Graphics::RenderSystem::Get()->CreateTextureBuffer(nullptr, sizeof(TL_Math::Matrix) * 1000000);
 	materialBuffer = TL_Graphics::RenderSystem::Get()->CreateTextureBuffer(nullptr, sizeof(Mat) * 1000000);
+	colorBuffer = TL_Graphics::RenderSystem::Get()->CreateTextureBuffer(nullptr, sizeof(Vector4) * 1000000);
 
 	UpdateSpheresInfo();
 
@@ -112,7 +121,9 @@ void Ex_InstancingLighting::UpdateSpheresInfo()
 	transformBuffer->StartPartialUpdate();
 
 	materialBuffer->StartPartialUpdate();
+	colorBuffer->StartPartialUpdate();
 
+	lightRains.clear();
 
 	for (int k = 0; k < level; k++)
 	{
@@ -130,13 +141,31 @@ void Ex_InstancingLighting::UpdateSpheresInfo()
 
 				transformBuffer->PartialUpdate(sizeof(TL_Math::Matrix) * (i + j * col + k * row * col), &trans, sizeof(trans));
 
-				mat.metallic = j;
-				mat.rougness = i / 10.0f;
+				mat.metallic = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+				mat.rougness = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+
+				position.x = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+				position.y = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
+				position.z = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
 
 				materialBuffer->PartialUpdate(sizeof(Mat) * (i + j * col + k * row * col), &mat, sizeof(Mat));
+
+				colorBuffer->PartialUpdate(sizeof(Vector4) * (i + j * col + k * row * col), &position, sizeof(Vector4));
 			}
+
 		}
 	}
+
+	for (int j = 0; j < row; j++)
+	{
+		for (int i = 0; i < col; i++)
+		{
+			lightRains.push_back(LightRain({ i * 5.0f - 2.5f,level * 5.0f, j * 5.0f - 2.5f }, { static_cast<float>(rand()) / static_cast<float>(RAND_MAX) ,static_cast<float>(rand()) / static_cast<float>(RAND_MAX) ,static_cast<float>(rand()) / static_cast<float>(RAND_MAX) }));
+		}
+	}
+
+
+	colorBuffer->EndPartialUpdate();
 
 	materialBuffer->EndPartialUpdate();
 
@@ -147,6 +176,31 @@ void Ex_InstancingLighting::SetLights()
 {
 	TL_Graphics::RenderSystem::Get()->BeginSetLight();
 
+		//TL_Graphics::RenderSystem::Get()->SetLight(&light);
+
+
+	for (auto light : lightRains)
+		TL_Graphics::RenderSystem::Get()->SetLight(&light.pointLight);
 
 	TL_Graphics::RenderSystem::Get()->EndSetLight();
+}
+
+void Ex_InstancingLighting::UpdateLights()
+{
+	for (auto& light : lightRains)
+	{
+		float& posY = light.pointLight.position.y;
+		posY -= light.speed;
+
+		if (posY < -5.0f)
+			posY = level * 5.0f;
+		
+	}
+}
+
+Ex_InstancingLighting::LightRain::LightRain(Vector3 position, Vector3 color)
+{
+	pointLight.color = color;
+	pointLight.position = position;
+	speed = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) / 10.0f;
 }

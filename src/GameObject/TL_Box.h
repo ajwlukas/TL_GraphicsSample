@@ -29,7 +29,6 @@ private:
 	TL_Graphics::IConstantBuffer* matInfo;
 
 	TL_Graphics::IShader* pixelShader;
-
 public:
 	Transform transform;
 
