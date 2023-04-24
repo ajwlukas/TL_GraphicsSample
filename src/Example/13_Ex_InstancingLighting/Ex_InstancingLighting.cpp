@@ -9,15 +9,17 @@ void Ex_InstancingLighting::Init()
 {
 	std::srand(std::time(nullptr));
 
-	
 	CreateSpheres();
 
 	pixelShader = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/TestObjectGBuffers.hlsl");
+
+	testBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&test, sizeof(TestBuffer));
 }
 
 void Ex_InstancingLighting::UnInit()
 {
 	TL_Graphics::RenderSystem::Get()->Return(pixelShader);
+	TL_Graphics::RenderSystem::Get()->Return(testBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(transformBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(materialBuffer);
 	TL_Graphics::RenderSystem::Get()->Return(colorBuffer);
@@ -35,8 +37,11 @@ void Ex_InstancingLighting::PreRender()
 
 	TL_Graphics::RenderSystem::Get()->PreRender();
 
-	SetLights();
-	UpdateLights();
+	if (test.directLight)
+	{
+		UpdateLights();
+		SetLights();
+	}
 }
 
 void Ex_InstancingLighting::Render()
@@ -45,6 +50,7 @@ void Ex_InstancingLighting::Render()
 
 	mesh->Set();
 
+	testBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 10);
 	transformBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 10);
 	materialBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 50);
 	colorBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 51);
@@ -58,6 +64,8 @@ void Ex_InstancingLighting::PostRender()
 {
 	TL_Graphics::RenderSystem::Get()->PostRender();
 }
+
+#include "Timer\timer.h"
 
 void Ex_InstancingLighting::ImGui()
 {
@@ -75,6 +83,28 @@ void Ex_InstancingLighting::ImGui()
 	{
 		UpdateSpheresInfo();
 	}
+	ImGui::End();
+
+	ImGui::Begin("Light");
+
+	if (ImGui::Checkbox("DirectLight", (bool*)(&test.directLight)))
+	{
+		testBuffer->Update(&test, sizeof(TestBuffer));
+	}
+	if(ImGui::Checkbox("IndirectLight", (bool*)(&test.indirectLight)))
+	{
+		testBuffer->Update(&test, sizeof(TestBuffer));
+	}
+
+	ImGui::End();
+
+
+	ImGui::Begin("Info");
+
+	char fps[20];
+	sprintf_s(fps, "fps : %.2f", ajwCommon::Time::Get().FPS());
+
+	ImGui::Text(fps);
 
 	ImGui::End();
 }
@@ -152,7 +182,6 @@ void Ex_InstancingLighting::UpdateSpheresInfo()
 
 				colorBuffer->PartialUpdate(sizeof(Vector4) * (i + j * col + k * row * col), &position, sizeof(Vector4));
 			}
-
 		}
 	}
 
@@ -190,7 +219,7 @@ void Ex_InstancingLighting::UpdateLights()
 	for (auto& light : lightRains)
 	{
 		float& posY = light.pointLight.position.y;
-		posY -= light.speed;
+		posY -= light.speed * ajwCommon::Time::Get().Delta();
 
 		if (posY < -5.0f)
 			posY = level * 5.0f;
@@ -202,5 +231,5 @@ Ex_InstancingLighting::LightRain::LightRain(Vector3 position, Vector3 color)
 {
 	pointLight.color = color;
 	pointLight.position = position;
-	speed = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) / 10.0f;
+	speed = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) * 10.0f;
 }

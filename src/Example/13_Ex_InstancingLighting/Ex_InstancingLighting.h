@@ -82,8 +82,14 @@ public:
 		LightRain(Vector3 position, Vector3 color);
 		TL_Graphics::PointLight pointLight;
 		float speed;
-
 	};
+
+	__declspec(align(16)) struct TestBuffer
+	{
+		int directLight = 0;
+		int indirectLight = 0;
+	}test;
+	TL_Graphics::IConstantBuffer* testBuffer;
 
 	void UpdateLights();
 

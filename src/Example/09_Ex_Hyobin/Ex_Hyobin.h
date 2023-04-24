@@ -59,6 +59,9 @@ public:
 
 	TL_Graphics::DirectionalLight directionalLight;
 
+	TL_Graphics::ITexture* greenish;
+	TL_Graphics::ITexture* rainbow;
+	TL_Graphics::ITexture* sepia;
 
 	TL_Graphics::ControlPanel* control;
 

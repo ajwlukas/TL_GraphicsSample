@@ -10,12 +10,21 @@ void Ex_Hyobin::Init()
 	std::wstring ws = L"Garden";
 
 	directionalLight.direction = { -1,-1,-1 };
+
+	greenish = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/volumeTexture_Greenish.dds");
+	rainbow = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/volumeTexture_Rainbow.dds");
+	sepia = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/volumeTexture_Sepia.dds");
+
+	control->colorGradingLUT = greenish;
 }
 
 void Ex_Hyobin::UnInit()
 {
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 	TL_Graphics::RenderSystem::Get()->Return(material);
+	TL_Graphics::RenderSystem::Get()->Return(greenish);
+	TL_Graphics::RenderSystem::Get()->Return(rainbow);
+	TL_Graphics::RenderSystem::Get()->Return(sepia);
 
 	TL_Graphics::RenderSystem::Delete();
 
@@ -59,19 +68,6 @@ void Ex_Hyobin::PostRender()
 
 void Ex_Hyobin::ImGui()
 {
-
-	ImGui::Begin("light");
-
-	ImGui::SliderFloat("intensity", &directionalLight.intensity, 0, 1.0f);
-
-	ImGui::SliderFloat3("direction", (float*)&directionalLight.direction, -1.0f, 1.0f);
-
-	ImGui::ColorPicker3("color", (float*)&directionalLight.color);            // Edit 1 float using a slider from 0.0f to 1.0f
-
-
-
-	ImGui::End();
-
 	ImGui::Begin("postProcess");
 
 	if (ImGui::Button("grid", { 100,30 }))
@@ -79,6 +75,17 @@ void Ex_Hyobin::ImGui()
 
 	if (ImGui::Button("ColorGrading", { 100,30 }))
 		control->doColorGrading = !control->doColorGrading;
+
+	static int lut = 0;
+	if (ImGui::RadioButton("greenish", &lut, 1))
+		control->colorGradingLUT = greenish;
+	ImGui::SameLine();
+	if (ImGui::RadioButton("rainbow", &lut, 2))
+		control->colorGradingLUT = rainbow;
+	ImGui::SameLine();
+	if (ImGui::RadioButton("sepia", &lut, 3))
+		control->colorGradingLUT = sepia;
+
 
 	if (ImGui::Button("LightAdaption", { 100,30 }))
 		control->doLightAdaption = !control->doLightAdaption;
@@ -94,13 +101,6 @@ void Ex_Hyobin::ImGui()
 		control->doBloom = !control->doBloom;
 
 	ImGui::End();
-
-
-	ImGui::Begin("Test");
-
-
-	ImGui::End();
-
 }
 
 void Ex_Hyobin::BoxMove()
@@ -214,6 +214,7 @@ void Ex_Hyobin::TestTL()
 
 	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&t, sizeof(t));
 }
+
 
 
 #include "GameObject\Generator.h"

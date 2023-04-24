@@ -13,6 +13,8 @@
 #include "Graphics\RenderSystem.h"
 #include "App.h"
 
+#include "Timer\timer.h"
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -103,6 +105,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             ImGui_ImplDX11_NewFrame();
             ImGui_ImplWin32_NewFrame();
             ImGui::NewFrame();
+
+
+            ajwCommon::Time::Get().Update();
 
             app->Update();
 

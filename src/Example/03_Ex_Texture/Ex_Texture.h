@@ -16,6 +16,7 @@ class ajwCommon::Input;
 class Ex_Texture : public IExample
 {
 public:
+	Ex_Texture() : squareT(nullptr) {}
 
 	// IExample을(를) 통해 상속됨
 	virtual void Init() override;

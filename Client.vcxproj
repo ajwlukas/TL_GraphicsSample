@@ -97,7 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;../jw_Timer/inc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,7 +127,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;../jw_Timer/inc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,7 +157,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;../jw_Timer/inc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -187,7 +187,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;../jw_Input/inc;../TL_Graphics/inc;../TL_Common/inc;../TL_FBXLibrary/inc;../ImGui/inc;../Utility;../jw_Timer/inc;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -283,6 +283,9 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
     </ProjectReference>
     <ProjectReference Include="..\jw_Input\ajwKeyBoard.vcxproj">
       <Project>{6b57b248-7d34-4506-aa64-2997079e14a7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\jw_Timer\jw_Timer.vcxproj">
+      <Project>{1c419653-2231-462f-b746-16dfa8bdeed6}</Project>
     </ProjectReference>
     <ProjectReference Include="..\TL_FBXLibrary\TL_FBXLibrary.vcxproj">
       <Project>{491a7049-49e1-4821-8c31-9bf6a863f18e}</Project>
