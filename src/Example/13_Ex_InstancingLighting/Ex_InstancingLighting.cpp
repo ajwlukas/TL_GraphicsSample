@@ -51,6 +51,7 @@ void Ex_InstancingLighting::Render()
 	mesh->Set();
 
 	testBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 10);
+
 	transformBuffer->Set(TL_Graphics::E_SHADER_TYPE::VS, 10);
 	materialBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 50);
 	colorBuffer->Set(TL_Graphics::E_SHADER_TYPE::PS, 51);
@@ -189,7 +190,7 @@ void Ex_InstancingLighting::UpdateSpheresInfo()
 	{
 		for (int i = 0; i < col; i++)
 		{
-			lightRains.push_back(LightRain({ i * 5.0f - 2.5f,level * 5.0f, j * 5.0f - 2.5f }, { static_cast<float>(rand()) / static_cast<float>(RAND_MAX) ,static_cast<float>(rand()) / static_cast<float>(RAND_MAX) ,static_cast<float>(rand()) / static_cast<float>(RAND_MAX) }));
+			lightRains.emplace_back(LightRain({ i * 5.0f - 2.5f,level * 5.0f, j * 5.0f - 2.5f }, { static_cast<float>(rand()) / static_cast<float>(RAND_MAX) ,static_cast<float>(rand()) / static_cast<float>(RAND_MAX) ,static_cast<float>(rand()) / static_cast<float>(RAND_MAX) }));
 		}
 	}
 

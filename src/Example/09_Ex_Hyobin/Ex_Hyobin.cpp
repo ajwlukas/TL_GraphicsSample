@@ -16,10 +16,20 @@ void Ex_Hyobin::Init()
 	sepia = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Texture/volumeTexture_Sepia.dds");
 
 	control->colorGradingLUT = greenish;
+
+	//pbrGBuffer = TL_Graphics::RenderSystem::Get()->CreateShader(TL_Graphics::E_SHADER_TYPE::PS, L"Shader/PBR_G_Buffers.hlsl");
 }
 
 void Ex_Hyobin::UnInit()
 {
+	//TL_Graphics::RenderSystem::Get()->Return(pbrGBuffer);
+
+	TL_Graphics::RenderSystem::Get()->Return(albedo);
+	TL_Graphics::RenderSystem::Get()->Return(roughness);
+	TL_Graphics::RenderSystem::Get()->Return(metallic);
+	TL_Graphics::RenderSystem::Get()->Return(normalmap);
+	TL_Graphics::RenderSystem::Get()->Return(AO);
+
 	TL_Graphics::RenderSystem::Get()->Return(mesh);
 	TL_Graphics::RenderSystem::Get()->Return(material);
 	TL_Graphics::RenderSystem::Get()->Return(greenish);
@@ -56,6 +66,14 @@ void Ex_Hyobin::PreRender()
 
 void Ex_Hyobin::Render()
 {
+	//pbrGBuffer->Set();
+
+	/*albedo->Set(TL_Graphics::E_SHADER_TYPE::PS, 0);
+	roughness->Set(TL_Graphics::E_SHADER_TYPE::PS, 1);
+	metallic->Set(TL_Graphics::E_SHADER_TYPE::PS, 2);
+	normalmap->Set(TL_Graphics::E_SHADER_TYPE::PS, 3);
+	AO->Set(TL_Graphics::E_SHADER_TYPE::PS, 4);*/
+
 	gO->Render();
 
 
@@ -127,93 +145,8 @@ void Ex_Hyobin::BoxMove()
 
 }
 
-void Ex_Hyobin::TestStatic()
-{
-	bool _result = false;
-
-	TL_FBXLibrary::FBXModelLoader _loader;
-	_result = _loader.Init();
-
-	_result = _loader.Load(L"_DevelopmentAssets/Model/Wooden_Crate/Wooden_Crate.fbx");
-	//_result = _loader.Load(L"Resource/TextureTest/Rock_2.fbx");
-	//_result = _loader.Load(L"Resource/Floodlight/TL_Floodlight.fbx");
-	_loader.FbxConvertOptimize();
-
-	auto* _prefab = _loader.GetPrefab();
-
-	TL_Graphics::VertexAttribute attribute;
-
-	//attirbute Desc
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::pos), TL_Graphics::DataType::FLOAT, "POSITION");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::uv), TL_Graphics::DataType::FLOAT, "UV");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::normal), TL_Graphics::DataType::FLOAT, "NORMAL");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::tangent), TL_Graphics::DataType::FLOAT, "TANGENT");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::StaticVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
-
-	attribute.AddData(_prefab->m_MeshList[0].StaticVertex.data(), _prefab->m_MeshList[0].StaticVertex.size() * sizeof(_prefab->m_MeshList[0].StaticVertex[0]));
-
-	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, (UINT*)_prefab->m_MeshList[0].indexBuffer[0].first.data(), _prefab->m_MeshList[0].indexBuffer[0].first.size() * 3, TL_Graphics::E_MESH_TYPE::STATIC);
-
-	TL_Graphics::MaterialDesc matDesc;
-	matDesc.baseColor_opcityFilePath = L"_DevelopmentAssets/Texture/Wooden Crate_Crate_BaseColor.png";
-
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(matDesc);
-
-	auto t = transform.GetWorldTM();
-
-	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&t, sizeof(t));
-}
 
 #include <string>
-
-void Ex_Hyobin::TestTL()
-{
-	bool _result = false;
-
-	TL_FBXLibrary::FBXModelLoader _loader;
-	_result = _loader.Init();
-
-	//_result = _loader.Load(L"_DevelopmentAssets/Model/Rock_1/Rock_1.fbx");
-	//_result = _loader.Load(L"_DevelopmentAssets/Model/Chapter2/Password/Password.fbx");
-	_result = _loader.Load(L"_DevelopmentAssets/Model/Chapter2/Lamp/Lamp_L.fbx");
-	//_result = _loader.Load(L"Resource/TextureTest/Rock_2.fbx");
-	//_result = _loader.Load(L"Resource/Floodlight/TL_Floodlight.fbx");
-	_loader.FbxConvertOptimize();
-
-	auto* _prefab = _loader.GetPrefab();
-
-	TL_Graphics::VertexAttribute attribute;
-
-	//attirbute Desc
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeletalVertex::pos), TL_Graphics::DataType::FLOAT, "POSITION");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeletalVertex::uv), TL_Graphics::DataType::FLOAT, "UV");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeletalVertex::normal), TL_Graphics::DataType::FLOAT, "NORMAL");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeletalVertex::tangent), TL_Graphics::DataType::FLOAT, "TANGENT");
-	attribute.AddElementToDesc(sizeof(TL_FBXLibrary::SkeletalVertex::bitangent), TL_Graphics::DataType::FLOAT, "BITANGENT");
-
-	attribute.AddData(_prefab->m_MeshList[0].StaticVertex.data(), _prefab->m_MeshList[0].StaticVertex.size() * sizeof(_prefab->m_MeshList[0].StaticVertex[0]));
-
-	mesh = TL_Graphics::RenderSystem::Get()->CreateMesh(attribute, (UINT*)_prefab->m_MeshList[0].indexBuffer[0].first.data(), _prefab->m_MeshList[0].indexBuffer[0].first.size() * 3, TL_Graphics::E_MESH_TYPE::STATIC, "Rock");
-
-	TL_Graphics::MaterialDesc matDesc;
-
-	//std::wstring filePath = L"_DevelopmentAssets/Model/Chapter2/Password/";
-	std::wstring filePath = L"_DevelopmentAssets/Model/Chapter2/Lamp/";
-
-	matDesc.baseColor_opcityFilePath = filePath + _prefab->m_MaterialList[0].baseColorFile;
-	//matDesc.baseColor_opcityFilePath = L"Texture/RGBTable16x1.png";
-	matDesc.roughness_specular_metallic_AOFilePath = filePath + _prefab->m_MaterialList[0].roughnessMapFile;
-	/*matDesc.roughness_specular_metallic_AOFilePath = L"_DevelopmentAssets/Model/Machine_01/Tex_Machine_01_Roughness_Metallic_AO.png";*/
-	matDesc.normalFilePath = filePath + _prefab->m_MaterialList[0].normalMapFile;
-	/*matDesc.normalFilePath = filePath +L"Rock_All_Rock_1-6_Normal.jpg";*/
-	matDesc.emissiveFilePath = filePath + _prefab->m_MaterialList[0].emissiveFile;
-
-	material = TL_Graphics::RenderSystem::Get()->CreateMaterial(matDesc);
-
-	auto t = transform.GetWorldTM();
-
-	worldBuffer = TL_Graphics::RenderSystem::Get()->CreateConstantBuffer(&t, sizeof(t));
-}
 
 
 
@@ -221,9 +154,16 @@ void Ex_Hyobin::TestTL()
 
 void Ex_Hyobin::TestSangYeon()
 {
+	//gO = Generator::Generate(L"_DevelopmentAssets/Model/MaterialBall/AnyConv.com__export3dcoat.fbx");
 	gO = Generator::Generate(L"_DevelopmentAssets/Model/3-3/3_3_Emissive.fbx");
-	//gO = Generator::Generate(L"_DevelopmentAssets/Model/sphere.fbx");
 
+
+
+	/*albedo = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Model/MaterialBall/export3dcoat_lambert3SG_color.png");
+	roughness = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Model/MaterialBall/export3dcoat_lambert3SG_gloss.png");
+	metallic = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Model/MaterialBall/export3dcoat_lambert3SG_metalness.png");
+	normalmap = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Model/MaterialBall/export3dcoat_lambert3SG_nmap.png");
+	AO = TL_Graphics::RenderSystem::Get()->CreateTexture(L"_DevelopmentAssets/Model/MaterialBall/materialball_ao.png");*/
 
 }
 

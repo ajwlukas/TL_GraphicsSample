@@ -228,6 +228,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
     <ClInclude Include="src\Example\11_Ex_PostProsessing\Ex_PostProsessing.h" />
     <ClInclude Include="src\Example\12_Ex_IBL\Ex_IBL.h" />
     <ClInclude Include="src\Example\13_Ex_InstancingLighting\Ex_InstancingLighting.h" />
+    <ClInclude Include="src\Example\14_PBR\EX_PBR2.h" />
     <ClInclude Include="src\Example\IExample.h" />
     <ClInclude Include="src\framework.h" />
     <ClInclude Include="src\GameObject\Box.h" />
@@ -260,6 +261,7 @@ xcopy /E /S /Y /R "$(OutputPath)Shader\*" "$(OutputPath)..\_Game\Shader\*"</Comm
     <ClCompile Include="src\Example\11_Ex_PostProsessing\Ex_PostProsessing.cpp" />
     <ClCompile Include="src\Example\12_Ex_IBL\Ex_IBL.cpp" />
     <ClCompile Include="src\Example\13_Ex_InstancingLighting\Ex_InstancingLighting.cpp" />
+    <ClCompile Include="src\Example\14_PBR\EX_PBR2.cpp" />
     <ClCompile Include="src\GameObject\Box.cpp" />
     <ClCompile Include="src\GameObject\Camera.cpp" />
     <ClCompile Include="src\GameObject\GameObejct.cpp" />

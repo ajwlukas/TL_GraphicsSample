@@ -44,14 +44,14 @@ public:
 		float lodLevel;
 	}lod;
 
-	TL_Graphics::IConstantBuffer* lodBuffer;
+	TL_Graphics::IConstantBuffer* lodBuffer = nullptr;
 
 
 	__declspec(align(16)) struct Color
 	{
 		Vector3 color;
 	}color;
-	TL_Graphics::IConstantBuffer* colorBuffer;
+	TL_Graphics::IConstantBuffer* colorBuffer = nullptr;
 
 	
 
@@ -61,23 +61,23 @@ public:
 	TL_Graphics::SpotLight spotLight;
 
 
-	TL_Graphics::ITexture* cubeMap;
-	TL_Graphics::ITexture* irradianceMap;
-	TL_Graphics::ITexture* prefilteredEnvMap;
-	TL_Graphics::ITexture* iblBRDF;
+	TL_Graphics::ITexture* cubeMap = nullptr;
+	TL_Graphics::ITexture* irradianceMap = nullptr;
+	TL_Graphics::ITexture* prefilteredEnvMap = nullptr;
+	TL_Graphics::ITexture* iblBRDF = nullptr;
 
 	void SetLights();
 
 	void CreateAndSetEnvs();
 
 
-	TL_Graphics::IMesh* mesh;
+	TL_Graphics::IMesh* mesh = nullptr;
 
 	Transform t;
 
-	TL_Graphics::ITextureBuffer* transformBuffer;
+	TL_Graphics::ITextureBuffer* transformBuffer = nullptr;
 
-	TL_Graphics::ITextureBuffer* materialBuffer;
+	TL_Graphics::ITextureBuffer* materialBuffer = nullptr;
 
 	void CreateSphere();
 };

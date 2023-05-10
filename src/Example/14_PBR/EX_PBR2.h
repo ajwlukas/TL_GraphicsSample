@@ -22,17 +22,12 @@
 
 #include "imgui.h"
 
-/// <summary>
-/// Hyobin 누나의 FBX Loader Test 해보는 Scene
-/// 
-/// this example needs library 'TL_FBXLibrary' written by 임효빈
-/// </summary>
 class ajwCommon::Input;
 
-class Ex_Hyobin : public IExample
+class Ex_PBR2 : public IExample
 {
 public:
-	Ex_Hyobin() : transform(nullptr){}
+	Ex_PBR2() : transform(nullptr) {}
 
 	// IExample을(를) 통해 상속됨
 	virtual void Init() override;
@@ -60,11 +55,29 @@ public:
 
 	TL_Graphics::DirectionalLight directionalLight;
 
+	void CreateCubeMaps();
+
 	TL_Graphics::ITexture* albedo = nullptr;
 	TL_Graphics::ITexture* roughness = nullptr;
 	TL_Graphics::ITexture* metallic = nullptr;
 	TL_Graphics::ITexture* normalmap = nullptr;
 	TL_Graphics::ITexture* AO = nullptr;
+
+	TL_Graphics::ITexture* valleyEnv;
+	TL_Graphics::ITexture* valleyDif;
+	TL_Graphics::ITexture* valleySpec;
+
+	TL_Graphics::ITexture* gardenEnv;
+	TL_Graphics::ITexture* gardenDif;
+	TL_Graphics::ITexture* gardenSpec;
+
+	TL_Graphics::ITexture* factoryEnv;
+	TL_Graphics::ITexture* factoryDif;
+	TL_Graphics::ITexture* factorySpec;
+
+	TL_Graphics::ITexture* canyonEnv;
+	TL_Graphics::ITexture* canyonDif;
+	TL_Graphics::ITexture* canyonSpec;
 
 
 	TL_Graphics::ITexture* greenish = nullptr;
@@ -76,5 +89,5 @@ public:
 	Camera cam;
 
 	GameObject* gO = nullptr;
-	void TestSangYeon();
+	void CreateObject();
 };
